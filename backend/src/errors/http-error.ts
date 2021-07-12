@@ -6,3 +6,5 @@ class HTTPError extends Error {
     this.status = status;
   }
 }
+
+export default HTTPError;

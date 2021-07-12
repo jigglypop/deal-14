@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import HTTPError from '../errors/http-error';
 import { LoginRequest } from '../requests/auth.request';
 import jwtService from '../services/jwt.service';
 import userService from '../services/user.service';
@@ -6,7 +7,7 @@ import userService from '../services/user.service';
 class AuthController {
   async login(req: Request, res: Response) {
     const loginRequest = new LoginRequest(req.body);
-    loginRequest.validate();
+    await loginRequest.validate();
 
     const user = await userService.find(loginRequest.id);
     if (user === null) {
