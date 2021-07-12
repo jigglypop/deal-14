@@ -1,4 +1,5 @@
 import { Table, Model, Column, PrimaryKey, DataType, HasMany } from 'sequelize-typescript';
+import Product from './product';
 import UserTown from './user-town';
 
 export interface IUserAttributes {
@@ -16,6 +17,9 @@ class User extends Model<IUserAttributes> {
 
   @HasMany(() => UserTown)
   userTowns!: UserTown[];
+
+  @HasMany(() => Product)
+  products!: Product[];
 }
 
 export default User;
