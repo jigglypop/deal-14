@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import HTTPError from '../errors/http-error';
-import { LoginRequest } from '../requests/auth.request';
+import { LoginRequest, RegisterRequest } from '../requests/auth.request';
 import jwtService from '../services/jwt.service';
 import userService from '../services/user.service';
 
@@ -21,6 +21,17 @@ class AuthController {
       data: {
         token,
       },
+    });
+  }
+
+  async register(req: Request, res: Response) {
+    const registerRegister = new RegisterRequest(req.body);
+    await registerRegister.validate();
+
+    await userService.register(registerRegister);
+
+    res.status(200).json({
+      message: '회원가입 성공',
     });
   }
 }
