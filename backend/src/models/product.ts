@@ -1,5 +1,7 @@
-import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
 import Categories from '../enum/category.enum';
+import ChatRoom from './chat-room';
+import LikedProduct from './liked-product';
 import User from './user';
 
 export interface IProductAttributes {
@@ -8,6 +10,7 @@ export interface IProductAttributes {
   content: string;
   isSoldOut: boolean;
   userId: string;
+  category: Categories;
 }
 
 @Table({
@@ -46,6 +49,12 @@ class Product extends Model<IProductAttributes> {
 
   @BelongsTo(() => User)
   user!: User;
+
+  @HasMany(() => LikedProduct)
+  likedProducts!: LikedProduct[];
+
+  @HasMany(() => ChatRoom)
+  chatRooms!: ChatRoom[];
 }
 
 export default Product;
