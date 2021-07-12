@@ -41,6 +41,7 @@ class ProductService {
           model: ChatRoom,
         }
       ],
+      order: [['createdAt', 'DESC']],
       nest: true,
     });
 
