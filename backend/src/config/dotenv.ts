@@ -9,6 +9,15 @@ const load = (key: string): string => {
 
 const dotenv = {
   PORT: load('PORT'),
+  MYSQL_DB: load('MYSQL_DB'),
+  MYSQL_HOST: load('MYSQL_HOST'),
+  MYSQL_PORT: load('MYSQL_PORT'),
+  MYSQL_USERNAME: load('MYSQL_USERNAME'),
+  MYSQL_PASSWORD: load('MYSQL_PASSWORD'),
+  JWT_EXPIRES_IN: load('JWT_EXPIRES_IN'),
+  JWT_ISSUER: load('JWT_ISSUER'),
+  JWT_SUBJECT: load('JWT_SUBJECT'),
+  JWT_SECRET: load('JWT_SECRET'),
 };
 
 export default dotenv;
