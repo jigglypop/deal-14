@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
+import User from "../models/user";
 
 class SampleController {
-  hello(req: Request, res: Response) {
-    res.send('hello world');
+  async hello(req: Request, res: Response) {
+    const users = await User.findAll()
+
+    res.send(users);
   }
 }
 

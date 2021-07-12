@@ -9,6 +9,11 @@ const load = (key: string): string => {
 
 const dotenv = {
   PORT: load('PORT'),
+  MYSQL_DB: load('MYSQL_DB'),
+  MYSQL_HOST: load('MYSQL_HOST'),
+  MYSQL_PORT: load('MYSQL_PORT'),
+  MYSQL_USERNAME: load('MYSQL_USERNAME'),
+  MYSQL_PASSWORD: load('MYSQL_PASSWORD'),
 };
 
 export default dotenv;
