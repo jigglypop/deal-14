@@ -1,12 +1,12 @@
-import sequelize from '../database';
 import HTTPError from '../errors/http-error';
-import User from "../models/user";
-import UserTown from '../models/user-town';
+import townQuery from '../query/town.query';
+import userTownQuery from '../query/user-town.query';
+import userQuery from '../query/user.query';
 import { RegisterRequest } from '../requests/auth.request';
 
 class UserService {
   async find(id: string) {
-    const user = await User.findByPk(id);
+    const user = await userQuery.findByPk(id);
 
     return user;
   }
@@ -14,24 +14,22 @@ class UserService {
   async register(registerRequest: RegisterRequest) {
     const { id, town } = registerRequest;
 
-    const duplicateUser = await User.findByPk(id);
+    const duplicateUser = await userQuery.findByPk(id);
     if (duplicateUser !== null) {
       throw new HTTPError(409, '이미 존재하는 아이디');
     }
 
-    await sequelize.transaction(t => {
-      return User.create({
-        id,
-      }, {
-        transaction: t,
-      })
-        .then(registeredUser => {
-          UserTown.create({
-            townName: town,
-            userId: registeredUser.id,
-          });
-        });
+    const registeredUser = await userQuery.create({
+      id,
     });
+
+    const createdTown = await townQuery.findOrCreateByTownName(town);
+    userTownQuery.create({
+      userId: registeredUser.id,
+      townId: createdTown.id,
+    })
+
+    return registeredUser;
   }
 }
 
