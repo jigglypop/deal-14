@@ -1,4 +1,3 @@
-import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import Product from './product';
 import User from './user';
 
@@ -7,23 +6,10 @@ export interface IChatRoom {
   userId: string;
 }
 
-@Table({
-  tableName: 'chat_room',
-  timestamps: true,
-})
-class ChatRoom extends Model<IChatRoom> {
-  @ForeignKey(() => Product)
-  @Column(DataType.INTEGER)
+class ChatRoom {
   productId!: string;
-
-  @BelongsTo(() => Product)
   product!: Product;
-
-  @ForeignKey(() => User)
-  @Column(DataType.STRING)
   userId!: string;
-
-  @BelongsTo(() => User)
   user!: User;
 }
 
