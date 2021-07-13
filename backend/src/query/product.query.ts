@@ -31,7 +31,7 @@ class ProductQuery extends BaseQuery<Product, number, CreateTypes> {
     const {
       title, price, isSoldOut, content, category, userId, townId,
     } = data;
-    const now = new Date();
+
     const insertResult = await this.save(
       `INSERT INTO ${this.tableName} (title, price, isSoldOut, content, category, userId, townId)
       VALUES(?, ?, ?, ?, ?, ?, ?)`, [title, price, isSoldOut, content, category, userId, townId]);
