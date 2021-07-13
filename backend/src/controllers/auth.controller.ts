@@ -6,6 +6,7 @@ import userService from '../services/user.service';
 
 class AuthController {
   async login(req: Request, res: Response) {
+
     const loginRequest = new LoginRequest(req.body);
     await loginRequest.validate();
 
@@ -27,6 +28,7 @@ class AuthController {
   }
 
   async register(req: Request, res: Response) {
+  
     const registerRegister = new RegisterRequest(req.body);
     await registerRegister.validate();
 

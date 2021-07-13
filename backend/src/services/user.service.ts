@@ -5,6 +5,7 @@ import userQuery from '../query/user.query';
 import { RegisterRequest } from '../requests/auth.request';
 
 class UserService {
+
   async find(id: string) {
     const user = await userQuery.findByPk(id);
 
