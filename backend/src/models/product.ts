@@ -13,6 +13,8 @@ class Product {
   category!: Categories;
   userId!: string;
   townId!: number;
+  createdAt!: Date;
+  updatedAt!: Date;
   user!: User;
   likedProducts!: LikedProduct[];
   chatRooms!: ChatRoom[];

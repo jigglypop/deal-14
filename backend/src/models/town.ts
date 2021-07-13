@@ -4,8 +4,8 @@ import UserTown from './user-town';
 class Town {
   id!: number;
   townName!: string;
-  products!: Product[];
-  userTown!: UserTown[];
+  products?: Product[];
+  userTown?: UserTown[];
   createdAt!: Date;
   updatedAt!: Date;
 }
