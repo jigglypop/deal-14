@@ -12,41 +12,6 @@ type FindOptions = {
 }
 
 class ProductService {
-  async findDetailList(options: FindOptions): Promise<Product[]> {
-    const { category, town } = options;
-
-    const categoryCondition = category !== undefined ? { category } : {};
-    const townCondition = town !== undefined ? {
-      [`$user.userTowns.townName$`]: {
-        [Op.substring]: town,
-      }
-    } : {};
-
-    const products = await Product.findAll({
-      where: {
-        ...categoryCondition,
-        ...townCondition
-      },
-      include: [
-        {
-          model: User,
-          include: [{
-            model: UserTown,
-          }],
-        },
-        {
-          model: LikedProduct,
-        },
-        {
-          model: ChatRoom,
-        }
-      ],
-      order: [['createdAt', 'DESC']],
-      nest: true,
-    });
-
-    return products;
-  }
 }
 
 export default new ProductService();

@@ -16,10 +16,12 @@ class AuthController {
 
     const token = jwtService.generate(user.id);
 
-    res.status(200).json({
+    res.status(200).header({
+      token,
+    }).json({
       message: '로그인 성공',
       data: {
-        token,
+        user,
       },
     });
   }
@@ -28,10 +30,16 @@ class AuthController {
     const registerRegister = new RegisterRequest(req.body);
     await registerRegister.validate();
 
-    await userService.register(registerRegister);
+    const user = await userService.register(registerRegister);
+    const token = jwtService.generate(user.id);
 
-    res.status(200).json({
+    res.status(200).header({
+      token,
+    }).json({
       message: '회원가입 성공',
+      data: {
+        user,
+      }
     });
   }
 }
