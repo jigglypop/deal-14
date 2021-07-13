@@ -38,6 +38,9 @@ class ProductQuery extends BaseQuery<Product, number, CreateTypes> {
       const insertResult = await this.save(
         `INSERT INTO ${this.tableName} (title, price, isSoldOut, content, category, userId, townId, createdAt, updatedAt)
       VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [title, price, isSoldOut, content, category, userId, townId, now, now]);
+      // const insertResult = await this.save(
+      //   `INSERT INTO ${this.tableName} (title, price, isSoldOut, content, category, userId, createdAt, updatedAt)
+      // VALUES(?, ?, ?, ?, ?, ?, ?, ?)`, [title, price, isSoldOut, content, category, userId, now, now]);
 
       const product = await this.findByPk(insertResult.insertId);
       if (product === null) {
