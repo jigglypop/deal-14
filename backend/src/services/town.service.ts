@@ -3,7 +3,7 @@ import productQuery from '../query/product.query';
 import townQuery from '../query/town.query';
 import { ReadDetailProductsRequest, WriteProductRequest } from '../requests/product.request';
 
-class ProductService {
+class TownService {
   async findDetails(options: ReadDetailProductsRequest) {
     const { category, townId } = options;
     let sql = `
@@ -49,10 +49,9 @@ class ProductService {
       userId,
       isSoldOut: false,
     });
-    // todo: image 저장
 
     return createdProduct;
   }
 }
 
-export default new ProductService();
+export default new TownService();

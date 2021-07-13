@@ -1,6 +1,8 @@
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import MySQL from '../database';
 
+type ParamTypes = (string | number)[];
+
 abstract class BaseQuery<T, PK, CreateTypes> {
   constructor(
     protected tableName: string,
@@ -30,7 +32,7 @@ abstract class BaseQuery<T, PK, CreateTypes> {
     });
   }
 
-  async select(sql: string, params?: (string | number)[]): Promise<any> {
+  async select(sql: string, params?: ParamTypes): Promise<T[]> {
     const conn = await this.connection();
 
     return new Promise((resolve, reject) => {
@@ -39,7 +41,6 @@ abstract class BaseQuery<T, PK, CreateTypes> {
         if (error !== null) {
           return reject(error);
         }
-
         resolve(rows.map(row => this.map(row)));
       });
     });

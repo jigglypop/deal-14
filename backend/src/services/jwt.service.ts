@@ -24,7 +24,7 @@ class JWTService {
     return jwt.sign(payload, JWT_SECRET, options);
   }
 
-  verify(token: string) {
+  decode(token: string) {
     const decoded = jwt.verify(token, JWT_SECRET) as JWTDecode;
 
     return decoded;
