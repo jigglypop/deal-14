@@ -1,5 +1,4 @@
 import { RowDataPacket } from 'mysql2';
-import { createDocumentRegistry } from 'typescript';
 import Categories from '../enum/category.enum';
 import Product from '../models/product';
 import BaseQuery from './base.query';
