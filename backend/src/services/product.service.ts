@@ -7,14 +7,17 @@ class ProductService {
   async findDetails(options: ReadDetailProductsRequest) {
     const { category, townId } = options;
     let sql = `
-      SELECT product.*, user.* FROM product
-      LEFT JOIN user as u user ON user.id = product.userId
+      SELECT product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName' FROM product
+      LEFT JOIN user ON user.id = product.userId
+      LEFT JOIN town ON town.id = product.townId
     `;
+
     const params: (string | number)[] = [];
 
     if (category && townId) {
       sql = sql.concat(' WHERE category = ? AND townId = ? ');
-      params.concat([category, townId]);
+      params.push(category);
+      params.push(townId);
     } else if (category) {
       sql = sql.concat(' WHERE category = ? ');
       params.push(category);
@@ -23,8 +26,11 @@ class ProductService {
       params.push(townId);
     }
 
+    sql = sql.concat(' ORDER BY createdAt DESC ');
+
     const products = await productQuery.select(sql, params);
-    console.log(products);
+
+    return products;
   }
 
   async write(userId: string, writeProductRequest: WriteProductRequest) {

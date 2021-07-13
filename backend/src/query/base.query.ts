@@ -41,8 +41,6 @@ abstract class BaseQuery<T, PK, CreateTypes> {
         if (error !== null) {
           return reject(error);
         }
-        console.log(rows)
-
         resolve(rows.map(row => this.map(row)));
       });
     });

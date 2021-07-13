@@ -64,9 +64,15 @@ class ProductQuery extends BaseQuery<Product, number, CreateTypes> {
     product.updatedAt = row.updatedAt;
     product.townId = row.townId;
     product.user = {
-      id: row.user.id,
-      createdAt: row.user.createdAt,
-      updatedAt: row.user.updatedAt,
+      id: row['user.id'],
+      createdAt: row['user.createdAt'],
+      updatedAt: row['user.updatedAt'],
+    };
+    product.town = {
+      id: row['town.id'],
+      townName: row['town.townName'],
+      createdAt: row['user.updatedAt'],
+      updatedAt: row['user.updatedAt'],
     };
 
     return product;

@@ -23,6 +23,13 @@ class ProductController {
     await readDetailProductsRequest.validate();
 
     const products = await productService.findDetails(readDetailProductsRequest);
+
+    res.status(200).json({
+      message: '상품정보 조회 성공',
+      data: {
+        products,
+      }
+    })
   }
 }
 
