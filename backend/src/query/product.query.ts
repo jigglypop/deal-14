@@ -2,6 +2,7 @@ import { RowDataPacket } from 'mysql2';
 import Categories from '../enum/category.enum';
 import Product from '../models/product';
 import BaseQuery from './base.query';
+import userQuery from './user.query';
 
 type CreateTypes = {
   title: string;
@@ -59,6 +60,14 @@ class ProductQuery extends BaseQuery<Product, number, CreateTypes> {
     product.category = row.category;
     product.userId = row.userId;
     product.townId = row.townId;
+    product.createdAt = row.createdAt;
+    product.updatedAt = row.updatedAt;
+    product.townId = row.townId;
+    product.user = {
+      id: row.user.id,
+      createdAt: row.user.createdAt,
+      updatedAt: row.user.updatedAt,
+    };
 
     return product;
   }
