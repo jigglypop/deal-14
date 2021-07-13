@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { WriteProductRequest } from '../requests/product.request';
+import { ReadDetailProductsRequest, WriteProductRequest } from '../requests/product.request';
 import productService from '../services/product.service';
 
 class ProductController {
@@ -14,6 +14,15 @@ class ProductController {
     res.status(200).json({
       message: '상품 등록 성공',
     })
+  }
+
+  async readDetails(req: Request, res: Response) {
+    const { query } = req;
+
+    const readDetailProductsRequest = new ReadDetailProductsRequest(query as any);
+    await readDetailProductsRequest.validate();
+
+    const products = await productService.findDetails(readDetailProductsRequest);
   }
 }
 

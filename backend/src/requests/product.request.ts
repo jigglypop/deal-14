@@ -1,6 +1,22 @@
-import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import Categories from '../enum/category.enum';
 import BaseRequest from './base.request';
+
+export class ReadDetailProductsRequest extends BaseRequest {
+  @IsOptional()
+  @IsEnum(Categories)
+  category?: Categories;
+
+  @IsOptional()
+  @IsNumber()
+  townId?: number;
+
+  constructor(data: ReadDetailProductsRequest) {
+    super();
+    this.category = data.category;
+    this.townId = data.townId;
+  }
+}
 
 export class WriteProductRequest extends BaseRequest {
   @IsNotEmpty()

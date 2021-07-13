@@ -6,5 +6,6 @@ import wrapAsync from '../../middlewares/wrap-async';
 const productRouter = Router();
 
 productRouter.post('/', authMiddleware, wrapAsync(productController.write));
+productRouter.get('/', authMiddleware, wrapAsync(productController.readDetails));
 
 export default productRouter;
