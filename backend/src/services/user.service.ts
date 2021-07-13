@@ -1,6 +1,6 @@
 import sequelize from '../database';
 import HTTPError from '../errors/http-error';
-import User from "../models/user";
+import User, { IUserAttributes } from "../models/user";
 import UserTown from '../models/user-town';
 import { RegisterRequest } from '../requests/auth.request';
 
@@ -19,19 +19,24 @@ class UserService {
       throw new HTTPError(409, '이미 존재하는 아이디');
     }
 
-    await sequelize.transaction(t => {
-      return User.create({
+    const registeredUser = await sequelize.transaction(async t => {
+      const registeredUser = await User.create({
         id,
       }, {
         transaction: t,
-      })
-        .then(registeredUser => {
-          UserTown.create({
-            townName: town,
-            userId: registeredUser.id,
-          });
-        });
+      });
+
+      await UserTown.create({
+        townName: town,
+        userId: registeredUser.id,
+      }, {
+        transaction: t,
+      });
+
+      return registeredUser;
     });
+
+    return registeredUser;
   }
 }
 
