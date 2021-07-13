@@ -15,6 +15,21 @@ abstract class BaseQuery<T, PK, CreateTypes> {
       .then((conn) => conn);
   }
 
+  async set(sql: string): Promise<any> {
+    const conn = await this.connection();
+
+    return new Promise((resolve, reject) => {
+      conn.query(sql, (error, rows) => {
+        conn.release();
+        if (error !== null) {
+          return reject(error);
+        }
+
+        resolve(rows);
+      });
+    });
+  }
+
   async select(sql: string, params?: (string | number)[]): Promise<any> {
     const conn = await this.connection();
 
