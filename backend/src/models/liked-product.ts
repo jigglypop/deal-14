@@ -3,8 +3,8 @@ import User from './user';
 
 class LikedProduct {
   productId!: string;
-  product!: Product;
   userId!: string;
+  product!: Product;
   user!: User;
 }
 

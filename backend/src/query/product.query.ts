@@ -58,3 +58,5 @@ class ProductQuery extends BaseQuery<Product, number, CreateTypes> {
     return product;
   }
 }
+
+export default new ProductQuery();
