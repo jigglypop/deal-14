@@ -1,5 +1,4 @@
 import HTTPError from '../errors/http-error';
-import Town from '../models/town';
 import UserTown from '../models/user-town';
 import townQuery from '../query/town.query';
 import userTownQuery from '../query/user-town.query';
@@ -12,7 +11,7 @@ const MIN_USER_TOWN = 1;
 
 class UserTownService {
 
-  async findByUser(userId: string): Promise<Town[]> {
+  async findByUser(userId: string): Promise<UserTown[]> {
     const selectSQLGenerator = new SelectSQLGenerator('user_town',
       `user_town.*, town.townName as 'town.townName'`);
     selectSQLGenerator.addJoin({
@@ -27,7 +26,7 @@ class UserTownService {
 
     const userTowns = await userTownQuery.select(selectSQLGenerator.generate(), [userId]);
 
-    return userTowns.map(userTown => userTown.town);
+    return userTowns;
   }
 
   async create(userId: string, createUserTownRequest: CreateUserTownRequest) {

@@ -1,6 +1,5 @@
 type WhereOption = {
   column: string;
-  equalValue: string | number;
 }
 
 type OrderOption = {
@@ -44,11 +43,7 @@ class SelectSQLGenerator {
 
     if (this.whereOptions.length > 0) {
       this.whereOptions.reduce((prefix: string, option) => {
-        if (typeof option.equalValue === 'string') {
-          sql += ` ${prefix} ${option.column} = '${option.equalValue}'`;
-        } else {
-          sql += ` ${prefix} ${option.column} = ${option.equalValue}`;
-        }
+        sql += ` ${prefix} ${option.column} = ? `;
 
         return 'AND';
       }, 'WHERE');
