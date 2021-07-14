@@ -1,4 +1,5 @@
 import HTTPError from '../errors/http-error';
+import productImageQuery from '../query/product-image.query';
 import productQuery from '../query/product.query';
 import townQuery from '../query/town.query';
 import { ReadDetailProductsRequest, WriteProductRequest } from '../requests/product.request';
@@ -49,7 +50,11 @@ class ProductService {
       userId,
       isSoldOut: false,
     });
-    // todo: image 저장
+
+    await Promise.all(images.map(image => productImageQuery.create({
+      productId: createdProduct.id,
+      filePath: image,
+    })));
 
     return createdProduct;
   }
