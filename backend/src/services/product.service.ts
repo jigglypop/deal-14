@@ -1,35 +1,54 @@
+import { textChangeRangeIsUnchanged } from 'typescript';
 import HTTPError from '../errors/http-error';
+import Product from '../models/product';
 import productImageQuery from '../query/product-image.query';
 import productQuery from '../query/product.query';
 import townQuery from '../query/town.query';
 import { ReadDetailProductsRequest, WriteProductRequest } from '../requests/product.request';
+import SelectSQLGenerator from '../utils/select-sql-generator';
 
 class ProductService {
   async findDetails(options: ReadDetailProductsRequest) {
     const { category, townId } = options;
-    let sql = `
-      SELECT product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName' FROM product
-      LEFT JOIN user ON user.id = product.userId
-      LEFT JOIN town ON town.id = product.townId
-    `;
 
-    const params: (string | number)[] = [];
+    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id'`);
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'user',
+      joinPK: 'id',
+      equalColum: 'product.userId',
+    });
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'town',
+      joinPK: 'id',
+      equalColum: 'product.townId',
+    });
 
-    if (category && townId) {
-      sql = sql.concat(' WHERE category = ? AND townId = ? ');
+    const params = [];
+    if (category) {
+      selectSQLGenerator.addWhere({ column: 'category' });
       params.push(category);
-      params.push(townId);
-    } else if (category) {
-      sql = sql.concat(' WHERE category = ? ');
-      params.push(category);
-    } else if (townId) {
-      sql = sql.concat(' WHERE townId = ? ');
+    }
+
+    if (townId) {
+      selectSQLGenerator.addWhere({ column: 'townId' });
       params.push(townId);
     }
 
-    sql = sql.concat(' ORDER BY createdAt DESC ');
+    const products = await productQuery.select(selectSQLGenerator.generate(), params);
 
-    const products = await productQuery.select(sql, params);
+    // todo: then 체인 + Group By를 통해 chat-room, liked-product 개수 프로퍼티를 한번에 추가
+    await Promise.all(products.map(product => {
+      return productImageQuery.findByProduct(product.id)
+        .then((productImages) => {
+          product.productImages = productImages;
+        });
+    }));
+
+    products.sort(function (a, b) {
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    });
 
     return products;
   }

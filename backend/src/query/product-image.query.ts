@@ -21,6 +21,12 @@ class ProductImageQuery extends BaseQuery<ProductImage, number, CreateTypes> {
     return productImages[0];
   }
 
+  async findByProduct(productId: number): Promise<ProductImage[]> {
+    const productImages = await this.select(`SELECT * FROM ${this.tableName} WHERE productId = ?`, [productId]);
+
+    return productImages;
+  }
+
   async create(data: CreateTypes): Promise<ProductImage> {
     const { filePath, productId } = data;
     const now = new Date();
