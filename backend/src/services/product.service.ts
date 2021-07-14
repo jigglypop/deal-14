@@ -109,6 +109,15 @@ class ProductService {
     return productsWithDetails;
   }
 
+  async findLiked(userId: string) {
+    const likedProducts = await likedProductQuery.findAllByUser(userId);
+    const products = await Promise.all(likedProducts.map(likedProduct => {
+      return this.findDetail(userId, likedProduct.productId);
+    }));
+
+    return products;
+  }
+
   async write(userId: string, writeProductRequest: WriteProductRequest) {
     const { title, price, content, category, townId, images } = writeProductRequest;
     const town = await townQuery.findByPk(townId);

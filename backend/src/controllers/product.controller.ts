@@ -45,8 +45,22 @@ class ProductController {
       data: {
         products,
       }
-    })
+    });
   }
+
+  async readLikedDetails(req: Request, res: Response) {
+    const { userId } = req;
+
+    const products = await productService.findLiked(userId);
+
+    res.status(200).json({
+      message: '좋아요한 상품정보 조회 성공',
+      data: {
+        products,
+      }
+    });
+  }
+
 }
 
 export default new ProductController();

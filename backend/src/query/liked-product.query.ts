@@ -36,6 +36,12 @@ class LikedProductQuery extends BaseQuery<LikedProduct, number, CreateTypes> {
     return likedProducts[0];
   }
 
+  async findAllByUser(userId: string): Promise<LikedProduct[]> {
+    const likedProducts = await this.select(`SELECT * FROM ${this.tableName} WHERE userId = ?`, [userId]);
+
+    return likedProducts;
+  }
+
   async create(data: CreateTypes): Promise<LikedProduct> {
     const { productId, userId } = data;
     const now = new Date();
