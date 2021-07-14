@@ -1,6 +1,4 @@
-import { RowDataPacket } from 'mysql2';
 import MySQL from '../database';
-import BaseQuery from './base.query';
 
 type CreateTypes = {
   id: string;
