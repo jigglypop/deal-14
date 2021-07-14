@@ -33,12 +33,12 @@ class ProductController {
   }
 
   async readDetails(req: Request, res: Response) {
-    const { query } = req;
+    const { query, userId } = req;
 
     const readDetailProductsRequest = new ReadDetailProductsRequest(query as any);
     await readDetailProductsRequest.validate();
 
-    const products = await productService.findDetails(readDetailProductsRequest);
+    const products = await productService.findDetails(userId, readDetailProductsRequest);
 
     res.status(200).json({
       message: '상품정보 조회 성공',
