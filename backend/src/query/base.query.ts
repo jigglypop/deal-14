@@ -17,17 +17,17 @@ abstract class BaseQuery<T, PK, CreateTypes> {
       .then((conn) => conn);
   }
 
-  async set(sql: string): Promise<any> {
+  async executeQuery(sql: string, params?: ParamTypes): Promise<void> {
     const conn = await this.connection();
 
     return new Promise((resolve, reject) => {
-      conn.query(sql, (error, rows) => {
+      conn.query(sql, params, (error, rows) => {
         conn.release();
         if (error !== null) {
           return reject(error);
         }
 
-        resolve(rows);
+        resolve();
       });
     });
   }
