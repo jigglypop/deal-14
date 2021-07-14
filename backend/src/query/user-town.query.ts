@@ -55,6 +55,12 @@ class UserTownQuery extends BaseQuery<UserTown, number, CreateTypes> {
     userTown.townId = row.townId;
     userTown.createdAt = row.createdAt;
     userTown.updatedAt = row.updatedAt;
+    userTown.town = {
+      id: row['town.id'],
+      townName: row['town.townName'],
+      createdAt: row['user.updatedAt'],
+      updatedAt: row['user.updatedAt'],
+    }
 
     return userTown;
   }
