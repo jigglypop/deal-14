@@ -11,8 +11,14 @@ class TownQuery extends BaseQuery<Town, number, CreateTypes> {
     super('town');
   }
 
+  async findAll(): Promise<Town[]> {
+    const towns = await this.select(`SELECT * FROM ${this.tableName}`);
+
+    return towns;
+  }
+
   async findByPk(id: number): Promise<Town | null> {
-    const towns = await this.select(`SELECT * FROM ${this.tableName} WHERE id = ?`, [id]);
+    const towns = await this.select(`SELECT * FROM ${this.tableName} WHERE id = ? `, [id]);
     if (towns.length === 0) {
       return null;
     }
@@ -21,7 +27,7 @@ class TownQuery extends BaseQuery<Town, number, CreateTypes> {
   }
 
   async findByTownName(townName: string) {
-    const towns = await this.select(`SELECT * FROM ${this.tableName} WHERE townName = ?`, [townName]);
+    const towns = await this.select(`SELECT * FROM ${this.tableName} WHERE townName = ? `, [townName]);
     if (towns.length === 0) {
       return null;
     }
@@ -43,7 +49,7 @@ class TownQuery extends BaseQuery<Town, number, CreateTypes> {
   async create(data: CreateTypes): Promise<Town> {
     const now = new Date();
     const insertResult = await this.save(
-      `INSERT INTO ${this.tableName} (townName, createdAt, updatedAt) VALUES(?, ?, ?)`,
+      `INSERT INTO ${this.tableName}(townName, createdAt, updatedAt) VALUES(?, ?, ?)`,
       [data.townName, now, now]);
 
     const town = await this.findByPk(insertResult.insertId);
