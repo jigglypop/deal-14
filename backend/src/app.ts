@@ -1,5 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 import apiRouter from './routes';
 import errorMiddleware from './middlewares/error.middleware';
 
@@ -8,6 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use('/static', express.static(path.join(__dirname, '../public')));
 
 app.use('/api', apiRouter);
 // 바꿀 예정
