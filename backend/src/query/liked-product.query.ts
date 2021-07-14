@@ -52,6 +52,10 @@ class LikedProductQuery extends BaseQuery<LikedProduct, number, CreateTypes> {
     return createdLikedProduct;
   }
 
+  async delete(id: number): Promise<void> {
+    await this.executeQuery(`DELETE FROM ${this.tableName} WHERE id = ?`, [id]);
+  }
+
   map(row: RowDataPacket) {
     const likedProduct = new LikedProduct();
     likedProduct.id = row.id;
