@@ -68,4 +68,4 @@ class LikedProductQuery extends BaseQuery<LikedProduct, number, CreateTypes> {
   }
 }
 
-export default LikedProductQuery;
+export default new LikedProductQuery();
