@@ -7,8 +7,8 @@ export class CreateChatroomRequest extends BaseRequest {
   @IsInt()
   productId: number;
 
-  @IsInt()
-  userId: number;
+  @IsString()
+  userId: string;
 
   constructor(data: CreateChatroomRequest) {
     super();
