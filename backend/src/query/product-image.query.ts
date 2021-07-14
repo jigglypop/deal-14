@@ -21,12 +21,18 @@ class ProductImageQuery extends BaseQuery<ProductImage, number, CreateTypes> {
     return productImages[0];
   }
 
+  async findByProduct(productId: number): Promise<ProductImage[]> {
+    const productImages = await this.select(`SELECT * FROM ${this.tableName} WHERE productId = ?`, [productId]);
+
+    return productImages;
+  }
+
   async create(data: CreateTypes): Promise<ProductImage> {
     const { filePath, productId } = data;
     const now = new Date();
 
     const insertResult = await this.save(
-      `INSERT INTO ${this.tableName} (filePath, productId, createdAt, updatedAt) VALUES(?, ?)`,
+      `INSERT INTO ${this.tableName} (filePath, productId, createdAt, updatedAt) VALUES(?, ?, ?, ?)`,
       [filePath, productId, now, now]);
 
     const createdProductImage = await this.findByPk(insertResult.insertId);

@@ -38,7 +38,7 @@ export class WriteProductRequest extends BaseRequest {
   townId: number;
 
   @IsString({ each: true })
-  images: string;
+  images: string[];
 
   constructor(data: WriteProductRequest) {
     super();
