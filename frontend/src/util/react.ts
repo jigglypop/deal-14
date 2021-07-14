@@ -2,27 +2,26 @@ import styled from "./style-component";
 
 export default abstract class React {
     
-    $outer: any
+    $outer: HTMLElement
+    $target: HTMLElement
     state: any
     styled: any
+    sementic: string | undefined
     abstract render(): void
 
-    constructor() { }
+    constructor($target: HTMLElement, name: string, sementic?: string | undefined) {
+        this.$outer = document.createElement("div");
+        if (sementic) {
+            this.$outer = document.createElement(`${sementic}`);
+        }
+        this.$outer.className = name + 'Outer';
+        this.$target = $target
+        this.$target.appendChild(this.$outer);
+    }
+
     
     // 시작 함수
-    init($target: HTMLElement, sementic?: any) {
-        // 아우터 만들기
-        let $outer = null;
-        if (sementic !== undefined) {
-            $outer = document.createElement(`${sementic}`);
-        } else {
-            $outer = document.createElement("div");
-        }
-        const outerName = String(this.constructor.name);
-        $outer.className = outerName;
-        this.$outer = $outer;
-        // $target에 appendChild
-        $target.appendChild($outer);
+    init() {
         // 렌더링
         this.render();
         // 스타일링
@@ -40,7 +39,7 @@ export default abstract class React {
 
     // styled-component
     style() {
-        const root = this.$outer.className;
+        const root = this.$outer?.className;
         const rootAll: any = document.querySelectorAll(`.${root}`);
         for (let rootEl of rootAll) {
             styled(rootEl, `.${root}`, this.styled);

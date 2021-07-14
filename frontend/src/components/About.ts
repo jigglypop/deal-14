@@ -1,25 +1,24 @@
 import React from "../util/react"
-
-export interface IAboutConstructor {
-    $target: HTMLElement
-}
+import "../public/css/About.css"
 
 export default class About extends React{
 
-    $target: HTMLElement
     styled = `
         h1 {
             color: red;
         }
     `
-
-    constructor({ $target }: IAboutConstructor) {
-        super()
-        this.$target = $target 
-        this.init($target)
+    constructor($target: HTMLElement) {
+        super($target, 'About')
+        this.init()
     }
 
     render() {
-        this.$outer.innerHTML = `<h1>어바웃입니다.</h1>`
+        this.$outer.innerHTML = `
+        <div id="about" >
+            <img src="public/image/main.png" />
+            <h1>어바웃입니다.</h1>
+        </div>
+        `
     }
 }

@@ -1,22 +1,16 @@
 import React from "../util/react"
 
-export interface IHomeConstructor {
-    $target: HTMLElement
-}
-
 export default class Home extends React{
 
-    $target: HTMLElement
     styled = `
         h1 {
             color: blue;
         }
     `
 
-    constructor({ $target }: IHomeConstructor) {
-        super()
-        this.$target = $target 
-        this.init($target)
+    constructor($target: HTMLElement) {
+        super($target, 'Home')
+        this.init()
     }
 
     render() {
