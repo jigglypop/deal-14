@@ -64,7 +64,7 @@ class ProductService {
   async findDetails(userId: string, options: ReadDetailProductsRequest) {
     const { category, townId, } = options;
 
-    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id'`);
+    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName'`);
     selectSQLGenerator.addJoin({
       type: 'LEFT JOIN',
       joinTable: 'user',
@@ -119,7 +119,7 @@ class ProductService {
   }
 
   async findUserProducts(userId: string) {
-    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id'`);
+    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName'`);
     selectSQLGenerator.addJoin({
       type: 'LEFT JOIN',
       joinTable: 'user',
