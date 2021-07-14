@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import apiRouter from './routes';
 import errorMiddleware from './middlewares/error.middleware';
+import cors from 'cors'
 
 const app = express();
 
@@ -10,24 +11,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname, '../public')));
+app.use(cors())
 
 app.use('/api', apiRouter);
 // 바꿀 예정
 app.get('/', (_, res) => {
-    res.send(
-        `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>배달의 민족</title>
-        </head>
-        <body>
-            <h1>우아마켓 14조</h1>
-        </body>
-        </html>
-    `)
+    res.send('<h1>우아마켓 14조 서버</h1>')
 })
 app.use(errorMiddleware);
 
