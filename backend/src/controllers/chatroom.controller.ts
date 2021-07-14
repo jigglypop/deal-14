@@ -14,6 +14,16 @@ class ChatroomController {
     })
   }
 
+  async findByProduct(req: Request, res: Response) {
+    const { productId } = req.params
+    const chatrooms = await chatroomService.findByProductId(productId);
+
+    res.status(200).json({
+      data: {
+        chatrooms: chatrooms
+      }
+    })
+  }
 }
 
 export default new ChatroomController();
