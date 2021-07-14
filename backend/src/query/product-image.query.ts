@@ -48,3 +48,5 @@ class ProductImageQuery extends BaseQuery<ProductImage, number, CreateTypes> {
     return productImage
   }
 }
+
+export default new ProductImageQuery();
