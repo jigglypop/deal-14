@@ -26,7 +26,7 @@ class ProductImageQuery extends BaseQuery<ProductImage, number, CreateTypes> {
     const now = new Date();
 
     const insertResult = await this.save(
-      `INSERT INTO ${this.tableName} (filePath, productId, createdAt, updatedAt) VALUES(?, ?)`,
+      `INSERT INTO ${this.tableName} (filePath, productId, createdAt, updatedAt) VALUES(?, ?, ?, ?)`,
       [filePath, productId, now, now]);
 
     const createdProductImage = await this.findByPk(insertResult.insertId);
