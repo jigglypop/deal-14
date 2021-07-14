@@ -32,6 +32,21 @@ abstract class BaseQuery<T, PK, CreateTypes> {
     });
   }
 
+  async count(sql: string, params?: ParamTypes, countAs = 'COUNT(*)'): Promise<number> {
+    const conn = await this.connection();
+
+    return new Promise((resolve, reject) => {
+      conn.query(sql, params, (error, rows: RowDataPacket[]) => {
+        conn.release();
+        if (error !== null) {
+          return reject(error);
+        }
+
+        resolve(rows[0][countAs]);
+      });
+    });
+  }
+
   async select(sql: string, params?: ParamTypes): Promise<T[]> {
     const conn = await this.connection();
 
