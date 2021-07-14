@@ -61,6 +61,18 @@ class ProductController {
     });
   }
 
+  async readMine(req: Request, res: Response) {
+    const { userId } = req;
+
+    const products = await productService.findUserProducts(userId);
+
+    res.status(200).json({
+      message: '본인 상품정보 조회 성공',
+      data: {
+        products,
+      }
+    });
+  }
 }
 
 export default new ProductController();

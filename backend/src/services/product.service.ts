@@ -118,6 +118,41 @@ class ProductService {
     return products;
   }
 
+  async findUserProducts(userId: string) {
+    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id'`);
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'user',
+      joinPK: 'id',
+      equalColum: 'product.userId',
+    });
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'town',
+      joinPK: 'id',
+      equalColum: 'product.townId',
+    });
+
+    selectSQLGenerator.addWhere({
+      column: 'product.userId'
+    })
+
+    const products = await productQuery.select(selectSQLGenerator.generate(), [userId]) as IDetailProduct[];
+
+    const productsWithDetails = await Promise.all(products.map(product => {
+      return this.fetchDetail(userId, product.id)
+        .then(details => {
+
+          return {
+            ...details,
+            ...product,
+          }
+        });
+    }));
+
+    return productsWithDetails;
+  }
+
   async write(userId: string, writeProductRequest: WriteProductRequest) {
     const { title, price, content, category, townId, images } = writeProductRequest;
     const town = await townQuery.findByPk(townId);

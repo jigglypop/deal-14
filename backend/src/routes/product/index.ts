@@ -9,6 +9,7 @@ const productRouter = Router();
 
 productRouter.get('/', accessAuthMiddleware, wrapAsync(productController.readDetails));
 productRouter.get('/liked', authMiddleware, wrapAsync(productController.readLikedDetails));
+productRouter.get('/my', authMiddleware, wrapAsync(productController.readMine));
 productRouter.post('/', authMiddleware, wrapAsync(productController.write));
 
 productRouter.get('/:productId', accessAuthMiddleware, wrapAsync(productController.readDetail));
