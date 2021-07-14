@@ -44,6 +44,10 @@ class UserTownQuery extends BaseQuery<UserTown, number, CreateTypes> {
     return userTown;
   }
 
+  async delete(id: number): Promise<void> {
+    await this.executeQuery(`DELETE FROM ${this.tableName} WHERE id = ?`, [id]);
+  }
+
   map(row: RowDataPacket): UserTown {
     const userTown = new UserTown();
     userTown.id = row.id;
