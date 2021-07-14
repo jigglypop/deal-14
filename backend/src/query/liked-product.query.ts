@@ -41,7 +41,7 @@ class LikedProductQuery extends BaseQuery<LikedProduct, number, CreateTypes> {
     const now = new Date();
 
     const insertResult = await this.save(
-      `INSERT INTO ${this.tableName} (productId, userId) VALUES(?, ?, ?, ?)`,
+      `INSERT INTO ${this.tableName} (productId, userId, createdAt, updatedAt) VALUES(?, ?, ?, ?)`,
       [productId, userId, now, now]);
 
     const createdLikedProduct = await this.findByPk(insertResult.insertId);
@@ -68,4 +68,4 @@ class LikedProductQuery extends BaseQuery<LikedProduct, number, CreateTypes> {
   }
 }
 
-export default LikedProductQuery;
+export default new LikedProductQuery();
