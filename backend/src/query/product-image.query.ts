@@ -49,4 +49,4 @@ class ProductImageQuery extends BaseQuery<ProductImage, number, CreateTypes> {
   }
 }
 
-export default new ProductImage();
+export default new ProductImageQuery();
