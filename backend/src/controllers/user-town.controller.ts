@@ -8,12 +8,12 @@ class UserTownController {
   async findMyTowns(req: Request, res: Response) {
     const { userId } = req;
 
-    const towns = await userTownService.findByUser(userId);
+    const userTowns = await userTownService.findByUser(userId);
 
     res.status(200).json({
       message: '회원 동네 정보 조회 성공',
       data: {
-        towns,
+        userTowns,
       },
     });
   }
@@ -32,7 +32,7 @@ class UserTownController {
 
   async removeUserTown(req: Request, res: Response) {
     const { userId, params } = req;
-    if (Number.isNaN(params.userTownId)) {
+    if (Number.isNaN(Number(params.userTownId))) {
       throw new HTTPError(400, '회원 동네 번호 검증 오류');
     }
 
