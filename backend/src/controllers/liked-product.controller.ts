@@ -5,7 +5,7 @@ import likedProductService from '../services/liked-product.service';
 class LikedProductController {
   async like(req: Request, res: Response) {
     const { userId, params } = req;
-    if (Number.isNaN(params.productId)) {
+    if (Number.isNaN(Number(params.productId))) {
       throw new HTTPError(400, '상품 번호 검증 오류');
     }
 
@@ -19,7 +19,7 @@ class LikedProductController {
   async unlike(req: Request, res: Response) {
     const { userId, params } = req;
 
-    if (Number.isNaN(params.productId)) {
+    if (Number.isNaN(Number(params.productId))) {
       throw new HTTPError(400, '상품 번호 검증 오류');
     }
 
