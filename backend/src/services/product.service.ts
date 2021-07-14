@@ -9,6 +9,26 @@ import { ReadDetailProductsRequest, WriteProductRequest } from '../requests/prod
 import SelectSQLGenerator from '../utils/select-sql-generator';
 
 class ProductService {
+  private async fetchDetail(userId: string | undefined, productId: number) {
+    const productImages = await productImageQuery.findByProduct(productId)
+
+    const likeCount = await likedProductQuery.count('SELECT COUNT(*) FROM liked_product WHERE productId = ?', [productId]);
+    const chatroomCount = await chatroomQuery.count('SELECT COUNT(*) FROM chat_room WHERE productId = ?', [productId]);
+
+    let isUserLiked = false;
+    if (userId !== undefined) {
+      const userLikedProduct = await likedProductQuery.findByUserAndProduct(userId, productId);
+      isUserLiked = userLikedProduct !== null;
+    }
+
+    return {
+      productImages,
+      likeCount,
+      chatroomCount,
+      isUserLiked,
+    };
+  }
+
   async findDetail(userId: string | undefined, productId: number): Promise<IDetailProduct> {
     const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName'`);
     selectSQLGenerator.addJoin({
@@ -33,23 +53,11 @@ class ProductService {
     }
 
     const product = products[0];
-    const productImages = await productImageQuery.findByProduct(product.id)
-    product.productImages = productImages;
-
-    const likeCount = await likedProductQuery.count('SELECT COUNT(*) FROM liked_product WHERE productId = ?', [productId]);
-    const chatroomCount = await chatroomQuery.count('SELECT COUNT(*) FROM chat_room WHERE productId = ?', [productId]);
-
-    let isUserLiked = false;
-    if (userId !== undefined) {
-      const userLikedProduct = await likedProductQuery.findByUserAndProduct(userId, productId);
-      isUserLiked = userLikedProduct !== null;
-    }
+    const details = await this.fetchDetail(userId, productId);
 
     return {
       ...product,
-      isUserLiked,
-      likeCount: likeCount,
-      chatroomCount: chatroomCount,
+      ...details,
     };
   }
 
@@ -83,33 +91,22 @@ class ProductService {
 
     const products = await productQuery.select(selectSQLGenerator.generate(), params) as IDetailProduct[];
 
-    await Promise.all(products.map(product => {
-      return productImageQuery.findByProduct(product.id)
-        .then(productImages => {
-          product.productImages = productImages;
-          return likedProductQuery.count('SELECT COUNT(*) FROM liked_product WHERE productId = ?', [product.id])
-        })
-        .then(likeCount => {
-          product.likeCount = likeCount;
-          return chatroomQuery.count('SELECT COUNT(*) FROM chat_room WHERE productId = ?', [product.id]);
-        })
-        .then(chatroomCount => {
-          product.chatroomCount = chatroomCount;
-          if (userId !== undefined) {
-            return likedProductQuery.findByUserAndProduct(userId, product.id);
+    const productsWithDetails = await Promise.all(products.map(product => {
+      return this.fetchDetail(userId, product.id)
+        .then(details => {
+
+          return {
+            ...details,
+            ...product,
           }
-          return null;
-        })
-        .then((userLiked) => {
-          product.isUserLiked = userLiked !== null;
         });
     }));
 
-    products.sort(function (a, b) {
+    productsWithDetails.sort(function (a, b) {
       return b.createdAt.getTime() - a.createdAt.getTime();
     });
 
-    return products;
+    return productsWithDetails;
   }
 
   async write(userId: string, writeProductRequest: WriteProductRequest) {
