@@ -10,10 +10,13 @@ class ProductController {
     const writeProductRequest = new WriteProductRequest(body);
     await writeProductRequest.validate();
 
-    await productService.write(userId, writeProductRequest);
+    const product = await productService.write(userId, writeProductRequest);
 
     res.status(200).json({
       message: '상품 등록 성공',
+      data: {
+        product,
+      }
     })
   }
 
