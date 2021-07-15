@@ -1,58 +1,62 @@
-// 요소 선택자 1개
-export const $ = (el: Document | string) => {
+const setCSSProperty = ($element: HTMLElement, attr: keyof CSSStyleDeclaration, value: string) => {
+    if (attr === 'length'
+        || attr === 'parentRule'
+        || attr === 'item'
+        || attr === 'setProperty'
+        || attr === 'removeProperty'
+        || attr === 'getPropertyPriority'
+        || attr === 'getPropertyValue') {
+        return;
+    }
+
+    $element.style[attr] = value;
+}
+
+export const $ = (element: Document | string) => {
     return {
-        get(){
-            let El = null
-            if (typeof el === 'string') {
-                if (el.match(/#(.)+/g)){
-                    El = document.querySelector(el)
-                } else {
-                    El = document.getElementById(el.slice(1, el.length -1 ))
-                }                
+        get(): HTMLElement | null {
+            if (typeof element === 'string') {
+                return document.querySelector(element);
             }
-            return El
+
+            return null;
         },
-        on(method: string, cb: () => void){
-            const El = this.get()
-            if (El) {
-                El.addEventListener(method, cb)
+        on(type: string, cb: EventListener) {
+            const $element = this.get();
+            if ($element === null) {
+                return;
+            }
+
+            $element.addEventListener(type, cb);
+        },
+        ready(cb: () => void) {
+            if (element === document) {
+                cb();
             }
         },
-        ready(cb: ()=> void){
-            if (el === document){
-                cb()
-            } 
-        },
-        css(attr: string, value: string) {
-            const El: any = this.get()
-            if (El) {
-                El.style[attr] = value
+        css(attr: keyof CSSStyleDeclaration, value: string) {
+            const $element = this.get();
+            if ($element === null) {
+                return;
             }
-        }
+
+            setCSSProperty($element, attr, value);
+        },
     }
 }
 
-// 요소 선택자 2
-export const $$ = (el: string) => {
+export const $$ = (element: string) => {
     return {
-        get(){
-            let Els = null
-            if (typeof el === 'string') {
-                Els = document.querySelectorAll(el)
-            }
-            return Els
+        get(): NodeListOf<HTMLElement> {
+            return document.querySelectorAll<HTMLElement>(element);
         },
-        on(method: string, cb: () => void){
-            const Els = this.get()
-            if (Els){
-                Els.forEach(El => El.addEventListener(method, cb))
-            }
+        on(type: string, cb: EventListener) {
+            const $elements = this.get()
+            $elements.forEach($el => $el.addEventListener(type, cb))
         },
-        css(attr: string, value: string) {
-            const Els = this.get()
-            if (Els) {
-                Els.forEach((El: any) => El.style[attr] = value)
-            }
-        }
+        css(attr: keyof CSSStyleDeclaration, value: string) {
+            const $elements = this.get()
+            $elements.forEach(($el) => setCSSProperty($el, attr, value));
+        },
     }
 }
