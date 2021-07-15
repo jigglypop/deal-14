@@ -6,10 +6,10 @@ const styled = (El: any, root: string, text: string) => {
   // 공백 없애기
   const words = text.replace(/(\r\n\t|\n|\r\t|\s)/g, "");
   // 앞에 .이나 #으로 된 부분 매치
-  const words_blank_match =
-    words.match(
-      /(\.[a-zA-Z0-9:\s]*\{|\#[a-zA-Z0-9:\s]*\{|[a-zA-Z0-9:\s]*\{)(.*?)\}/g
-    ) || [];
+  const Tag = '[a-zA-Z-0-9:\s]'
+  const regex = new RegExp(`(\.${Tag}*\{|\#${Tag}*\{|${Tag}*\{)(.*?)\}`, "g");
+
+  const words_blank_match = words.match(regex) || [];
 
   const words_blank = words_blank_match.map((word) => {
     let countArray = word.match(/{/g)

@@ -1,0 +1,35 @@
+.location-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.location-svg:hover {
+    transform: scale(1.2);
+}
+
+.hamburger-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.hamburger-svg:hover {
+    transform: scale(1.2);
+}
+
+.box-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.box-svg:hover {
+    transform: scale(1.2);
+}
+
+.avatar-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.avatar-svg:hover {
+    transform: scale(1.2);
+}

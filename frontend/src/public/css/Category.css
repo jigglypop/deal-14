@@ -1,0 +1,4 @@
+#Category-Inner {
+    transform: translateX(var(--base-X));
+    transition: all .3s ease-in;
+}
