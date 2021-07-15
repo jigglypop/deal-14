@@ -6,6 +6,7 @@ import convertElementTarget from '../util/convertEventTarget';
 import UserTownItem from '../templates/UserTownItem';
 import { UserTownTypes } from '../types/userTown';
 import OpenAddModalButton from '../templates/OpenAddModalButton';
+import AddModal from '../templates/AddModal';
 
 export default class Town extends React {
   constructor($target: HTMLElement) {
@@ -92,20 +93,7 @@ export default class Town extends React {
 
   render() {
     this.$outer.innerHTML = `
-    <div  ${this.state.isShowAddModal ? '' : 'hidden'}>
-      <div class="Town-Add-Modal-Wrapper">
-        <div class="Town-Add-Modal">
-          <div class="Town-Add-Modal-Content">
-            <span class="Town-Add-Modal-Desc">현재 위치를 입력하세요</span>
-            <input type="text" placeholder="시.구 제외, 동만 입력" id="Add-Town-Input"/>
-            <div class="Town-Add-Button-Wrapper">
-              <button id="Close-Add-Town-Modal">취소</button>
-              <button id="Add-Town-Button" disabled>확인</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      ${AddModal(this.state.isShowAddModal)}
 
       <div id="Town-Inner">
         <header class="Town-Header">
