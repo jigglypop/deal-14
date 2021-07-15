@@ -1,6 +1,7 @@
 import React from "../util/react"
 import "../public/css/Menu.css"
 import { RightArrow } from "../svgicon/RightArrow"
+import { $ } from "../util/select"
 
 export default class Menu extends React{
 
@@ -52,13 +53,8 @@ export default class Menu extends React{
         `
     }
     methods() {
-        const MenuArrow = document.getElementById("Menu-Arrow")
-        const MenuInner = document.getElementById("Menu-Inner")
-
-        MenuArrow?.addEventListener('click', () => {
-            if (MenuInner) {
-                MenuInner.style.transform = "translateX(400px)"
-            }
+        $("#Menu-Arrow").on('click', function() {
+            $("#Menu-Inner").css("transform", "translateX(400px)")
         })
     }
 }
