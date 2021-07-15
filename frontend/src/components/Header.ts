@@ -7,6 +7,7 @@ import { AvatarSVG } from "../svgicon/Avatar"
 import Menu from "./Menu"
 import Category from "./Category"
 import Auth from "./Auth"
+import { $ } from "../util/select"
 
 export default class Header extends React{
 
@@ -103,28 +104,11 @@ export default class Header extends React{
     }
 
     methods() {
-        const authbutton = document.getElementById("auth-button")
-        const menubutton = document.querySelector("#menu-button")
-        const categorybutton = document.getElementById("category-button")
-        const AuthInner = document.getElementById("Auth-Inner")
-        const MenuInner = document.getElementById("Menu-Inner")
-        const CategoryInner = document.getElementById("Category-Inner")
-
-        menubutton?.addEventListener('click', function(){
-            if (MenuInner) {
-                MenuInner.style.transform = "translateX(0)"
-            }
-        })
-        authbutton?.addEventListener('click', function(){
-            if (AuthInner) {
-                AuthInner.style.transform = "translateX(0)"
-            }
-        })
-        categorybutton?.addEventListener('click', function(){
-            if (CategoryInner) {
-                CategoryInner.style.transform = "translateX(0)"
-            }
+        const names = ['Menu', 'Auth', 'Category']
+        names.forEach((name: string) => {
+            $(`#${name.toLowerCase()}-button`).on('click', function(){
+                $(`#${name}-Inner`).css('transform', "translateX(0)")
+            })
         })
     }
-
 }

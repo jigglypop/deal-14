@@ -7,10 +7,15 @@ export const $ = (el: Document | string) => {
                 if (el.match(/#(.)+/g)){
                     El = document.querySelector(el)
                 } else {
-                    El = document.getElementById(el.slice(1, el.length -1 ))
+                    El = document.getElementById(el.slice(1, el.length ))
                 }                
             }
             return El
+        },
+        getById() {
+            if (typeof el === 'string') {
+                return document.getElementById(el.slice(1, el.length ))
+            }
         },
         on(method: string, cb: () => void){
             const El = this.get()
