@@ -1,6 +1,7 @@
 import React from "../util/react"
 import "../public/css/Category.css"
 import { LeftArrow } from "../svgicon/LeftArrow"
+import { $ } from "../util/select"
 
 export default class Category extends React{
 
@@ -52,12 +53,8 @@ export default class Category extends React{
         `
     }
     methods() {
-        const CategoryArrow = document.getElementById("Category-Arrow")
-        const CategoryInner = document.getElementById("Category-Inner")
-        CategoryArrow?.addEventListener('click', () => {
-            if (CategoryInner) {
-                CategoryInner.style.transform = "translateX(-400px)"
-            }
+        $("#Category-Arrow").on('click', function() {
+            $("#Category-Inner").css("transform", "translateX(-400px)")
         })
     }
 }

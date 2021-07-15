@@ -29,6 +29,14 @@ export const $ = (element: Document | string) => {
 
             $element.addEventListener(type, cb);
         },
+        // .get()으로 가져올 수 있음
+        getById() {
+            if (typeof element === 'string') {
+                return document.getElementById(element.slice(1, element.length));
+            }
+
+            return null;
+        },
         ready(cb: () => void) {
             if (element === document) {
                 cb();
