@@ -1,36 +1,156 @@
 import HTTPError from '../errors/http-error';
+import { IDetailProduct } from '../interfaces/product';
+import chatroomQuery from '../query/chatroom.query';
+import likedProductQuery from '../query/liked-product.query';
+import productImageQuery from '../query/product-image.query';
 import productQuery from '../query/product.query';
 import townQuery from '../query/town.query';
 import { ReadDetailProductsRequest, WriteProductRequest } from '../requests/product.request';
+import SelectSQLGenerator from '../utils/select-sql-generator';
 
 class ProductService {
-  async findDetails(options: ReadDetailProductsRequest) {
-    const { category, townId } = options;
-    let sql = `
-      SELECT product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName' FROM product
-      LEFT JOIN user ON user.id = product.userId
-      LEFT JOIN town ON town.id = product.townId
-    `;
+  private async fetchDetail(userId: string | undefined, productId: number) {
+    const productImages = await productImageQuery.findByProduct(productId)
 
-    const params: (string | number)[] = [];
+    const likeCount = await likedProductQuery.count('SELECT COUNT(*) FROM liked_product WHERE productId = ?', [productId]);
+    const chatroomCount = await chatroomQuery.count('SELECT COUNT(*) FROM chat_room WHERE productId = ?', [productId]);
 
-    if (category && townId) {
-      sql = sql.concat(' WHERE category = ? AND townId = ? ');
+    let isUserLiked = false;
+    if (userId !== undefined) {
+      const userLikedProduct = await likedProductQuery.findByUserAndProduct(userId, productId);
+      isUserLiked = userLikedProduct !== null;
+    }
+
+    return {
+      productImages,
+      likeCount,
+      chatroomCount,
+      isUserLiked,
+    };
+  }
+
+  async findDetail(userId: string | undefined, productId: number): Promise<IDetailProduct> {
+    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName'`);
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'user',
+      joinPK: 'id',
+      equalColum: 'product.userId',
+    });
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'town',
+      joinPK: 'id',
+      equalColum: 'product.townId',
+    });
+    selectSQLGenerator.addWhere({
+      column: 'product.id',
+    });
+
+    const products = await productQuery.select(selectSQLGenerator.generate(), [productId]);
+    if (products.length === 0) {
+      throw new HTTPError(404, '존재하지 않는 상품');
+    }
+
+    const product = products[0];
+    const details = await this.fetchDetail(userId, productId);
+
+    return {
+      ...product,
+      ...details,
+    };
+  }
+
+  async findDetails(userId: string, options: ReadDetailProductsRequest) {
+    const { category, townId, } = options;
+
+    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName'`);
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'user',
+      joinPK: 'id',
+      equalColum: 'product.userId',
+    });
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'town',
+      joinPK: 'id',
+      equalColum: 'product.townId',
+    });
+
+    const params = [];
+    if (category) {
+      selectSQLGenerator.addWhere({ column: 'category' });
       params.push(category);
-      params.push(townId);
-    } else if (category) {
-      sql = sql.concat(' WHERE category = ? ');
-      params.push(category);
-    } else if (townId) {
-      sql = sql.concat(' WHERE townId = ? ');
+    }
+
+    if (townId) {
+      selectSQLGenerator.addWhere({ column: 'townId' });
       params.push(townId);
     }
 
-    sql = sql.concat(' ORDER BY createdAt DESC ');
+    const products = await productQuery.select(selectSQLGenerator.generate(), params) as IDetailProduct[];
 
-    const products = await productQuery.select(sql, params);
+    const productsWithDetails = await Promise.all(products.map(product => {
+      return this.fetchDetail(userId, product.id)
+        .then(details => {
+
+          return {
+            ...details,
+            ...product,
+          }
+        });
+    }));
+
+    productsWithDetails.sort(function (a, b) {
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    });
+
+    return productsWithDetails;
+  }
+
+  async findLiked(userId: string) {
+    const likedProducts = await likedProductQuery.findAllByUser(userId);
+    const products = await Promise.all(likedProducts.map(likedProduct => {
+      return this.findDetail(userId, likedProduct.productId);
+    }));
 
     return products;
+  }
+
+  async findUserProducts(userId: string) {
+    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName'`);
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'user',
+      joinPK: 'id',
+      equalColum: 'product.userId',
+    });
+    selectSQLGenerator.addJoin({
+      type: 'LEFT JOIN',
+      joinTable: 'town',
+      joinPK: 'id',
+      equalColum: 'product.townId',
+    });
+
+    selectSQLGenerator.addWhere({
+      column: 'product.userId'
+    })
+
+    const products = await productQuery.select(selectSQLGenerator.generate(), [userId]) as IDetailProduct[];
+
+    const productsWithDetails = await Promise.all(products.map(product => {
+      return this.fetchDetail(userId, product.id)
+        .then(details => {
+
+          return {
+            ...details,
+            ...product,
+          }
+        });
+    }));
+
+    return productsWithDetails;
   }
 
   async write(userId: string, writeProductRequest: WriteProductRequest) {
@@ -49,7 +169,11 @@ class ProductService {
       userId,
       isSoldOut: false,
     });
-    // todo: image 저장
+
+    await Promise.all(images.map(image => productImageQuery.create({
+      productId: createdProduct.id,
+      filePath: image,
+    })));
 
     return createdProduct;
   }
