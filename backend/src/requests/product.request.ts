@@ -31,7 +31,7 @@ export class WriteProductRequest extends BaseRequest {
   @IsNotEmpty()
   content!: string;
 
-  @IsEnum(Categories)
+  @IsInt()
   category: Categories;
 
   @IsInt()
