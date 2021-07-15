@@ -1,8 +1,6 @@
 import { LeftArrow } from '../svgicon/LeftArrow';
 import React from '../util/react';
 import '../public/css/Town.css';
-import CloseButton from '../svgicon/CloseButton';
-import PlusButton from '../svgicon/PlusButton';
 import { $ } from '../util/select';
 import convertElementTarget from '../util/convertEventTarget';
 import UserTownItem from '../templates/UserTownItem';
@@ -67,7 +65,6 @@ export default class Town extends React {
   }
 
   onTownListClicked(e: Event) {
-    console.log('pass');
     const $target = convertElementTarget(e.target);
     const $closest = <HTMLElement>$target.closest('.Close-Button');
     if ($closest === null) {
@@ -91,17 +88,6 @@ export default class Town extends React {
     $('#Add-Town-Input').get()?.addEventListener('keyup', (e) => this.onAddTownInputChanged(e));
     $('#Close-Add-Town-Modal').on('click', () => this.onCloseAddClicked());
     $('#Add-Town-Button').on('click', () => this.onAddClicked());
-  }
-
-  townItem() {
-    return this.state.userTowns.map((userTown: any) => {
-      return `
-      <div class="Town-Item Town-Info" data-user-town-id="${userTown.id}">
-        <span class="Town-Item-Name">${userTown.town.townName}</span>
-        ${CloseButton}
-      </div>
-      `
-    }).join('');
   }
 
   render() {
