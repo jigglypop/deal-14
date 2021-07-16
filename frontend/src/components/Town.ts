@@ -88,8 +88,8 @@ export default class Town extends React {
 
   render() {
     this.$outer.innerHTML = `
-      ${AddModal(this.state.isShowAddModal)}
-      ${RemoveModal(this.state.isShowRemoveModal)}
+      ${AddModal()}
+      ${RemoveModal()}
 
       <div id="Town-Inner">
         <header class="Town-Header">
