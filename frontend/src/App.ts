@@ -1,10 +1,10 @@
-import Service from "./components/Service";
 import Home from "./components/home";
 import About from "./components/About";
 import React from "./util/react";
 import Header from "./components/Header";
 import "./public/css/App.css"
 import Town from './components/Town';
+import Location from "./components/Location";
 
 export interface IServiceConstructor {
     $target: HTMLElement
@@ -19,15 +19,13 @@ class App extends React {
         window.addEventListener('hashchange', () => {
             this.render()
         });
-        window.addEventListener('DOMContentLoaded', () => {
-            this.render()
-        });
         this.render()
     }
 
     render() {
         // 헤더
         const hash: string = location.hash.replace('#', '');
+
         if (this.$outer) {
             this.$outer.innerHTML = ""
             new Header(this.$outer)
@@ -36,8 +34,8 @@ class App extends React {
                 case 'about':
                     new About(this.$outer)
                     break;
-                case 'service':
-                    new Service(this.$outer)
+                case 'location':
+                    new Location(this.$outer)
                     break;
                 case 'town':
                     new Town(this.$outer)

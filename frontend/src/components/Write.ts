@@ -1,12 +1,12 @@
 import React from "../util/react"
-import "../public/css/Menu.css"
+import "../public/css/Write.css"
 import { RightArrow } from "../svgicon/RightArrow"
 import { $ } from "../util/select"
 
-export default class Menu extends React{
+export default class Write extends React{
 
     styled = `
-        #Menu-Inner {
+        #Write-Inner {
             position: absolute;
             z-index: 2;
             display: flex;
@@ -19,7 +19,7 @@ export default class Menu extends React{
             height: var(--baseY);
         }
 
-        #Menu-Header {
+        #Write-Header {
             position: sticky;
             display: flex;
             justify-content: space-around;
@@ -32,7 +32,7 @@ export default class Menu extends React{
             background-color: var(--gray);
         }
 
-        #Menu-Content {
+        #Write-Content {
             position: relative;
 
             width: 95%;
@@ -40,38 +40,38 @@ export default class Menu extends React{
             background-color: var(--app);
         }
 
-
-        #Menu-Arrow {
+        #Write-Arrow {
             cursor: pointer;
         }
     `
 
     constructor($target: HTMLElement) {
-        super($target, 'Menu')
+        super($target, 'Write')
         this.init()
         this.methods()
     }
 
     render() {
         this.$outer.innerHTML = `
-            <div id="Menu-Inner" >
-                <div id="Menu-Content" >
-                    <div id="Menu-Header">
+            <div id="Write-Inner" >
+                <div id="Write-Content" >
+                    <div id="Write-Header">
                         <div></div>
                         <div>
-                            <h4>메뉴</h4>
+                            <h4>글쓰기</h4>
                         </div>
-                        <div id="Menu-Arrow" >
+                        <div id="Write-Arrow" >
                             ${RightArrow}
                         </div>
-                    </div>               
+                    </div>
                 </div>
-            </div>`
+            </div>
+        `
     }
 
     methods() {
-        $("#Menu-Arrow").on('click', function () {
-            $("#Menu-Inner").css("transform", "translateX(400px)")
+        $("#Write-Arrow").on('click', function() {
+            $("#Write-Inner").css("transform", "translateX(400px)")
         })
     }
 }

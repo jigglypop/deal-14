@@ -1,3 +1,4 @@
+import { redux } from ".."
 import React from "../util/react"
 
 export default class Location extends React{
@@ -11,9 +12,15 @@ export default class Location extends React{
     constructor($target: HTMLElement) {
         super($target, 'Location')
         this.init()
+        this.methods()
     }
 
     render() {
-        this.$outer.innerHTML = `<h1>지역별 입니다.</h1>`
+        this.$outer.innerHTML = `
+            <input id="input" />
+        `
+    }
+
+    methods() {
     }
 }

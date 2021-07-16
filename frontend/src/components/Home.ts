@@ -2,11 +2,11 @@ import React from "../util/react"
 import { $ } from "../util/select"
 import Card from "./Card"
 import "../public/css/Home.css"
+import { productListApi } from "../requests/product"
 
 export default class Home extends React{
 
     styled = `
-
         h1 {
             color: blue;
         }
@@ -27,10 +27,9 @@ export default class Home extends React{
             overflow: scroll;
         }
     `
-
     constructor($target: HTMLElement) {
         super($target, 'Home')
-        this.init()
+        this.init() 
     }
 
     render() {
@@ -38,11 +37,25 @@ export default class Home extends React{
         <div id="home-inner" >
             <div id="home-content" ></div>
         </div>`
-        const homeContent = $("#home-content").getById()
-        if (homeContent) {
-            for (let i = 0; i < 20; i++){
-                new Card(homeContent, 1)
-            }
+        this.getList()
+    }
+
+    getList() {
+        productListApi()
+            .then(data => {
+                this.componentWillMount(data)
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+
+    componentWillMount(data: any) {
+        const homeContent: any = $("#home-content").getById()
+
+        for (let i = 0; i < data.data.products.length; i++) {
+            const item = data.data.products[i]
+            new Card(homeContent, item)
         }
     }
+    methods(){}
 }

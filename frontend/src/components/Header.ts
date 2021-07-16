@@ -7,6 +7,7 @@ import { AvatarSVG } from "../svgicon/Avatar"
 import Menu from "./Menu"
 import Category from "./Category"
 import Auth from "./Auth"
+import Write from "./Write"
 import { $ } from "../util/select"
 
 export default class Header extends React{
@@ -23,7 +24,7 @@ export default class Header extends React{
             left: 0;
             width: 100%;
             height: 50px;
-            background-color: var(--header);
+            background-image: var(--header);
         }
 
         .header-link {
@@ -71,6 +72,8 @@ export default class Header extends React{
             color: var(--text);
             text-decoration: none;
         }
+
+
     `
 
     constructor($target: HTMLElement) {
@@ -93,6 +96,9 @@ export default class Header extends React{
                     <div class="header-link-item" id="auth-button" >${AvatarSVG}</div>
                     <div class="header-link-item" id="menu-button" >${HamburgerSVG}</div>
                 </div>
+                <div id="FaB-Button" >
+                    <h1>+</h1>
+                </div>
             </div>
         `
         // 슬라이더들
@@ -101,6 +107,8 @@ export default class Header extends React{
         new Category(this.$outer)
         // 회원가입/로그인
         new Auth(this.$outer)
+        // 글쓰기
+        new Write(this.$outer)
     }
 
     methods() {
@@ -109,6 +117,10 @@ export default class Header extends React{
             $(`#${name.toLowerCase()}-button`).on('click', function(){
                 $(`#${name}-Inner`).css('transform', "translateX(0)")
             })
+        })
+
+        $(`#FaB-Button`).on('click', function () {
+            $(`#Write-Inner`).css('transform', "translateX(0)")
         })
     }
 }

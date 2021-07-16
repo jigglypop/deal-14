@@ -96,11 +96,9 @@ export default class Town extends React {
           <h4>내 동네 설정하기</h4>
           <div></div>
         </header>
-
         <div class="Town-Description">
           <p>지역은 최소 1개 이상<br>최대 2개까지 설정가능해요.</p>
         </div>
-
         <div class="Town-List">
           ${this.state.userTowns.map((userTown: UserTownTypes) => UserTownItem(userTown)).join('')}
           ${OpenAddModalButton()}
