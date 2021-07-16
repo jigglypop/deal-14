@@ -1,16 +1,12 @@
 import { IsNotEmpty } from 'class-validator';
 import BaseRequest from './base.request';
 
-export class TownRequest extends BaseRequest {
+export class CreateUserTownRequest extends BaseRequest {
   @IsNotEmpty()
   townName!: string;
 
-  @IsNotEmpty()
-  userId!: string;
-
-  constructor(data: TownRequest) {
+  constructor(data: CreateUserTownRequest) {
     super();
     this.townName = data.townName;
-    this.userId = data.userId;
   }
 }

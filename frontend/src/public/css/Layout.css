@@ -1,0 +1,254 @@
+
+@import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@latest/nanumbarungothicsubset.css");
+body {
+    font-family: 'NanumBarunGothic';
+    font-weight: 800;
+}
+
+html,
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    transition: all .3s ease-in;
+}
+
+body {
+    /* --background: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6); */
+    /* --background: linear-gradient(45deg, #8e2de2, #4a00e0); */
+    --background: linear-gradient(45deg, #000000, #434343);
+
+
+    --baemin: #12fff7;
+    --back: #1d1d1d;
+    --text: white;
+    --app: white;
+    --red: #ED213A;
+    --background-dark: linear-gradient(45deg, #000000, #434343);
+    --header: #2AC1BC;
+
+    --baseX: 400px;
+    --base-X: -400px;
+    --baseY: 665px;
+    --slider-header: gray;
+    background: var(--background);
+}
+
+main {
+    z-index: 2;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: all .3s ease-in;
+}
+
+.isNotVisible {
+    visibility: hidden;
+}
+
+.isNotDisplay {
+    display: none;
+}
+
+#root {
+    position: relative;
+    width: var(--baseX);
+    height: var(--baseY);
+
+    transition: all 0.3s ease-in;
+}
+
+
+#rootouter {
+    position: relative;
+    border: 20px solid #000000;
+    z-index: 1;
+    background-color: var(--back);
+    border-radius: 15px;
+    transition: all 0.3s ease-in;
+}
+
+#root:hover {
+    box-shadow: var(--app) 2px 2px 20px;
+}
+
+#buttonouter {
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    height: 100vh;
+}
+
+#img-outer-div {
+    position: relative;
+
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#img-div {
+    position: relative;
+}
+
+#img-outer {
+    position: sticky;
+    margin-top: 45vh;
+    width: 400px;
+}
+
+.setbutton {
+    width: 100px;
+    height: 100px;
+    background-color: #1d1d1d;
+    border: none;
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: black 3px 3px 20px;
+}
+
+.inner {
+    bottom: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+#lefttitle {
+    position: fixed;
+    left: 10px;
+    width: 40vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#leftinner {
+    width: 300px;
+    height: 300px;
+    padding: 20px;
+    border-radius: 50%;
+    background-color: #000000;
+    box-shadow: 2px 2px 20px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.lefttext {
+    font-size: 50px;
+    color: white;
+    margin: 0;
+}
+
+.setbutton {
+    color: var(--baemin);
+    font-weight: 800;
+    box-shadow: black 2px 2px 10px;
+    transition: all .3s ease-in;
+    cursor: pointer;
+}
+
+.setbutton:hover {
+    box-shadow: black 4px 4px 30px;
+}
+
+.white {
+    font-size: 12px;
+    color: white;
+    font-family: "BMDOHYEON_ttf";
+    text-shadow: black 1px 1px 10px;
+}
+
+.blue {
+    font-size: 12px;
+    color: var(--baemin);
+    font-family: "BMDOHYEON_ttf";
+    text-shadow: black 1px 1px 10px;
+}
+
+.pagetitle {
+    color: var(--baemin);
+    margin: 20px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: "BMDOHYEON_ttf";
+    text-shadow: var(--baemin) 1px 1px 10px;
+}
+
+.buttontext {
+    transition: all .3s ease-in;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+    background-color: #1d1d1d;
+}
+
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, #8E2DE2, #4A00E0);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #1d1d1d;
+}
+
+
+
+
+.darkbutton {
+    width: 100px;
+    height: 100px;
+    background-color: #1d1d1d;
+    border: none;
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: black 3px 3px 20px;
+    cursor: pointer;
+    transition: all .3s ease-in;
+}
+
+.darkbutton:hover {
+    box-shadow: black 4px 4px 40px;
+}
+
+.sun {
+    width: 40px;
+}
+
+.moon {
+    width: 25px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-transition: background-color 9999s ease-out;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    -webkit-text-fill-color: gray !important;
+}

@@ -4,6 +4,7 @@ import BaseQuery from './base.query';
 
 type CreateTypes = {
   productId: number;
+  userId: string;
 }
 
 class ChatRoomQuery extends BaseQuery<ChatRoom, number, CreateTypes> {
@@ -20,11 +21,20 @@ class ChatRoomQuery extends BaseQuery<ChatRoom, number, CreateTypes> {
     return chatroom[0];
   }
 
+
+
+  async findByProduct(productId: string): Promise<ChatRoom[]> {
+    const chatRooms = await this.select(`SELECT * FROM ${this.tableName} WHERE productId = ?`, [productId]);
+
+    return chatRooms;
+  }
+
+
   async create(data: CreateTypes): Promise<ChatRoom> {
     const now = new Date();
     const insertResult = await this.save(
-      `INSERT INTO ${this.tableName} (productId, createdAt, updatedAt) VALUES(?, ?, ?)`,
-      [data.productId, now, now]);
+      `INSERT INTO ${this.tableName} (productId, userId, createdAt, updatedAt) VALUES(?, ?, ?, ?)`,
+      [data.productId, data.userId, now, now]);
 
     const town = await this.findByPk(insertResult.insertId);
     if (town === null) {

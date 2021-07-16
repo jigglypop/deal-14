@@ -31,14 +31,14 @@ export class WriteProductRequest extends BaseRequest {
   @IsNotEmpty()
   content!: string;
 
-  @IsEnum(Categories)
+  @IsInt()
   category: Categories;
 
   @IsInt()
   townId: number;
 
   @IsString({ each: true })
-  images: string;
+  images: string[];
 
   constructor(data: WriteProductRequest) {
     super();
