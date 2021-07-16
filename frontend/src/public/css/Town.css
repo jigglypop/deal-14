@@ -1,0 +1,66 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#Town-Inner {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: var(--baseX);
+  height: var(--baseY);
+  background-color: var(--app);
+}
+
+.Town-Description {
+  color: #888888;
+  font-weight: normal;
+  margin: 40px 0;
+}
+
+.Town-Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px;
+  width: 100%;
+  height: 60px;
+  background-color: #F6F6F6;
+  border-bottom: 1px solid #D7D7D7;
+}
+
+.Town-Header > * {
+  flex-grow: 1;
+}
+
+.Town-Header > h4 {
+  font-size: 18px;
+  color: #222222;
+  font-weight: normal;
+}
+
+.Town-List {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.Town-Item {
+  padding: 0px 16px;
+  height: 45px;
+  border-radius: 8px;
+  width: 175px;
+  margin: 5px 0px;
+}
+
+#Add-Town-Button {
+  color: #2AC1BC;
+}
+
+#Add-Town-Button:disabled {
+  color: #888888;
+}

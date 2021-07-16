@@ -4,13 +4,13 @@ import About from "./components/About";
 import React from "./util/react";
 import Header from "./components/Header";
 import "./public/css/App.css"
+import Town from './components/Town';
 
 export interface IServiceConstructor {
     $target: HTMLElement
 }
 
 class App extends React {
-    
     styled = `
     `;
 
@@ -39,11 +39,14 @@ class App extends React {
                 case 'service':
                     new Service(this.$outer)
                     break;
+                case 'town':
+                    new Town(this.$outer)
+                    break;
                 default:
                     new Home(this.$outer)
                     break;
             }
-                      
+
         }
     }
 
