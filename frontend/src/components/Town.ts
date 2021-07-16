@@ -5,13 +5,21 @@ import { $ } from '../util/select';
 import convertElementTarget from '../util/convertEventTarget';
 import UserTownItem from '../templates/UserTownItem';
 import { UserTownTypes } from '../types/userTown';
-import OpenAddModalButton from '../templates/OpenAddModalButton';
-import AddModal from '../templates/AddModal';
-import RemoveModal from '../templates/RemoveModal';
+import OpenAddModalButton from '../templates/Town/OpenAddModalButton';
+import AddModal from '../templates/Town/AddModal';
+import RemoveModal from '../templates/Town/RemoveModal';
+import Modal from '../templates/Modal';
 
 export default class Town extends React {
+  private addModal: Modal;
+  private removeModal: Modal;
+
   constructor($target: HTMLElement) {
     super($target, 'Town');
+
+    this.addModal = new Modal(this.$target, AddModal());
+    this.removeModal = new Modal(this.$target, RemoveModal());
+
     this.state = {
       userTowns: [{
         id: 2,
@@ -31,33 +39,27 @@ export default class Town extends React {
     this.init();
   }
 
-  onRemove() {
-
-  }
-
   onOpenRemoveClicked() {
-    $('.Town-Remove-Modal').get()?.classList.replace('disappear', 'appear');
-    $('.Town-Remove-Modal-Container').get()?.classList.replace('disappear', 'appear');
+    this.removeModal.open();
   }
 
-  onCloseRemoveClicked() {
-    $('.Town-Remove-Modal').get()?.classList.replace('appear', 'disappear');
-    $('.Town-Remove-Modal-Container').get()?.classList.replace('appear', 'disappear');
+  onCloseRemoveButtonClicked() {
+    this.removeModal.close();
   }
 
-  onOpenAddClicked() {
-    $('.Town-Add-Modal').get()?.classList.replace('disappear', 'appear');
-    $('.Town-Add-Modal-Container').get()?.classList.replace('disappear', 'appear');
+  onOpenAddButtonClicked() {
+    this.addModal.open();
   }
 
-  onCloseAddClicked() {
-    $('.Town-Add-Modal').get()?.classList.replace('appear', 'disappear');
-    $('.Town-Add-Modal-Container').get()?.classList.replace('appear', 'disappear');
+  onCloseAddButtonClicked() {
+    this.addModal.close();
     (($('#Add-Town-Input').get()) as HTMLInputElement).value = '';
   }
 
-  onAddClicked() {
-    this.onCloseAddClicked();
+  onAddButtonClicked() {
+    // todo: 추가하기
+    this.addModal.close();
+    (($('#Add-Town-Input').get()) as HTMLInputElement).value = '';
   }
 
   onTownListClicked(e: Event) {
@@ -78,19 +80,16 @@ export default class Town extends React {
   }
 
   listenEvents() {
-    $('#Open-Add-Town-Modal').on('click', () => this.onOpenAddClicked());
-    $('.Town-List').on('click', (e) => this.onTownListClicked(e));
-    $('#Add-Town-Input').on('keyup', (e) => this.onAddTownInputChanged(e));
-    $('#Close-Add-Town-Modal').on('click', () => this.onCloseAddClicked());
-    $('#Close-Remove-Town-Modal').on('click', () => this.onCloseRemoveClicked());
-    $('#Add-Town-Button').on('click', () => this.onAddClicked());
+    $('#Open-Add-Town-Modal').on('click', this.onOpenAddButtonClicked.bind(this));
+    $('.Town-List').on('click', this.onTownListClicked.bind(this));
+    $('#Add-Town-Input').on('keyup', this.onAddTownInputChanged.bind(this));
+    $('#Close-Add-Town-Modal').on('click', this.onCloseAddButtonClicked.bind(this));
+    $('#Close-Remove-Town-Modal').on('click', this.onCloseRemoveButtonClicked.bind(this));
+    $('#Add-Town-Button').on('click', this.onAddButtonClicked.bind(this));
   }
 
   render() {
     this.$outer.innerHTML = `
-      ${AddModal()}
-      ${RemoveModal()}
-
       <div id="Town-Inner">
         <header class="Town-Header">
           <div>${LeftArrow}</div>
