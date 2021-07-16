@@ -1,12 +1,12 @@
-.Town-Add-Modal-Container.disappear {
+.Town-Remove-Modal-Container.disappear {
   visibility: hidden;
 }
 
-.Town-Add-Modal-Container.appear {
+.Town-Remove-Modal-Container.appear {
   visibility: visible;
 }
 
-.Town-Add-Modal-Wrapper {
+.Town-Remove-Modal-Wrapper {
   position: absolute;
   z-index: 10;
   height: var(--baseY);
@@ -42,18 +42,17 @@
   }
 }
 
-.Town-Add-Modal.disappear {
+.Town-Remove-Modal.disappear {
   visibility: hidden;
   animation: fade-out 0.3s ease-in-out;
 }
 
-.Town-Add-Modal.appear {
+.Town-Remove-Modal.appear {
   visibility: visible;
   animation: fade-in 0.3s ease-in-out;
 }
 
-
-.Town-Add-Modal {
+.Town-Remove-Modal {
   margin: 0 auto;
   width: 90%;
   background: #F6F6F6;
@@ -66,42 +65,32 @@
   transition: 0.3s all;
 }
 
-.Town-Add-Modal-Content {
+.Town-Remove-Modal-Content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 }
 
-.Town-Add-Modal-Desc {
-  margin-bottom: 10px;
+.Town-Remove-Modal-Desc {
+  margin-bottom: 20px
 }
 
-.Town-Add-Modal-Content > input {
-  width: 100%;
-  border: 1px solid #D7D7D7;
-  padding: 8px;
-  background-color: white;
-  border-radius: 8px;
-  outline: none;
-  margin-bottom: 15px;
-}
-
-.Town-Add-Modal-Content > input:focus {
-  border: 1px solid #2AC1BC;
-}
-
-.Town-Add-Button-Wrapper {
+.Town-Remove-Button-Wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
 
-.Town-Add-Button-Wrapper > button {
+.Town-Remove-Button-Wrapper > button {
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+#Remove-Town-Button {
+  color: #F45452;
 }
 

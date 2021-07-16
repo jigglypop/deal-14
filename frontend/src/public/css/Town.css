@@ -49,20 +49,6 @@
   flex-wrap: wrap;
 }
 
-.Town-Add-Button-Wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.Town-Add-Button-Wrapper > button {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
 .Town-Item {
   padding: 0px 16px;
   height: 45px;
