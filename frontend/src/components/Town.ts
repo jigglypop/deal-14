@@ -67,6 +67,7 @@ export default class Town extends React {
       return;
     }
 
+    // 삭제 시 사용
     const userTownId = $closest.parentElement?.dataset.userTownId;
     this.onOpenRemoveClicked();
   }
@@ -78,10 +79,8 @@ export default class Town extends React {
 
   listenEvents() {
     $('#Open-Add-Town-Modal').on('click', () => this.onOpenAddClicked());
-    // $('.Town-List').on('click', (e) => this.onTownListClicked(e));
-    document.querySelector('.Town-List')?.addEventListener('click', (e) => this.onTownListClicked(e));
-    // $('#Add-Town-Input').on('keyup', (e) => this.onAddTownInputChanged(e));
-    $('#Add-Town-Input').get()?.addEventListener('keyup', (e) => this.onAddTownInputChanged(e));
+    $('.Town-List').on('click', (e) => this.onTownListClicked(e));
+    $('#Add-Town-Input').on('keyup', (e) => this.onAddTownInputChanged(e));
     $('#Close-Add-Town-Modal').on('click', () => this.onCloseAddClicked());
     $('#Close-Remove-Town-Modal').on('click', () => this.onCloseRemoveClicked());
     $('#Add-Town-Button').on('click', () => this.onAddClicked());
