@@ -1,0 +1,16 @@
+enum Categories {
+  DIGITAL_MACHINE = 0,
+  LIFE_MACHINE = 1,
+  FURNITURE_AND_INTERIOR = 2,
+  GAME_AND_HOBBY = 3,
+  LIFE_FOOD = 4,
+  SPORTS = 5,
+  WOMAN_FASHION = 6,
+  MAN_FASHION = 7,
+  FOR_CHILD = 8,
+  BEAUTY = 9,
+  ANIMAL = 10,
+  BOOK_TICKET_ALBUMS = 11,
+}
+
+export default Categories;

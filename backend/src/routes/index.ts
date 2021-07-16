@@ -1,8 +1,18 @@
 import { Router } from 'express';
-import sampleController from '../controllers/sample.controller';
+import authRouter from './auth';
+import productRouter from './product'
+import townRouter from "./town"
+import chatroomRouter from "./chatroom"
+import chatmessageRouter from "./chatmessage"
+import uploadRouter from './upload';
 
 const apiRouter = Router();
 
-apiRouter.get('/', sampleController.hello);
+apiRouter.use('/auth', authRouter);
+apiRouter.use('/product', productRouter);
+apiRouter.use('/town', townRouter);
+apiRouter.use('/chatroom', chatroomRouter);
+apiRouter.use('/chatmessage', chatmessageRouter);
+apiRouter.use('/upload', uploadRouter);
 
 export default apiRouter;
