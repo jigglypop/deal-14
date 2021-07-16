@@ -1,16 +1,16 @@
-import Service from "./components/Service";
 import Home from "./components/home";
 import About from "./components/About";
 import React from "./util/react";
 import Header from "./components/Header";
 import "./public/css/App.css"
+import Town from './components/Town';
+import Location from "./components/Location";
 
 export interface IServiceConstructor {
     $target: HTMLElement
 }
 
 class App extends React {
-    
     styled = `
     `;
 
@@ -37,13 +37,16 @@ class App extends React {
                     new About(this.$outer)
                     break;
                 case 'service':
-                    new Service(this.$outer)
+                    new Location(this.$outer)
+                    break;
+                case 'town':
+                    new Town(this.$outer)
                     break;
                 default:
                     new Home(this.$outer)
                     break;
             }
-                      
+
         }
     }
 

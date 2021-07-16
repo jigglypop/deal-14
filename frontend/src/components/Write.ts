@@ -1,12 +1,12 @@
 import React from "../util/react"
-import "../public/css/Auth.css"
+import "../public/css/Write.css"
 import { RightArrow } from "../svgicon/RightArrow"
 import { $ } from "../util/select"
 
-export default class Auth extends React{
+export default class Write extends React{
 
     styled = `
-        #Auth-Inner {
+        #Write-Inner {
             position: absolute;
             z-index: 2;
             display: flex;
@@ -19,7 +19,7 @@ export default class Auth extends React{
             height: var(--baseY);
         }
 
-        #Auth-Header {
+        #Write-Header {
             position: sticky;
             display: flex;
             justify-content: space-around;
@@ -32,7 +32,7 @@ export default class Auth extends React{
             background-color: var(--gray);
         }
 
-        #Auth-Content {
+        #Write-Content {
             position: relative;
 
             width: 95%;
@@ -40,27 +40,27 @@ export default class Auth extends React{
             background-color: var(--app);
         }
 
-        #Auth-Arrow {
+        #Write-Arrow {
             cursor: pointer;
         }
     `
 
     constructor($target: HTMLElement) {
-        super($target, 'Auth')
+        super($target, 'Write')
         this.init()
         this.methods()
     }
 
     render() {
         this.$outer.innerHTML = `
-            <div id="Auth-Inner" >
-                <div id="Auth-Content" >
-                    <div id="Auth-Header">
+            <div id="Write-Inner" >
+                <div id="Write-Content" >
+                    <div id="Write-Header">
                         <div></div>
                         <div>
-                            <h4>로그인</h4>
+                            <h4>글쓰기</h4>
                         </div>
-                        <div id="Auth-Arrow" >
+                        <div id="Write-Arrow" >
                             ${RightArrow}
                         </div>
                     </div>
@@ -70,8 +70,8 @@ export default class Auth extends React{
     }
 
     methods() {
-        $("#Auth-Arrow").on('click', function() {
-            $("#Auth-Inner").css("transform", "translateX(400px)")
+        $("#Write-Arrow").on('click', function() {
+            $("#Write-Inner").css("transform", "translateX(400px)")
         })
     }
 }

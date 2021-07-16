@@ -21,4 +21,6 @@ export default class About extends React{
         </div>
         `
     }
+
+    methods(){}
 }

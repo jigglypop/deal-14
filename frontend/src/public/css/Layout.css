@@ -29,7 +29,10 @@ body {
     --app: white;
     --red: #ED213A;
     --background-dark: linear-gradient(45deg, #000000, #434343);
-    --header: #2AC1BC;
+    --header: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
+    --gray: #F6F6F6;
+    --dark-gray: #D7D7D7;
+
 
     --baseX: 400px;
     --base-X: -400px;
@@ -198,11 +201,11 @@ main {
 
 ::-webkit-scrollbar {
     width: 20px;
-    background-color: #1d1d1d;
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(45deg, #8E2DE2, #4A00E0);
+    background-image: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
     border-radius: 10px;
     background-clip: padding-box;
     border: 3px solid transparent;
@@ -213,7 +216,7 @@ main {
 }
 
 ::-webkit-scrollbar-corner {
-    background-color: #1d1d1d;
+    background-color: transparent;
 }
 
 
