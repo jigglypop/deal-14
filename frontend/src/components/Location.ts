@@ -8,10 +8,6 @@ export default class Location extends React{
             color: red;
         }
     `
-    state = {
-        data: ""
-    }
-    under: any
 
     constructor($target: HTMLElement) {
         super($target, 'Location')

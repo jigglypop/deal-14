@@ -19,15 +19,13 @@ class App extends React {
         window.addEventListener('hashchange', () => {
             this.render()
         });
-        window.addEventListener('DOMContentLoaded', () => {
-            this.render()
-        });
         this.render()
     }
 
     render() {
         // 헤더
         const hash: string = location.hash.replace('#', '');
+
         if (this.$outer) {
             this.$outer.innerHTML = ""
             new Header(this.$outer)
@@ -36,7 +34,7 @@ class App extends React {
                 case 'about':
                     new About(this.$outer)
                     break;
-                case 'service':
+                case 'location':
                     new Location(this.$outer)
                     break;
                 case 'town':

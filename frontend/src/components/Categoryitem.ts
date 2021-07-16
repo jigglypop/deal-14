@@ -1,6 +1,10 @@
 import React from "../util/react"
 import "../public/css/CategoryItem.css"
 
+type IData = null | {
+    name: string
+    key: number
+}
 
 export default class CategoryItem extends React{
 
@@ -16,7 +20,8 @@ export default class CategoryItem extends React{
             margin: 10px;
         }
         .Category-Text {
-            font-size: 12px;
+            margin-top: 6px;
+            font-size: 11px;
         }
 
         .Category-Box {
@@ -34,10 +39,7 @@ export default class CategoryItem extends React{
 
         }
     `
-    data: null | {
-        name: string
-        key: number
-     } = null
+    data: IData = null
 
     constructor($target: HTMLElement, data: {
         name: string

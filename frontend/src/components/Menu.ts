@@ -66,8 +66,7 @@ export default class Menu extends React{
                         </div>
                     </div>               
                 </div>
-            </div>
-        `
+            </div>`
     }
 
     methods() {

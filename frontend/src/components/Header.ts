@@ -107,7 +107,7 @@ export default class Header extends React{
         new Category(this.$outer)
         // 회원가입/로그인
         new Auth(this.$outer)
-        // 회원가입/로그인
+        // 글쓰기
         new Write(this.$outer)
     }
 
