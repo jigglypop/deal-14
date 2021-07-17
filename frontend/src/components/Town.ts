@@ -3,75 +3,93 @@ import React from '../util/react';
 import '../public/css/Town.css';
 import { $ } from '../util/select';
 import convertElementTarget from '../util/convertEventTarget';
-import UserTownItem from '../templates/UserTownItem';
 import { UserTownTypes } from '../types/userTown';
-import OpenAddModalButton from '../templates/Town/OpenAddModalButton';
-import AddModal from '../templates/Town/AddModal';
-import RemoveModal from '../templates/Town/RemoveModal';
-import Modal from '../templates/Modal';
+import UserTownItem from './Town/UserTownItem';
+import PlusTownItem from './Town/PlusTownItem';
+import { addMyTown, fetchMyTowns, removeMyTown } from '../requests/town';
+import AddTownModal from './Town/AddTownModal';
+import RemoveTownModal from './Town/RemoveTownModal';
+import ErrorModal from '../common/ErrorModal';
 
 export default class Town extends React {
-  private addModal: Modal;
-  private removeModal: Modal;
+  private addTownModal: AddTownModal;
+  private removeTownModal: RemoveTownModal;
+  private errorModal: ErrorModal;
+
+  private userTowns: UserTownTypes[] = [];
+  private removeUserTownId: number | null = null;
 
   constructor($target: HTMLElement) {
     super($target, 'Town');
-
-    this.addModal = new Modal(this.$target, AddModal());
-    this.removeModal = new Modal(this.$target, RemoveModal());
-
-    this.state = {
-      userTowns: [{
-        id: 2,
-        town: {
-          townName: "삼성동"
-        },
-      },
-      {
-        id: 3,
-        town: {
-          townName: "삼성동"
-        },
-      }
-      ],
-    }
-
+    this.addTownModal = new AddTownModal(this.$target);
+    this.removeTownModal = new RemoveTownModal(this.$target, this.onRemoveButtonClicked);
+    this.errorModal = new ErrorModal(this.$target);
     this.init();
   }
 
-  onOpenRemoveClicked() {
-    this.removeModal.open();
+  openRemoveModal() {
+    this.removeTownModal.open();
   }
 
-  onCloseRemoveButtonClicked() {
-    this.removeModal.close();
+  onCloseRemoveButtonClicked = () => {
+    this.removeTownModal.close();
   }
 
-  onOpenAddButtonClicked() {
-    this.addModal.open();
+  onOpenAddButtonClicked = () => {
+    this.addTownModal.open();
   }
 
-  onCloseAddButtonClicked() {
-    this.addModal.close();
+  onCloseAddButtonClicked = () => {
+    this.addTownModal.close();
     (($('#Add-Town-Input').get()) as HTMLInputElement).value = '';
   }
 
-  onAddButtonClicked() {
-    // todo: 추가하기
-    this.addModal.close();
-    (($('#Add-Town-Input').get()) as HTMLInputElement).value = '';
+  onAddButtonClicked = () => {
+    const $addTownInput = $('#Add-Town-Input').get() as HTMLInputElement;
+    const townName = $addTownInput.value;
+
+    addMyTown({
+      townName,
+    })
+      .then(() => {
+        this.fetchUserTowns();
+      })
+      .catch(error => {
+        this.errorModal.open(error.message);
+      })
+      .finally(() => {
+        this.addTownModal.close();
+      });
   }
 
-  onTownListClicked(e: Event) {
+  onTownListClicked = (e: Event) => {
     const $target = convertElementTarget(e.target);
     const $closest = <HTMLElement>$target.closest('.Close-Button');
     if ($closest === null) {
       return;
     }
 
-    // 삭제 시 사용
-    const userTownId = $closest.parentElement?.dataset.userTownId;
-    this.onOpenRemoveClicked();
+
+    this.removeUserTownId = Number($closest.parentElement?.dataset.userTownId ?? null);
+    this.openRemoveModal();
+  }
+
+  onRemoveButtonClicked = () => {
+    if (this.removeUserTownId === null) {
+      return;
+    }
+
+    removeMyTown(this.removeUserTownId)
+      .then(() => {
+        this.fetchUserTowns();
+      })
+      .catch(error => {
+        this.errorModal.open(error.message)
+      })
+      .finally(() => {
+        this.removeTownModal.close();
+        this.removeUserTownId = null;
+      });
   }
 
   onAddTownInputChanged(e: Event) {
@@ -80,12 +98,48 @@ export default class Town extends React {
   }
 
   methods() {
-    $('#Open-Add-Town-Modal').on('click', this.onOpenAddButtonClicked.bind(this));
-    $('.Town-List').on('click', this.onTownListClicked.bind(this));
-    $('#Add-Town-Input').on('keyup', this.onAddTownInputChanged.bind(this));
-    $('#Close-Add-Town-Modal').on('click', this.onCloseAddButtonClicked.bind(this));
-    $('#Close-Remove-Town-Modal').on('click', this.onCloseRemoveButtonClicked.bind(this));
-    $('#Add-Town-Button').on('click', this.onAddButtonClicked.bind(this));
+    $('.PlusTownItem').get()?.removeEventListener('click', this.onOpenAddButtonClicked);
+    $('.Town-List').get()?.removeEventListener('click', this.onTownListClicked);
+    $('#Add-Town-Input').get()?.removeEventListener('keyup', this.onAddTownInputChanged);
+    $('#Close-Add-Town-Modal').get()?.removeEventListener('click', this.onCloseAddButtonClicked);
+    $('#Close-Remove-Town-Modal').get()?.removeEventListener('click', this.onCloseRemoveButtonClicked);
+    $('#Add-Town-Button').get()?.removeEventListener('click', this.onAddButtonClicked);
+
+    $('.PlusTownItem').on('click', this.onOpenAddButtonClicked);
+    $('.Town-List').on('click', this.onTownListClicked);
+    $('#Add-Town-Input').on('keyup', this.onAddTownInputChanged);
+    $('#Close-Add-Town-Modal').on('click', this.onCloseAddButtonClicked);
+    $('#Close-Remove-Town-Modal').on('click', this.onCloseRemoveButtonClicked);
+    $('#Add-Town-Button').on('click', this.onAddButtonClicked);
+  }
+
+  fetchUserTowns() {
+    fetchMyTowns()
+      .then(data => {
+        const { userTowns } = data.data;
+        this.userTowns = userTowns;
+        this.componentWillMount();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  // todo BaseResponse 개발 후 제내릭
+  componentWillMount() {
+    const $townList = $('.Town-List').get();
+    if ($townList === null) {
+      return;
+    }
+
+    // BaseResponse 개발 시 제거
+    $townList.innerHTML = '';
+    this.userTowns.forEach((userTown: UserTownTypes) => {
+      new UserTownItem($townList, userTown);
+    });
+    new PlusTownItem($townList);
+
+    this.methods();
   }
 
   render() {
@@ -100,12 +154,10 @@ export default class Town extends React {
           <p>지역은 최소 1개 이상<br>최대 2개까지 설정가능해요.</p>
         </div>
         <div class="Town-List">
-          ${this.state.userTowns.map((userTown: UserTownTypes) => UserTownItem(userTown)).join('')}
-          ${OpenAddModalButton()}
         </div>
       </div>
     `
 
-    this.methods();
+    this.fetchUserTowns();
   }
 }
