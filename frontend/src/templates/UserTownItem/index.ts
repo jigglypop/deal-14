@@ -5,9 +5,5 @@ import './index.css'
 
 export default (userTown: UserTownTypes) => {
   return `
-  <div class="Town-Item Town-Info" data-user-town-id="${userTown.id}">
-    <span class="Town-Item-Name">${userTown.town.townName}</span>
-    ${CloseButton}
-  </div>
   `
 }
