@@ -4,19 +4,30 @@ import "../public/css/Header.css"
 import { HamburgerSVG } from "../svgicon/hamburger"
 import { BoxSVG } from "../svgicon/box"
 import { AvatarSVG } from "../svgicon/Avatar"
-import Menu from "./Menu"
-import Category from "./Category"
-import Auth from "./Auth"
-import Write from "./Write"
+// import Menu from "./Menu"
+// import Category from "./Category"
+// import Auth from "./Auth"
+// import Write from "./Write"
 import { $ } from "../util/select"
+import { redux } from ".."
 
 export default class Header extends React{
 
-    styled = `
+    state = {
+        id: ''
+    }
+
+
+    constructor($target: HTMLElement) {
+        super($target, 'Header', 'nav')
+        this.init()
+    }
+    css() {
+        return `
         #Header-Inner {
             position: sticky;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             z-index: 1;
 
@@ -30,19 +41,25 @@ export default class Header extends React{
         .header-link {
             display: flex;
             justify-content: center;
-            align-items: center;           
+            align-items: center;
+            
+            width: 33%;
         }
 
         .header-link-left {
             display: flex;
             justify-content: flex-start;
-            align-items: center;           
+            align-items: center;
+            
+            width: 33%;
         }
 
         .header-link-right {
             display: flex;
             justify-content: flex-end;
-            align-items: center;           
+            align-items: center;
+
+            width: 33%;
         }
 
         .header-link-item {
@@ -71,18 +88,8 @@ export default class Header extends React{
         a:active {
             color: var(--text);
             text-decoration: none;
-        }
-
-
-    `
-
-    constructor($target: HTMLElement) {
-        super($target, 'Header', 'nav')
-
-        this.init()
-        this.methods()
+        }`
     }
-
     render() {
         this.$outer.innerHTML = `
             <div id="Header-Inner" >
@@ -90,10 +97,13 @@ export default class Header extends React{
                     <div class="header-link-item" id="category-button" >${BoxSVG}</div>
                 </div>
                 <div class="header-link" >
-                    <a href="#service" class="header-link-item" >${LocationSVG} 역삼동</a>
+                    <a href="#town" class="header-link-item" >${LocationSVG} 역삼동</a>
                 </div>
                 <div class="header-link-right" >
                     <div class="header-link-item" id="auth-button" >${AvatarSVG}</div>
+                    <div class="header-link-item">
+                        <h5 id="checkedId" >${this.state.id === '' ? '비로그인' : this.state.id }</h5>
+                    </div>
                     <div class="header-link-item" id="menu-button" >${HamburgerSVG}</div>
                 </div>
                 <div id="FaB-Button" >
@@ -101,18 +111,28 @@ export default class Header extends React{
                 </div>
             </div>
         `
-        // 슬라이더들
-        new Menu(this.$outer)
-        // 카테고리
-        new Category(this.$outer)
-        // 회원가입/로그인
-        new Auth(this.$outer)
-        // 글쓰기
-        new Write(this.$outer)
+        // console.log("슬라이더", this.$outer)
+        // // 슬라이더들
+        // new Menu(this.$outer)
+        // // 카테고리
+        // new Category(this.$outer)
+        // // 회원가입/로그인
+        // new Auth(this.$outer)
+        // // 글쓰기
+        // new Write(this.$outer)
+        // const AuthInner = $("#Auth-Inner").get()
+        // if (AuthInner) {
+        //     $(AuthInner).css("transform", "translateX(400px)")
+        // }
+        // // $('#Auth-Inner').css("transform", "translateX(-400px)")
+
+
+        // console.log(AuthInner)
     }
 
     methods() {
         const names = ['Menu', 'Auth', 'Category']
+
         names.forEach((name: string) => {
             $(`#${name.toLowerCase()}-button`).on('click', function(){
                 $(`#${name}-Inner`).css('transform', "translateX(0)")

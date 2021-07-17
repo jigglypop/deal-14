@@ -8,7 +8,19 @@ type IData = null | {
 
 export default class CategoryItem extends React{
 
-    styled = `
+    data: IData = null
+
+    constructor($target: HTMLElement, data: {
+        name: string
+        key: number
+     }) {
+        super($target, 'CategoryItem')
+        this.data = data
+        this.init()
+        this.methods()
+    }
+    css() {
+        return `
         .Category-Item {
             display: flex;
             flex-direction: column;
@@ -37,20 +49,8 @@ export default class CategoryItem extends React{
 
         .Category-Item-Inner {
 
-        }
-    `
-    data: IData = null
-
-    constructor($target: HTMLElement, data: {
-        name: string
-        key: number
-     }) {
-        super($target, 'CategoryItem')
-        this.data = data
-        this.init()
-        this.methods()
+        }`
     }
-
     render() {
         this.$outer.innerHTML = `
             <div class="Category-Item" >
@@ -60,8 +60,7 @@ export default class CategoryItem extends React{
                 <div class="Category-Item-Inner" >
                     <h5 class="Category-Text" >${this.data?.name}</h5>
                 </div>
-            </div>
-        `
+            </div>`
     }
     methods() {
 

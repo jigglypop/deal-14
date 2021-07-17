@@ -1,0 +1,19 @@
+.glass-button:hover {
+    box-shadow: 2px 2px 20px var(--baemin);
+}
+
+.glass-button:before {
+    content: "";
+    background-color: white;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 30px;
+    position: absolute;
+    transform: translateX(-100%) rotate(45deg);
+    transition: all 0.3s;
+}
+
+.glass-button:hover:before {
+    transform: translateX(100%) rotate(45deg);
+}

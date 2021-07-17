@@ -23,8 +23,8 @@ const getTimes = () => {
                 value = Math.floor(value / 60)
                 if (value >= 60) {
                     value = Math.floor(value / 60)
-                    if (value >= 60) {
-                        value = Math.floor(value / 60)
+                    if (value >= 24) {
+                        value = Math.floor(value / 24)
                         return value.toString() + "일 전"    
                     } else {
                         return value.toString() + "시간 전"    

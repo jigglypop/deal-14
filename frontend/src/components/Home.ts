@@ -3,20 +3,17 @@ import { $ } from "../util/select"
 import Card from "./Card"
 import "../public/css/Home.css"
 import { productListApi } from "../requests/product"
+import { errorMsg } from "../util/errorMsg"
+import { IProductListResponse } from "../types/IProductListResponse"
 
 export default class Home extends React{
 
-    styled = `
-        h1 {
-            color: blue;
-        }
-
-        ul {
-            li {
-                color: red;
-            }
-        }
-
+    constructor($target: HTMLElement) {
+        super($target, 'Home')
+        this.init() 
+    }
+    css() {
+        return `
         #home-inner {
             position: relative;
         }
@@ -25,13 +22,8 @@ export default class Home extends React{
             position: relative;
             height: 620px;
             overflow: scroll;
-        }
-    `
-    constructor($target: HTMLElement) {
-        super($target, 'Home')
-        this.init() 
+        }`
     }
-
     render() {
         this.$outer.innerHTML = `
         <div id="home-inner" >
@@ -43,19 +35,22 @@ export default class Home extends React{
     getList() {
         productListApi()
             .then(data => {
-                this.componentWillMount(data)
+                this.componentWillMount(data, '')
             }).catch(err => {
-                console.log(err)
+                this.componentWillMount(null, errorMsg(err))
             })
     }
 
-    componentWillMount(data: any) {
-        const homeContent: any = $("#home-content").getById()
-
-        for (let i = 0; i < data.data.products.length; i++) {
-            const item = data.data.products[i]
-            new Card(homeContent, item)
+    componentWillMount(data: IProductListResponse | null, err: string) {
+        let homeContent: HTMLElement | null = $("#home-content").getById()
+        if (data) {
+            data.data.products.forEach(product=> homeContent? new Card(homeContent, product) : null)       
+        } else if (!data && homeContent){
+            homeContent.innerHTML = `
+                <h4>${err}</h4>
+            `
         }
     }
-    methods(){}
+
+    methods() {}
 }

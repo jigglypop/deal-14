@@ -79,6 +79,10 @@ export default class Town extends React {
     ($('#Add-Town-Button').get() as HTMLButtonElement).disabled = !(inputText.trim().length > 0);
   }
 
+  css() {
+    return ``
+  }
+
   methods() {
     $('#Open-Add-Town-Modal').on('click', this.onOpenAddButtonClicked.bind(this));
     $('.Town-List').on('click', this.onTownListClicked.bind(this));
@@ -105,7 +109,5 @@ export default class Town extends React {
         </div>
       </div>
     `
-
-    this.methods();
   }
 }

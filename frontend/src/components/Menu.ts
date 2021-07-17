@@ -5,7 +5,14 @@ import { $ } from "../util/select"
 
 export default class Menu extends React{
 
-    styled = `
+
+    constructor($target: HTMLElement) {
+        super($target, 'Menu')
+        this.init()
+        this.methods()
+    }
+    css() {
+        return `
         #Menu-Inner {
             position: absolute;
             z-index: 2;
@@ -43,13 +50,7 @@ export default class Menu extends React{
 
         #Menu-Arrow {
             cursor: pointer;
-        }
-    `
-
-    constructor($target: HTMLElement) {
-        super($target, 'Menu')
-        this.init()
-        this.methods()
+        }`
     }
 
     render() {

@@ -4,7 +4,16 @@ import getTimes from "../util/getTimes"
 
 export default class Card extends React{
 
-    styled = `
+    item: any
+
+    constructor($target: HTMLElement, item: any) {
+        super($target, 'Card')
+        this.item = item
+        this.init()
+    }
+
+    css() {
+        return `
         .Card-Inner {
             position: relative;
             border: 2px_solid_black;
@@ -58,18 +67,8 @@ export default class Card extends React{
 
         .Card-Right {
 
-        }
-    `
-
-    item: any
-
-    constructor($target: HTMLElement, item: any) {
-        super($target, 'Card')
-        this.item = item
-        this.init()
+        }`
     }
-
-
 
     render() {
         this.$outer.innerHTML = `

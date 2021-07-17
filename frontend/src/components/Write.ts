@@ -2,10 +2,18 @@ import React from "../util/react"
 import "../public/css/Write.css"
 import { RightArrow } from "../svgicon/RightArrow"
 import { $ } from "../util/select"
+import { CheckSVG } from "../svgicon/Check"
 
 export default class Write extends React{
 
-    styled = `
+    constructor($target: HTMLElement) {
+        super($target, 'Write')
+        this.init()
+        this.methods()
+    }
+
+    css() {
+        return `
         #Write-Inner {
             position: absolute;
             z-index: 2;
@@ -29,7 +37,8 @@ export default class Write extends React{
             left: 0;
             width: 100%;
             height: 80px;
-            background-color: var(--gray);
+            background-color: var(--white);
+            border-bottom: 2px_solid_var(--deep-gray);
         }
 
         #Write-Content {
@@ -42,13 +51,7 @@ export default class Write extends React{
 
         #Write-Arrow {
             cursor: pointer;
-        }
-    `
-
-    constructor($target: HTMLElement) {
-        super($target, 'Write')
-        this.init()
-        this.methods()
+        }`
     }
 
     render() {
@@ -56,7 +59,9 @@ export default class Write extends React{
             <div id="Write-Inner" >
                 <div id="Write-Content" >
                     <div id="Write-Header">
-                        <div></div>
+                        <div id="Write-Success" >
+                            ${CheckSVG}
+                        </div>
                         <div>
                             <h4>글쓰기</h4>
                         </div>

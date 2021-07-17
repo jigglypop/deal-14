@@ -7,7 +7,16 @@ import CategoryItem from "./Categoryitem"
 
 export default class Category extends React{
 
-    styled = `
+    Categories = Categories
+
+    constructor($target: HTMLElement) {
+        super($target, 'Category')
+        this.init()
+        this.methods()
+    }
+
+    css() {
+        return `
         #Category-Inner {
             position: absolute;
             z-index: 2;
@@ -63,15 +72,7 @@ export default class Category extends React{
             align-items: center;
             width: 300px;
             height: 500px;
-        }
-    `
-
-    Categories = Categories
-
-    constructor($target: HTMLElement) {
-        super($target, 'Category')
-        this.init()
-        this.methods()
+        }`
     }
 
     render() {
@@ -103,6 +104,9 @@ export default class Category extends React{
             }
         }
     }
+
+
+
     methods() {
         $("#Category-Arrow").on('click', function() {
             $("#Category-Inner").css("transform", "translateX(-400px)")
