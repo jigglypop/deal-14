@@ -21,7 +21,7 @@ export default class Auth extends React{
         const AuthInner = $('#Auth-Inner').get()
         if (AuthInner) {
             const authcontainer = new AuthContainer(AuthInner)
-            redux.instance.setInstanceAuthContainer(authcontainer)
+            redux.instance.setInstance('authcontainer',authcontainer)
         }
     }
  

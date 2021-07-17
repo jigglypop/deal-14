@@ -39,6 +39,12 @@ export default class AuthContainer extends React{
             width: 100%;
             height: 100%;
         }
+
+        .title {
+            font-size: 18px;
+            font-weight: 400;
+        }
+
         #Auth-Header {
             position: sticky;
             display: flex;
@@ -106,7 +112,7 @@ export default class AuthContainer extends React{
             <div id="Auth-Page" >
                 <div id="Auth-Content" >
                     <div id="Auth-Header">
-                        <h4>${this.state.checked === '' ? (this.state.isLogin ? "로그인" : "회원가입" ) : '내 계정' }</h4>
+                        <h4 class="title" >${this.state.checked === '' ? (this.state.isLogin ? "로그인" : "회원가입" ) : '내 계정' }</h4>
                         <div id="Auth-Arrow" >
                             ${RightArrow}
                         </div>

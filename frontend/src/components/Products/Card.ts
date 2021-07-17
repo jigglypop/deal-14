@@ -1,6 +1,6 @@
-import React from "../util/react"
-import "../public/css/Card.css"
-import getTimes from "../util/getTimes"
+import React from "../../util/react"
+import "../../public/css/Card.css"
+import getTimes from "../../util/getTimes"
 
 export default class Card extends React{
 
@@ -77,7 +77,9 @@ export default class Card extends React{
                 <img src="public/image/main.png" class="Card-Img" />
             </div>
             <div class="Card-Mid" >
-                <h4>${this.item.title}</h4>
+                <a href="/#product/${this.item.id}">
+                    <h4>${this.item.title}</h4>
+                </a>
                 <h5 class="price-text" >${this.item.price}원</h5>
                 <h5 class="time-text" >${getTimes().getTime(this.item.createdAt)}</h5>
             </div>

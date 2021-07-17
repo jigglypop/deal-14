@@ -1,52 +1,43 @@
 import { redux } from ".."
 import AuthContainer from "../components/Auth/AuthContainer"
-import Header from "../components/Header"
-import Slider from "../components/Slider"
+import Header from "../components/Header/Header"
+import MenuContainer from "../components/Menu/MenuContainer"
 import { checkApi } from "../requests/auth"
 import cache from "./cache"
-import { $ } from "./select"
 
 const check = () => {
     // 토큰 받기
     const token = cache.get('token')
+    // 리덕스 체크, 상태바꾸기 함수
+    const ChangeState = (_id: string) => {
+        redux.check.setCheckForm('id', _id)
+        
+        const header: Header = redux.instance.getInstance('header')
+        header.setState({
+            id: _id
+        })
+        const authcontainer: AuthContainer = redux.instance.getInstance('authcontainer')
+        authcontainer.setState({
+            checked: _id
+        })
+        
+        const menucontainser: MenuContainer = redux.instance.getInstance('menucontainer')
+        menucontainser.setState({
+            checked: _id
+        })
+
+    }
+
     // 토큰 없으면 헤더 처리, auth창 닫기
     if (!token) {
-        redux.check.setCheckForm('id', '')
-        const header: Header = redux.instance.getInstanceHeader()
-        header.setState({
-            id: ''
-        })
-        const authcontainer: AuthContainer = redux.instance.getInstanceAuthContainer()
-
-        authcontainer.setState({
-            checked: ''
-        })
-
+        ChangeState('')
         return 
     }
     // 있으면 헤더 처리
     checkApi()
         .then(data => {
             if (data.data.user.id) {
-                redux.check.setCheckForm('id', data.data.user.id)
-
-                const header: Header = redux.instance.getInstanceHeader()
-
-                header.setState({
-                    id: data.data.user.id
-                })
-
-                const authcontainer: AuthContainer = redux.instance.getInstanceAuthContainer()
-
-                authcontainer.setState({
-                    checked: data.data.user.id
-                })
-
-                // const slidertoggle = redux.slidertoggle.getSlider()
-                // if (slidertoggle.auth) {
-                //     $("#Auth-Inner").css("transform", "translateX(0)")
-                //     redux.slidertoggle.setSliderToggle('auth')
-                // }
+                ChangeState(data.data.user.id)
             }
         })
 }

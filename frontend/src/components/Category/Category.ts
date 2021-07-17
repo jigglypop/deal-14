@@ -1,9 +1,10 @@
-import React from "../util/react"
-import "../public/css/Category.css"
-import { LeftArrow } from "../svgicon/LeftArrow"
-import { $ } from "../util/select"
-import Categories from "../constants/category.constants"
+import React from "../../util/react"
+import "../../public/css/Category.css"
+import { LeftArrow } from "../../svgicon/LeftArrow"
+import { $ } from "../../util/select"
+import Categories from "../../constants/category.constants"
 import CategoryItem from "./Categoryitem"
+import { redux } from "../.."
 
 export default class Category extends React{
 
@@ -50,6 +51,11 @@ export default class Category extends React{
             height: 95%;
             background-color: var(--app);
         }
+
+        .title {
+            font-size: 18px;
+            font-weight: 400;
+        }
         
         #Category-Arrow {
             cursor: pointer;
@@ -84,7 +90,7 @@ export default class Category extends React{
                             ${LeftArrow}
                         </div>
                         <div>
-                            <h4>카테고리</h4>
+                            <h4 class="title" >카테고리</h4>
                         </div>
                         <div></div>
                     </div>
@@ -109,7 +115,7 @@ export default class Category extends React{
 
     methods() {
         $("#Category-Arrow").on('click', function() {
-            $("#Category-Inner").css("transform", "translateX(-400px)")
+            $("#Category-Inner").css("transform", `translateX(${redux.display.getWidthHeight()._width})`)
         })
     }
     

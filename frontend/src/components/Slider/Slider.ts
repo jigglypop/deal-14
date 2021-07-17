@@ -1,10 +1,11 @@
-import React from "../util/react"
-import "../public/css/Slider.css"
-import Menu from "./Menu"
-import Category from "./Category"
-import Auth from "./Auth/Auth"
-import Write from "./Write"
-import { $ } from "../util/select"
+import React from "../../util/react"
+import "../../public/css/Slider.css"
+import Menu from "../Menu/Menu"
+import Category from "../Category/Category"
+import Auth from "../Auth/Auth"
+import Write from "../Write/Write"
+import { $ } from "../../util/select"
+import Town from "../Town/Town"
 
 export default class Slider extends React{
 
@@ -52,6 +53,8 @@ export default class Slider extends React{
             new Auth(SliderInner)
             // 글쓰기
             new Write(SliderInner)
+            // 타운
+            new Town(SliderInner)
         }
     }
 

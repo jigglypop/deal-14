@@ -1,13 +1,11 @@
-import Home from "./components/home";
+import Home from "./components/Home/Home";
 import React from "./util/react";
-import Header from "./components/Header";
-import Slider from "./components/Slider";
+import Header from "./components/Header/Header";
+import Slider from "./components/Slider/Slider";
 import "./public/css/App.css"
-import Town from './components/Town';
-import Location from "./components/Location";
 import { redux } from ".";
 import check from "./util/check";
-import { $ } from "./util/select";
+import Product from "./components/Product/Product";
 
 export interface IServiceConstructor {
     $target: HTMLElement
@@ -29,7 +27,7 @@ class App extends React {
 
     render() {
         // 헤더
-        const hash: string = location.hash.replace('#', '');
+        const hash: string[] = location.hash.replace('#', '').split("/");
 
         if (this.$outer) {
             this.$outer.innerHTML = ""
@@ -38,16 +36,13 @@ class App extends React {
             const header = new Header(this.$outer)
             const slider = new Slider(this.$outer)
 
-            redux.instance.setInstanceHeader(header)
-            redux.instance.setInstanceSlider(slider)
+            redux.instance.setInstance('header', header)
+            redux.instance.setInstance('slider',slider)
             check()
 
-            switch (hash) {
-                case 'location':
-                    new Location(this.$outer)
-                    break;
-                case 'town':
-                    new Town(this.$outer)
+            switch (hash[0]) {
+                case 'product':
+                    new Product(this.$outer, hash[1])
                     break;
                 default:
                     new Home(this.$outer)

@@ -1,5 +1,5 @@
-import React from "../util/react"
-import "../public/css/CategoryItem.css"
+import React from "../../util/react"
+import "../../public/css/CategoryItem.css"
 
 type IData = null | {
     name: string

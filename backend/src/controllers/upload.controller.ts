@@ -5,8 +5,8 @@ class UploadController {
   upload(req: Request, res: Response) {
     const files: string[] = [];
 
-    if (req.files instanceof Array) {
-      req.files.forEach(file => {
+    if (req.body.files instanceof Array) {
+      req.body.files.forEach((file: any) => {
         files.push(`http://localhost:3000/static/files/${file.filename}`);
       });
 

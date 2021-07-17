@@ -7,8 +7,8 @@ export type ProductTypes = {
     category: number;
     userId: string;
     townId: number;
-    createdAt?: string;
-    updatedAt?: string;
+    createdAt: string;
+    updatedAt: string;
     user?: any;
     town? : any
 }

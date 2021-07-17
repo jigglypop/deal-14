@@ -1,14 +1,14 @@
-import { LeftArrow } from '../svgicon/LeftArrow';
-import React from '../util/react';
-import '../public/css/Town.css';
-import { $ } from '../util/select';
-import convertElementTarget from '../util/convertEventTarget';
-import UserTownItem from '../templates/UserTownItem';
-import { UserTownTypes } from '../types/userTown';
-import OpenAddModalButton from '../templates/Town/OpenAddModalButton';
-import AddModal from '../templates/Town/AddModal';
-import RemoveModal from '../templates/Town/RemoveModal';
-import Modal from '../templates/Modal';
+import { LeftArrow } from '../../svgicon/LeftArrow';
+import React from '../../util/react';
+import '../../public/css/Town.css';
+import { $ } from '../../util/select';
+import convertElementTarget from '../../util/convertEventTarget';
+import UserTownItem from '../../templates/UserTownItem';
+import { UserTownTypes } from '../../types/userTown';
+import OpenAddModalButton from '../../templates/Town/OpenAddModalButton';
+import AddModal from '../../templates/Town/AddModal';
+import RemoveModal from '../../templates/Town/RemoveModal';
+import Modal from '../../templates/Modal';
 
 export default class Town extends React {
   private addModal: Modal;

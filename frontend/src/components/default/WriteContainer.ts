@@ -1,32 +1,29 @@
-import React from "../util/react"
-import "../public/css/Write.css"
-import { RightArrow } from "../svgicon/RightArrow"
-import { $ } from "../util/select"
-import { CheckSVG } from "../svgicon/Check"
+import React from "../../util/react"
+import "../../public/css/Write.css"
+import { RightArrow } from "../../svgicon/RightArrow"
+import { $ } from "../../util/select"
+import { CheckSVG } from "../../svgicon/Check"
 
-export default class Write extends React{
+export default class WriteContainer extends React{
 
     constructor($target: HTMLElement) {
-        super($target, 'Write')
+        super($target, 'WriteContainer')
         this.init()
         this.methods()
     }
 
     css() {
         return `
-        #Write-Inner {
-            position: absolute;
-            z-index: 2;
+        #Write-Page {
+            position: relative;
+            
             display: flex;
             justify-content: center;
             align-items: center;
-
-            top: 0;
-            left: 0;
-            width: var(--baseX);
-            height: var(--baseY);
+            
+            width: 100%;
+            height: 100%;
         }
-
         #Write-Header {
             position: sticky;
             display: flex;
@@ -56,7 +53,7 @@ export default class Write extends React{
 
     render() {
         this.$outer.innerHTML = `
-            <div id="Write-Inner" >
+            <div id="Write-Page" >
                 <div id="Write-Content" >
                     <div id="Write-Header">
                         <div id="Write-Success" >
