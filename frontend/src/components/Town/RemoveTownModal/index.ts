@@ -1,11 +1,12 @@
-import Modal from '../../../templates/Modal';
+import Modal from '../../../common/Modal';
+import { $ } from '../../../util/select';
 
 import './index.css';
 
 export default class RemoveTownModal {
   private modal: Modal;
 
-  constructor($target: HTMLElement) {
+  constructor($target: HTMLElement, onRemoveButtonClicked: EventListener) {
     this.modal = new Modal($target, `
     <div class="Town-Remove-Modal-Content">
       <span class="Town-Remove-Modal-Desc">정말 동네 정보를 삭제하겠습니까?</span>
@@ -15,6 +16,8 @@ export default class RemoveTownModal {
       </div>
     </div>
     `);
+
+    $('#Remove-Town-Button').on('click', onRemoveButtonClicked);
   }
 
   open() {

@@ -1,4 +1,4 @@
-import Modal from '../../templates/Modal';
+import Modal from '../Modal';
 import { $ } from '../../util/select';
 
 import './index.css';

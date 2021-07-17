@@ -1,4 +1,5 @@
-import Modal from '../../../templates/Modal';
+import Modal from '../../../common/Modal';
+import { $ } from '../../../util/select';
 
 import './index.css';
 
@@ -24,5 +25,7 @@ export default class AddTownModal {
 
   close() {
     this.modal.close();
+    ($('#Add-Town-Input').get() as HTMLInputElement).value = '';
+    ($('#Add-Town-Button').get() as HTMLButtonElement).disabled = true;
   }
 }
