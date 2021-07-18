@@ -11,8 +11,10 @@ import { SpecificChatRoomTypes } from '../../types/chatRoom';
 
 import '../../public/css/Chat.css';
 import { ChatMessageTypes } from '../../types/chatMessage';
+import LeaveChatModal from './LeaveChatModal';
 
 export default class Chat extends React {
+  private leaveChatModal: LeaveChatModal;
   private canFetchMore = true;
   private chatRoom!: SpecificChatRoomTypes;
   private newMessageNoticeTimeout: NodeJS.Timeout | null = null;
@@ -20,6 +22,7 @@ export default class Chat extends React {
 
   constructor($target: HTMLElement) {
     super($target, 'Chat');
+    this.leaveChatModal = new LeaveChatModal($target);
     this.init();
   }
 
@@ -43,7 +46,6 @@ export default class Chat extends React {
     });
   }
 
-
   onSendButtonClicked = () => {
     const $chatMessageInput = ($('#Chat-Message-Input').get() as HTMLInputElement);
     const { value } = $chatMessageInput;
@@ -65,6 +67,10 @@ export default class Chat extends React {
     if ((e as KeyboardEvent).key === 'Enter') {
       this.onSendButtonClicked();
     }
+  }
+
+  onOpenLeaveChatModalButtonClicked = () => {
+    this.leaveChatModal.open();
   }
 
   componentWillMount() {
@@ -173,6 +179,7 @@ export default class Chat extends React {
   methods() {
     $('#Send-Chat-Message-Button').on('click', this.onSendButtonClicked);
     $('#Chat-Message-Input').on('keypress', this.onChatMessageInputKeyPressed);
+    $('#Open-Leave-Chat-Modal-Button').on('click', this.onOpenLeaveChatModalButtonClicked);
   }
 
   render(): void {
@@ -182,7 +189,7 @@ export default class Chat extends React {
           <div class="Chat-Header">
             <div class="Header-Left">${LeftArrow}</div>
             <h4 class="ChatRoom-Title"></h4>
-            <div class="Header-Right">${Logout}</div>
+            <div class="Header-Right" id="Open-Leave-Chat-Modal-Button">${Logout}</div>
           </div>
           <div class="Chat-Product">
           </div>
