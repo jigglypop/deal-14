@@ -39,14 +39,16 @@ class ChatroomService {
   }
 
   async findChatRoom(chatRoomId: number, userId: string) {
-    const sql = `SELECT  chat_room.*, host.id as 'host.id', client.id as 'client.id' FROM chat_room
+    const sql = `SELECT
+    chat_room.*, host.id as 'host.id', client.id as 'client.id',
+    product.title as 'product.title', product.price as 'product.price', product.isSoldOut as 'product.isSoldOut'
+    FROM chat_room
     LEFT JOIN user as client ON client.id = chat_room.userId
     LEFT JOIN product ON product.id = chat_room.productId
     LEFT JOIN user as host ON product.userId = host.id
     WHERE chat_room.id = ?`;
 
     const chatRooms = await chatRoomQuery.select(sql, [chatRoomId]);
-    console.log(chatRooms);
 
     if (chatRooms.length === 0) {
       throw new HTTPError(404, '채팅방 없음');

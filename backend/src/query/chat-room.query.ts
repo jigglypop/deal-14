@@ -58,6 +58,11 @@ class ChatRoomQuery extends BaseQuery<ChatRoom, number, CreateTypes> {
     const chatroom = new ChatRoom();
     chatroom.id = row.id;
     chatroom.productId = row.productId;
+    chatroom.product = {
+      title: row['product.title'],
+      price: row['product.price'],
+      isSoldOut: row['product.isSoldOut'],
+    }
     chatroom.hostId = row['host.id'];
     chatroom.clientId = row['client.id'];
     chatroom.createdAt = row.createdAt;
