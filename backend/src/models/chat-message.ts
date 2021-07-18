@@ -1,4 +1,5 @@
 class ChatMessage {
+  id!: number;
   chatroomId!: string;
   userId!: string;
   content!: string;

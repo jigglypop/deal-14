@@ -3,7 +3,7 @@ import authRouter from './auth';
 import productRouter from './product'
 import townRouter from "./town"
 import chatRoomRouter from "./chat-room"
-import chatmessageRouter from "./chatmessage"
+import chatmessageRouter from "./chat-message"
 import uploadRouter from './upload';
 
 const apiRouter = Router();
