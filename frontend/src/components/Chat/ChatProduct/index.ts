@@ -10,8 +10,6 @@ export default class ChatProduct extends React {
   constructor($target: HTMLElement, chatRoom: any) {
     super($target, 'ChatProduct');
     this.chatRoom = chatRoom;
-    console.log(chatRoom);
-
     this.render();
   }
 

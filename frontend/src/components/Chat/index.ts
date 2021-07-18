@@ -20,6 +20,7 @@ export default class Chat extends React {
   private canFetchMore = true;
   private chatRoom!: SpecificChatRoomTypes;
   private newMessageNoticeTimeout: NodeJS.Timeout | null = null;
+  private fetchTimer: NodeJS.Timeout | null = null;
   private chatMessages: ChatMessageTypes[] = [];
 
   constructor($target: HTMLElement) {
@@ -49,6 +50,12 @@ export default class Chat extends React {
     });
   }
 
+  onWindowHashChanged = () => {
+    if (this.fetchTimer !== null) {
+      clearTimeout(this.fetchTimer);
+    }
+  }
+
   onSendButtonClicked = () => {
     const $chatMessageInput = ($('#Chat-Message-Input').get() as HTMLInputElement);
     const { value } = $chatMessageInput;
@@ -65,8 +72,6 @@ export default class Chat extends React {
   }
 
   onChatMessageInputKeyPressed = (e: Event) => {
-    console.log((e as KeyboardEvent).key);
-
     if ((e as KeyboardEvent).key === 'Enter') {
       this.onSendButtonClicked();
     }
@@ -188,6 +193,7 @@ export default class Chat extends React {
   }
 
   methods() {
+    window.addEventListener('hashchange', this.onWindowHashChanged);
     $('#Send-Chat-Message-Button').on('click', this.onSendButtonClicked);
     $('#Chat-Message-Input').on('keypress', this.onChatMessageInputKeyPressed);
     $('#Open-Leave-Chat-Modal-Button').on('click', this.onOpenLeaveChatModalButtonClicked);
@@ -230,10 +236,10 @@ export default class Chat extends React {
     this.fetchData()
       .then(() => {
         // 데이터 Fetch 후 타이버 등록
-        setInterval(() => {
-          console.log(this.canFetchMore);
+        this.fetchTimer = setInterval(() => {
+          console.log('pass');
           this.fetchMore();
         }, 500);
-      })
+      });
   }
 }
