@@ -13,6 +13,8 @@ import '../../public/css/Chat.css';
 import { ChatMessageTypes } from '../../types/chatMessage';
 import LeaveChatModal from './LeaveChatModal';
 
+const NEW_CHAT_NOTICE_SHOWING_TIME = 5000;
+
 export default class Chat extends React {
   private leaveChatModal: LeaveChatModal;
   private canFetchMore = true;
@@ -35,7 +37,7 @@ export default class Chat extends React {
     return $chatList.clientHeight + $chatList.scrollTop >= $chatList.scrollHeight;
   }
 
-  scrollToBottom() {
+  scrollToBottom(initialScroll?: boolean) {
     const $chatList = $('.Chat-List').get();
     if ($chatList === null) {
       return;
@@ -43,6 +45,7 @@ export default class Chat extends React {
 
     $chatList.scrollTo({
       top: $chatList.scrollHeight,
+      behavior: initialScroll ? 'auto' : 'smooth',
     });
   }
 
@@ -71,6 +74,14 @@ export default class Chat extends React {
 
   onOpenLeaveChatModalButtonClicked = () => {
     this.leaveChatModal.open();
+  }
+
+  onNewChatNoticeClicked = () => {
+    this.scrollToBottom();
+    $('.New-Chat-Notice').get()?.classList.remove('appear');
+    if (this.newMessageNoticeTimeout !== null) {
+      clearTimeout(this.newMessageNoticeTimeout);
+    }
   }
 
   componentWillMount() {
@@ -106,7 +117,7 @@ export default class Chat extends React {
         const { chatMessages } = data.data;
         this.chatMessages = chatMessages;
         this.componentWillMount();
-        this.scrollToBottom();
+        this.scrollToBottom(true);
       })
       .catch(error => {
 
@@ -167,7 +178,7 @@ export default class Chat extends React {
 
             this.newMessageNoticeTimeout = setTimeout(() => {
               $('.New-Chat-Notice').get()?.classList.remove('appear');
-            }, 3000);
+            }, NEW_CHAT_NOTICE_SHOWING_TIME);
           }
         }
       })
@@ -180,6 +191,7 @@ export default class Chat extends React {
     $('#Send-Chat-Message-Button').on('click', this.onSendButtonClicked);
     $('#Chat-Message-Input').on('keypress', this.onChatMessageInputKeyPressed);
     $('#Open-Leave-Chat-Modal-Button').on('click', this.onOpenLeaveChatModalButtonClicked);
+    $('.New-Chat-Notice').on('click', this.onNewChatNoticeClicked);
   }
 
   render(): void {
