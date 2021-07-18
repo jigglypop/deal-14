@@ -4,7 +4,7 @@ import React from '../../util/react';
 import { $ } from '../../util/select';
 import ChatProduct from './ChatProduct';
 import ChatMessage from './ChatMessage';
-import { fetchChatRoom } from '../../requests/chatRoom';
+import { fetchChatRoom, leaveChatRoom } from '../../requests/chatRoom';
 import { fetchChatMessage, fetchMoreChatMessage, sendChatMessage } from '../../requests/chatMessage';
 import SendButton from '../../svgicon/SendButton';
 import { SpecificChatRoomTypes } from '../../types/chatRoom';
@@ -25,7 +25,7 @@ export default class Chat extends React {
 
   constructor($target: HTMLElement) {
     super($target, 'Chat');
-    this.leaveChatModal = new LeaveChatModal($target);
+    this.leaveChatModal = new LeaveChatModal($target, this.onLeaveButtonClicked);
     this.init();
   }
 
@@ -56,6 +56,19 @@ export default class Chat extends React {
     }
   }
 
+  onLeaveButtonClicked = () => {
+    leaveChatRoom(7)
+      .then(() => {
+        // 홈으로 돌아가기
+      })
+      .catch(error => {
+        // error handling
+      })
+      .finally(() => {
+        this.leaveChatModal.close();
+      })
+  }
+
   onSendButtonClicked = () => {
     const $chatMessageInput = ($('#Chat-Message-Input').get() as HTMLInputElement);
     const { value } = $chatMessageInput;
@@ -68,7 +81,10 @@ export default class Chat extends React {
       .then(() => {
         $chatMessageInput.value = '';
         this.fetchMore();
-      });
+      })
+      .catch(error => {
+        // error handling
+      })
   }
 
   onChatMessageInputKeyPressed = (e: Event) => {
@@ -106,7 +122,7 @@ export default class Chat extends React {
 
   fetchData() {
     // 현재 채팅방 조회로 변경 필요
-    return fetchChatRoom(1)
+    return fetchChatRoom(7)
       .then(data => {
         const { chatRoom } = data.data;
         this.chatRoom = chatRoom;
@@ -186,6 +202,9 @@ export default class Chat extends React {
             }, NEW_CHAT_NOTICE_SHOWING_TIME);
           }
         }
+      })
+      .catch(error => {
+        // error handling
       })
       .finally(() => {
         this.canFetchMore = true;

@@ -6,7 +6,7 @@ import './index.css';
 export default class LeaveChatModal {
   private modal: Modal;
 
-  constructor($target: HTMLElement) {
+  constructor($target: HTMLElement, onLeaveButtonClicked: EventListener) {
     this.modal = new Modal($target, `
     <div class="Leave-Chat-Modal-Content">
       <span class="Leave-Chat-Modal-Desc">정말 채팅방을 나가시겠습니까?</span>
@@ -18,6 +18,7 @@ export default class LeaveChatModal {
     `);
 
     $('#Close-Leave-Chat-Modal').on('click', this.close.bind(this));
+    $('#Leave-Chat-Button').on('click', onLeaveButtonClicked);
   }
 
   open() {
