@@ -1,0 +1,36 @@
+.ChatMessageOuter {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.ChatMessageOuter.MyMessage {
+  justify-content: flex-end;
+}
+
+.ChatMessageOuter.PartnersMessage {
+  justify-content: flex-start;
+}
+
+.ChatMessage {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 10px;
+  font-weight: normal;
+}
+
+.MyMessage .ChatMessage {
+  background-color: #2AC1BC;
+  color: #ffffff;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.PartnersMessage .ChatMessage {
+  border: 1px solid #2AC1BC;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}

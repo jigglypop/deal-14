@@ -1,0 +1,108 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#Chat-Inner {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: var(--baseX);
+  height: var(--baseY);
+  background-color: var(--app);
+}
+
+.Chat-Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #D7D7D7;
+}
+
+.Header-Left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Header-Right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.Chat-Header > * {
+  flex-grow: 1;
+}
+
+.Chat-Header > h4 {
+  font-size: 18px;
+  color: #222222;
+  font-weight: normal;
+}
+
+.Chat-Form {
+  display: flex;
+  flex-direction: column;
+  height: calc(665px - 130px);
+}
+
+.Chat-List {
+  padding: 20px;
+  overflow: scroll;
+  height: 100%;
+}
+
+.Chat-List-Wrapper {
+  position: relative;
+  height: 450px;
+  flex-grow: 1;
+}
+
+.New-Chat-Notice {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  background-color: #F45452;
+  opacity: 0.5;
+  color: #ffffff;
+  font-weight: normal;
+  height: 25px;
+}
+
+.New-Chat-Notice.appear {
+  display: flex;
+}
+
+.Send-Chat-Form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #F6F6F6;
+  border-top: 1px solid #D7D7D7;
+}
+
+.Send-Chat-Form {
+  display: flex;
+  background-color: #F6F6F6;
+  border-top: 1px solid #D7D7D7;
+}
+
+.Send-Chat-Form > input{
+  border: 1px solid #D7D7D7;
+  outline: none;
+  width: 90%;
+  padding: 10px;
+  border-radius: 8px;
+}
