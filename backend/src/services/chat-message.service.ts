@@ -1,27 +1,30 @@
-import HTTPError from '../errors/http-error';
 import chatMessageQuery from '../query/chat-message.query';
-import { CreateChatmessageRequest } from "../requests/chatmessage.request"
+import { SendChatMessageRequest } from '../requests/chat-message.request';
+import chatRoomService from './chat-room.service';
 
 class ChatMessageService {
 
-  async create(creaetChatmessageRequest: CreateChatmessageRequest) {
-    const { chatroomId, userId, content } = creaetChatmessageRequest;
+  async send(userId: string, chatRoomId: number, sendChatMessageRequest: SendChatMessageRequest) {
+    const { content } = sendChatMessageRequest;
+    const chatRoom = await chatRoomService.findChatRoom(chatRoomId, userId);
 
-    const createChatmessage = await chatMessageQuery.create({
-      chatroomId,
+    const createdChatMessage = await chatMessageQuery.create({
+      chatRoomId: chatRoom.id,
       userId,
-      content
+      content,
     });
-    if (!createChatmessage) {
-      throw new HTTPError(500, "채팅룸 생성 실패")
-    }
-    return createChatmessage;
+
+    return createdChatMessage;
   }
 
-  async findByChatrommId(chatrommId: string) {
-    const findChatrooms = await chatMessageQuery.findByChatroomId(chatrommId)
+  async findByChatRoom(userId: string, chatRoomId: number, chatMessageId?: number) {
+    const chatRoom = await chatRoomService.findChatRoom(chatRoomId, userId);
 
-    return findChatrooms
+    if (chatMessageId === undefined) {
+      return chatMessageQuery.findByChatRoom(chatRoom.id);
+    }
+
+    return chatMessageQuery.findByChatRoomAfterThan(chatRoom.id, chatMessageId);
   }
 }
 

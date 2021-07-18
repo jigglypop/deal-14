@@ -1,6 +1,5 @@
 import { RowDataPacket } from 'mysql2';
 import ChatRoom from '../models/chat-room';
-import Product from '../models/product';
 import BaseQuery from './base.query';
 
 type CreateTypes = {

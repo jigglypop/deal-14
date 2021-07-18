@@ -1,6 +1,6 @@
 class ChatMessage {
   id!: number;
-  chatroomId!: string;
+  chatRoomId!: string;
   userId!: string;
   content!: string;
   createdAt!: Date;

@@ -7,5 +7,6 @@ const chatRoomRouter = Router();
 
 chatRoomRouter.post('/join/:productId', authMiddleware, wrapAsync(chatroomController.join));
 chatRoomRouter.get('/my', authMiddleware, wrapAsync(chatroomController.findMyChatRooms));
+chatRoomRouter.get('/:chatRoomId', authMiddleware, wrapAsync(chatroomController.findById));
 
 export default chatRoomRouter;

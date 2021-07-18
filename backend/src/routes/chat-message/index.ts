@@ -5,7 +5,7 @@ import wrapAsync from '../../middlewares/wrap-async';
 
 const chatMessageRouter = Router();
 
-chatMessageRouter.post('/', authMiddleware, wrapAsync(chatMessageController.create));
-chatMessageRouter.get('/', authMiddleware, wrapAsync(chatMessageController.findByChatroomId));
+chatMessageRouter.post('/:chatRoomId', authMiddleware, wrapAsync(chatMessageController.send));
+chatMessageRouter.get('/:chatRoomId', authMiddleware, wrapAsync(chatMessageController.findByChatRoom));
 
 export default chatMessageRouter;
