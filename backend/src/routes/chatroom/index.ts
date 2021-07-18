@@ -5,7 +5,7 @@ import wrapAsync from '../../middlewares/wrap-async';
 
 const chatroomRouter = Router();
 
-chatroomRouter.post('/', authMiddleware, wrapAsync(chatroomController.create));
-chatroomRouter.get('/:productId', authMiddleware, wrapAsync(chatroomController.findByProduct));
+chatroomRouter.post('/join/:productId', authMiddleware, wrapAsync(chatroomController.join));
+chatroomRouter.get('/my', authMiddleware, wrapAsync(chatroomController.findMyChatRooms));
 
 export default chatroomRouter;

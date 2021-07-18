@@ -1,29 +1,35 @@
 import { Request, Response } from 'express';
-import { CreateChatroomRequest } from '../requests/chatroom.request';
+import HTTPError from '../errors/http-error';
 import chatroomService from '../services/chatroom.service';
 
-class ChatroomController {
+class ChatRoomController {
 
-  async create(req: Request, res: Response) {
-    const createChatroomRequest = new CreateChatroomRequest(req.body);
-    await createChatroomRequest.validate();
-    await chatroomService.create(createChatroomRequest);
+  async join(req: Request, res: Response) {
+    const { userId, params } = req;
+    if (isNaN(Number(params.productId))) {
+      throw new HTTPError(400, '상품 번호 검증 오류');
+    }
+
+    const chatRoom = await chatroomService.join(userId, Number(params.productId));
 
     res.status(200).json({
-      message: '채팅방 등록 성공',
-    })
+      message: '채팅 가입 성공',
+      data: {
+        chatRoom,
+      }
+    });
   }
 
-  async findByProduct(req: Request, res: Response) {
-    const { productId } = req.params
-    const chatrooms = await chatroomService.findByProductId(productId);
+  async findMyChatRooms(req: Request, res: Response) {
+    const { userId } = req;
+    const chatRooms = await chatroomService.findMyChatRooms(userId);
 
     res.status(200).json({
       data: {
-        chatrooms: chatrooms
+        chatRooms,
       }
     })
   }
 }
 
-export default new ChatroomController();
+export default new ChatRoomController();

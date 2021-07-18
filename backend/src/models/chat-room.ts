@@ -1,11 +1,10 @@
-import Product from './product';
-import User from './user';
-
 class ChatRoom {
-  productId!: string;
-  userId!: string;
+  id!: number;
+  productId!: number;
+  clientId!: string;
   createdAt!: Date;
   updatedAt!: Date;
+  hostId!: string;
 }
 
 export default ChatRoom;
