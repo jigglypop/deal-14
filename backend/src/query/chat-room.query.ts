@@ -54,6 +54,10 @@ class ChatRoomQuery extends BaseQuery<ChatRoom, number, CreateTypes> {
     return chatRoom;
   }
 
+  async remove(chatRoomId: number): Promise<void> {
+    await this.executeQuery(`DELETE FROM ${this.tableName} WHERE id = ?`, [chatRoomId]);
+  }
+
   map(row: RowDataPacket): ChatRoom {
     const chatroom = new ChatRoom();
     chatroom.id = row.id;

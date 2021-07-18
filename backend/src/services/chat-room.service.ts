@@ -16,6 +16,11 @@ class ChatroomService {
     return chatRoom;
   }
 
+  async leave(userId: string, chatRoomId: number) {
+    const chatRoom = await this.findChatRoom(chatRoomId, userId);
+    await chatRoomQuery.remove(chatRoom.id);
+  }
+
   async findMyChatRooms(userId: string) {
     const sql = `SELECT  chat_room.*, host.id as 'host.id', client.id as 'client.id' FROM chat_room
     LEFT JOIN user as client ON client.id = chat_room.userId

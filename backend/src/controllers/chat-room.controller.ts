@@ -20,6 +20,19 @@ class ChatRoomController {
     });
   }
 
+  async leave(req: Request, res: Response) {
+    const { userId, params } = req;
+    if (isNaN(Number(params.chatRoomId))) {
+      throw new HTTPError(400, '상품 번호 검증 오류');
+    }
+
+    await chatRoomService.leave(userId, Number(params.chatRoomId));
+
+    res.status(200).json({
+      message: '채팅 나가기 성공',
+    });
+  }
+
   async findMyChatRooms(req: Request, res: Response) {
     const { userId } = req;
     const chatRooms = await chatRoomService.findMyChatRooms(userId);
