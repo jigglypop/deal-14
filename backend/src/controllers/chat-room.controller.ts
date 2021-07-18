@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import HTTPError from '../errors/http-error';
-import chatroomService from '../services/chatroom.service';
+import chatroomService from '../services/char-room.service';
 
 class ChatRoomController {
 

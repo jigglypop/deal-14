@@ -1,8 +1,5 @@
-import HTTPError from '../errors/http-error';
 import chatRoomQuery from '../query/chatroom.query';
 import productImageQuery from '../query/product-image.query';
-import { CreateChatroomRequest } from "../requests/chatroom.request"
-import SelectSQLGenerator from '../utils/select-sql-generator';
 
 class ChatroomService {
 
