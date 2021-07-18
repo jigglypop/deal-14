@@ -54,9 +54,9 @@ export default class Chat extends React {
 
     sendChatMessage(this.chatRoom.id, value)
       .then(() => {
-        this.fetchMore();
         $chatMessageInput.value = '';
-      })
+        this.fetchMore();
+      });
   }
 
   onChatMessageInputKeyPressed = (e: Event) => {
@@ -108,6 +108,11 @@ export default class Chat extends React {
   }
 
   fetchMore = () => {
+    if (!this.canFetchMore) {
+      return;
+    }
+
+    this.canFetchMore = false;
     let fetchMessages;
 
     if (this.chatMessages.length <= 0) {
@@ -207,11 +212,7 @@ export default class Chat extends React {
       .then(() => {
         // 데이터 Fetch 후 타이버 등록
         setInterval(() => {
-          if (!this.canFetchMore) {
-            return;
-          }
-
-          this.canFetchMore = false;
+          console.log(this.canFetchMore);
           this.fetchMore();
         }, 500);
       })
