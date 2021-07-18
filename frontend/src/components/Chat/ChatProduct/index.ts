@@ -1,4 +1,5 @@
 import { SpecificChatRoomTypes } from '../../../types/chatRoom';
+import { formatPrice } from '../../../util/price';
 import React from '../../../util/react';
 
 import './index.css';
@@ -24,7 +25,7 @@ export default class ChatProduct extends React {
         <img src="${filePath}" />
         <div class="ChatProduct-Info">
           <span class="ChatProduct-Title">${this.chatRoom.product.title}</span>
-          <span class="ChatProduct-Price">${this.chatRoom.product.price}</span>
+          <span class="ChatProduct-Price">${formatPrice(this.chatRoom.product.price)}</span>
         </div>
       </div>
 
