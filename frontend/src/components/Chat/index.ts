@@ -1,20 +1,22 @@
 import { LeftArrow } from '../../svgicon/LeftArrow';
 import Logout from '../../svgicon/Logout';
 import React from '../../util/react';
-
-import '../../public/css/Chat.css';
 import { $ } from '../../util/select';
 import ChatProduct from './ChatProduct';
 import ChatMessage from './ChatMessage';
 import { fetchChatRoom } from '../../requests/chatRoom';
 import { fetchChatMessage, fetchMoreChatMessage, sendChatMessage } from '../../requests/chatMessage';
 import SendButton from '../../svgicon/SendButton';
+import { SpecificChatRoomTypes } from '../../types/chatRoom';
+
+import '../../public/css/Chat.css';
+import { ChatMessageTypes } from '../../types/chatMessage';
 
 export default class Chat extends React {
   private canFetchMore = true;
-  private chatRoom: any = null;
+  private chatRoom!: SpecificChatRoomTypes;
   private newMessageNoticeTimeout: NodeJS.Timeout | null = null;
-  private chatMessages: any = [];
+  private chatMessages: ChatMessageTypes[] = [];
 
   constructor($target: HTMLElement) {
     super($target, 'Chat');
@@ -74,13 +76,14 @@ export default class Chat extends React {
     const $chatList = $('.Chat-List').get();
 
     if ($chatList !== null) {
-      this.chatMessages.forEach((chatMessage: any) => {
+      this.chatMessages.forEach(chatMessage => {
         return new ChatMessage($chatList, chatMessage, 'jinu');
       });
     }
   }
 
-  fetchProduct() {
+  fetchData() {
+    // 현재 채팅방 조회로 변경 필요
     return fetchChatRoom(1)
       .then(data => {
         const { chatRoom } = data.data;
@@ -88,7 +91,7 @@ export default class Chat extends React {
 
         const $chatRoomTitle = $('.ChatRoom-Title').get();
         if ($chatRoomTitle !== null) {
-          $chatRoomTitle.innerText = this.chatRoom?.title;
+          $chatRoomTitle.innerText = this.chatRoom.partnerId;
         }
 
         return fetchChatMessage(chatRoom.id);
@@ -98,6 +101,9 @@ export default class Chat extends React {
         this.chatMessages = chatMessages;
         this.componentWillMount();
         this.scrollToBottom();
+      })
+      .catch(error => {
+
       });
   }
 
@@ -180,6 +186,7 @@ export default class Chat extends React {
           <div class="Chat-List-Wrapper">
             <div class="Chat-List">
             </div>
+
             <div class="New-Chat-Notice disappear">
               새로운 메시지가 왔습니다
             </div>
@@ -196,8 +203,9 @@ export default class Chat extends React {
     `
 
     this.methods();
-    this.fetchProduct()
+    this.fetchData()
       .then(() => {
+        // 데이터 Fetch 후 타이버 등록
         setInterval(() => {
           if (!this.canFetchMore) {
             return;

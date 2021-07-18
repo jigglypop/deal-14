@@ -1,3 +1,4 @@
+import { ChatMessageTypes } from '../../../types/chatMessage';
 import React from '../../../util/react';
 
 import './index.css';
@@ -5,9 +6,9 @@ import './index.css';
 type ChatType = 'MINE' | 'PARTNERS';
 
 export default class ChatMessage extends React {
-  private chatMessage: any;
+  private chatMessage: ChatMessageTypes;
 
-  constructor($target: HTMLElement, chatMessage: any, userId: string) {
+  constructor($target: HTMLElement, chatMessage: ChatMessageTypes, userId: string) {
     super($target, 'ChatMessage');
     this.chatMessage = chatMessage;
 

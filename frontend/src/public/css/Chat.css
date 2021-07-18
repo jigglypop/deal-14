@@ -72,12 +72,12 @@
   z-index: 1;
   position: absolute;
   width: 100%;
-  bottom: 10px;
+  bottom: 0px;
   background-color: #F45452;
-  opacity: 0.5;
+  opacity: 0.8;
   color: #ffffff;
   font-weight: normal;
-  height: 25px;
+  height: 30px;
 }
 
 .New-Chat-Notice.appear {
