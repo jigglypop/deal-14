@@ -1,11 +1,19 @@
 import Product from './product';
-import User from './user';
+
+type ChatRoomProduct = {
+  title: string;
+  price: number;
+  isSoldOut: string;
+}
 
 class ChatRoom {
-  productId!: string;
-  userId!: string;
+  id!: number;
+  productId!: number;
+  clientId!: string;
   createdAt!: Date;
   updatedAt!: Date;
+  hostId!: string;
+  product!: ChatRoomProduct;
 }
 
 export default ChatRoom;
