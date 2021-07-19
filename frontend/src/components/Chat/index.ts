@@ -1,3 +1,7 @@
+/**
+ * UserName 및 채팅방 정보를 실제 데이터로 대치하는 작업 필요
+ */
+
 import { LeftArrow } from '../../svgicon/LeftArrow';
 import Logout from '../../svgicon/Logout';
 import React from '../../util/react';
