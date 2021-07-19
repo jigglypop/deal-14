@@ -1,6 +1,6 @@
 import HTTPError from '../errors/http-error';
 import { IDetailProduct } from '../interfaces/product';
-import chatroomQuery from '../query/chatroom.query';
+import chatroomQuery from '../query/chat-room.query';
 import likedProductQuery from '../query/liked-product.query';
 import productImageQuery from '../query/product-image.query';
 import productQuery from '../query/product.query';

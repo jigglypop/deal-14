@@ -1,11 +1,12 @@
 import fetchThen from '../util/api'
+import cache from '../util/cache';
 
 export const fetchChatMessage = (chatRoomId: number): Promise<any> => {
   return fetchThen(`/api/chat-message/${chatRoomId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: '',
+      Authorization: `Bearer ${cache.get('token').value}`,
     },
   });
 }
@@ -15,7 +16,7 @@ export const fetchMoreChatMessage = (chatRoomId: number, lastChatMessageId: numb
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: '',
+      Authorization: `Bearer ${cache.get('token').value}`,
     },
   });
 }
@@ -25,7 +26,7 @@ export const sendChatMessage = (chatRoomId: number, content: string): Promise<an
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: '',
+      Authorization: `Bearer ${cache.get('token').value}`,
     },
     body: JSON.stringify({
       content,
