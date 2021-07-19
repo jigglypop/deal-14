@@ -17,5 +17,7 @@ productRouter.get('/:productId', accessAuthMiddleware, wrapAsync(productControll
 productRouter.post('/like/:productId', authMiddleware, wrapAsync(likedProductController.like));
 productRouter.post('/unlike/:productId', authMiddleware, wrapAsync(likedProductController.unlike));
 
+productRouter.put('/:productId', authMiddleware, wrapAsync(productController.modify));
+
 
 export default productRouter;

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import HTTPError from '../errors/http-error';
-import { ReadDetailProductsRequest, WriteProductRequest } from '../requests/product.request';
+import { ModifyProductRequest, ReadDetailProductsRequest, WriteProductRequest } from '../requests/product.request';
 import productService from '../services/product.service';
 
 class ProductController {
@@ -74,6 +74,23 @@ class ProductController {
       data: {
         products,
       }
+    });
+  }
+
+  async modify(req: Request, res: Response) {
+    const { userId, params, body } = req;
+
+    const modifyProductRequest = new ModifyProductRequest(body);
+    await modifyProductRequest.validate();
+
+    if (Number.isNaN(Number(params.productId))) {
+      throw new HTTPError(400, '상품 번호 검증 오류');
+    }
+
+    await productService.modify(userId, Number(params.productId), modifyProductRequest);
+
+    res.status(200).json({
+      message: '상품 수정 성공',
     });
   }
 }
