@@ -4,7 +4,11 @@ body {
     font-family: 'NanumBarunGothic';
     font-weight: 800;
 }
-
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 html,
 body {
     height: 100vh;
