@@ -10,5 +10,10 @@ export type ProductTypes = {
     createdAt: string;
     updatedAt: string;
     user?: any;
-    town? : any
+    town?: any;
+    productImages: [
+        {
+            filePath: string
+        }
+    ]
 }

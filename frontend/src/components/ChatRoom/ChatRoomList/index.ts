@@ -6,5 +6,9 @@ export default class ChatRoomList extends React {
     this.$outer.innerHTML = `
     `
   }
+  css() {
+    return ``
+  }
 
+  methods() {}
 }

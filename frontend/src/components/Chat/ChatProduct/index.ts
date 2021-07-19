@@ -32,4 +32,10 @@ export default class ChatProduct extends React {
     `
   }
 
+  css() {
+    return ``
+  }
+
+  methods() {}
+
 }

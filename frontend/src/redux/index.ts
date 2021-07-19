@@ -6,6 +6,8 @@ import Login from "./Login"
 import Product from "./Product"
 import Register from "./Register"
 import SliderToggle from "./Slider"
+import Upload from "./Upload"
+import Write from "./Write"
 
 export function Redux() {
     return {
@@ -17,5 +19,7 @@ export function Redux() {
         instance: Instance(),
         display: Display(),
         slidertoggle: SliderToggle(),
+        upload: Upload(),
+        write: Write(),
     }
 }

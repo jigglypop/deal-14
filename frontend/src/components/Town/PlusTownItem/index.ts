@@ -16,4 +16,9 @@ export default class PlusTownItem extends React {
     </div>
     `
   }
+  css() {
+    return ``
+  }
+
+  methods() {}
 }

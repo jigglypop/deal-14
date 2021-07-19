@@ -31,5 +31,9 @@ export default class ChatRoomItem extends React {
       </div>
     `;
   }
+  css() {
+    return ``
+  }
 
+  methods() {}
 }
