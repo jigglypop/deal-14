@@ -2,6 +2,7 @@ import './index.css';
 
 export default class Modal {
   private $modal: HTMLElement;
+  private $modalContent: HTMLElement;
 
   constructor($target: HTMLElement, inner: string) {
     const $modal = document.createElement('div');
@@ -15,6 +16,11 @@ export default class Modal {
     $target.appendChild($modal);
 
     this.$modal = $modal;
+    this.$modalContent = $modalContent;
+  }
+
+  setInner(inner: string) {
+    this.$modalContent.innerHTML = inner;
   }
 
   open() {
@@ -24,4 +30,5 @@ export default class Modal {
   close() {
     this.$modal.classList.replace('appear', 'disappear');
   }
+
 }
