@@ -57,7 +57,8 @@ export default class Chat extends React {
   }
 
   onLeaveButtonClicked = () => {
-    leaveChatRoom(7)
+    // 현재 채팅방 조회로 대치
+    leaveChatRoom(8)
       .then(() => {
         // 홈으로 돌아가기
       })
@@ -122,7 +123,7 @@ export default class Chat extends React {
 
   fetchData() {
     // 현재 채팅방 조회로 변경 필요
-    return fetchChatRoom(7)
+    return fetchChatRoom(8)
       .then(data => {
         const { chatRoom } = data.data;
         this.chatRoom = chatRoom;
