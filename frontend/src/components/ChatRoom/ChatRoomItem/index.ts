@@ -27,7 +27,7 @@ export default class ChatRoomItem extends React {
           </div>
 
           <div class="ChatRoomItem-RecentMessage-Info">
-            <span class="RecentMessage-Time">${recentMessage.createdAt && formatCreatedAt(recentMessage.createdAt)}</span>
+            <span class="RecentMessage-Time">${recentMessage.createdAt !== null ? formatCreatedAt(recentMessage.createdAt) : ''}</span>
             <div class="RecentMessage-Count">2</div>
           </div>
         </div>

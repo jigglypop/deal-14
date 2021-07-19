@@ -40,12 +40,14 @@
 
 .ChatRoomItem-Partner {
   color: #222222;
+  margin-bottom: 2px;
 }
 
 .ChatRoomItem-RecentMessage {
   font-weight: normal;
   color: #888888;
   font-size: 14px;
+  margin-top: 2px;
 }
 
 .ChatRoomItem-RecentMessage-Info {
@@ -72,6 +74,7 @@
 .RecentMessage-Time {
   font-weight: normal;
   color: #888888;
+  margin-bottom: 2px;
 }
 
 .RecentMessage-Count {
@@ -84,4 +87,5 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
+  margin-top: 2px;
 }

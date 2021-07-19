@@ -4,12 +4,13 @@ import React from '../../../util/react';
 import { $ } from '../../../util/select';
 import ChatRoomItem from '../ChatRoomItem';
 
+import './index.css';
+
 export default class ChatRoomList extends React {
   private chatRoomList: ChatRoomTypes[] = [];
 
   constructor($target: HTMLElement) {
     super($target, 'ChatRoomList');
-
     this.init();
   }
 
