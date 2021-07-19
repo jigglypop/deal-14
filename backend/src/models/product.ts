@@ -16,11 +16,11 @@ class Product {
   townId!: number;
   createdAt!: Date;
   updatedAt!: Date;
-  user?: User;
-  productImages?: ProductImage[];
-  likedProducts?: LikedProduct[];
-  chatRooms?: ChatRoom[];
-  town?: Town;
+  user!: User;
+  productImages!: ProductImage[];
+  likedProducts!: LikedProduct[];
+  chatRooms!: ChatRoom[];
+  town!: Town;
 }
 
 export default Product;

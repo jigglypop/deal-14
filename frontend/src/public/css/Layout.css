@@ -32,12 +32,18 @@ body {
     --header: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
     --gray: #F6F6F6;
     --dark-gray: #D7D7D7;
+    --deep-gray: #888888;
+    --dark: #222222;
 
 
     --baseX: 400px;
     --base-X: -400px;
     --baseY: 665px;
     --slider-header: gray;
+
+    --primary1: #2AC1BC;
+    --primary2: #A0E1E0;
+
     background: var(--background);
 }
 
