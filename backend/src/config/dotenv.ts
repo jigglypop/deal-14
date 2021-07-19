@@ -18,6 +18,8 @@ const dotenv = {
   JWT_ISSUER: load('JWT_ISSUER'),
   JWT_SUBJECT: load('JWT_SUBJECT'),
   JWT_SECRET: load('JWT_SECRET'),
+  CLIENT_URL: load('CLIENT_URL'),
+  SERVER_URL: load('SERVER_URL'),
 };
 
 export default dotenv;
