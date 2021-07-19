@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import HTTPError from '../errors/http-error';
+import dotenv from '../config/dotenv';
 
 class UploadController {
   upload(req: Request, res: Response) {
@@ -7,7 +8,7 @@ class UploadController {
 
     if (req.files instanceof Array) {
       req.files.forEach((file: any) => {
-        files.push(`${process.env.BACKEND}/files/${file.filename}`);
+        files.push(`${dotenv.SERVER_URL}/files/${file.filename}`);
       });
 
       res.status(200).json({
