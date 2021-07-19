@@ -9,10 +9,16 @@ const {
   JWT_SECRET,
 } = dotenv;
 
+type JWTSignTypes = {
+  id: string;
+  profileImage: string;
+}
+
 class JWTService {
-  generate(id: string) {
+  generate({ id, profileImage }: JWTSignTypes) {
     const payload = {
       id,
+      profileImage,
     };
 
     const options: jwt.SignOptions = {

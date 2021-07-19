@@ -16,7 +16,10 @@ class AuthController {
       throw new HTTPError(401, '회원 정보가 없음');
     }
 
-    const token = jwtService.generate(user.id);
+    const token = jwtService.generate({
+      id: user.id,
+      profileImage: user.profileImage,
+    });
 
     res.header({
       token
@@ -38,7 +41,10 @@ class AuthController {
     await registerRegister.validate();
 
     const user = await userService.register(registerRegister);
-    const token = jwtService.generate(user.id);
+    const token = jwtService.generate({
+      id: user.id,
+      profileImage: user.profileImage,
+    });
 
     res.header({
       token
