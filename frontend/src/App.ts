@@ -8,6 +8,7 @@ import check from "./util/check";
 import Product from "./components/Product/Product/Product";
 import ChatRoomItem from "./components/ChatRoom/ChatRoomItem";
 import Chat from "./components/Chat";
+import Town from "./components/Town/Town";
 
 export interface IServiceConstructor {
     $target: HTMLElement
@@ -48,7 +49,13 @@ class App extends React {
                     break;
                 case 'chat':
                     new Chat(this.$outer);
-                    // new ChatRoomItem(this.$outer, {} as any);
+                    break;
+                case 'chatroom':
+                    new ChatRoomItem(this.$outer, {} as any);
+                    break;
+                case 'town':
+                    console.log("타운임")
+                    new Town(this.$outer);
                     break;
                 default:
                     new Home(this.$outer)
