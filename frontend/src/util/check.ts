@@ -1,7 +1,7 @@
 import { redux } from ".."
-import AuthContainer from "../components/Auth/AuthContainer"
+import AuthContainer from "../components/Auth/AuthContainer/AuthContainer"
 import Header from "../components/Header/Header"
-import MenuContainer from "../components/Menu/MenuContainer"
+import MenuContainer from "../components/Menu/MenuContainer/MenuContainer"
 import { checkApi } from "../requests/auth"
 import cache from "./cache"
 

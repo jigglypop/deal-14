@@ -1,5 +1,5 @@
 import React from "../../util/react"
-import "../../public/css/Town.css"
+import "./Town.css"
 import { $ } from "../../util/select";
 import { redux } from "../../index";
 import TownContainer from "./TownContainer";

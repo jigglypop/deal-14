@@ -29,4 +29,10 @@ export default class LeaveChatModal {
     this.modal.close();
     ($('#Add-Town-Button').get() as HTMLButtonElement).disabled = true;
   }
+
+  css() {
+    return ``
+  }
+
+  methods() {}
 }

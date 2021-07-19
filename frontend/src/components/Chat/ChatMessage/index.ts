@@ -29,4 +29,9 @@ export default class ChatMessage extends React {
       </div>
     `
   }
+  css() {
+    return ``
+  }
+
+  methods() {}
 }

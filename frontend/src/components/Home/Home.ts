@@ -1,10 +1,10 @@
 import React from "../../util/react"
 import { $ } from "../../util/select"
-import "../../public/css/Home.css"
+import "./Home.css"
 import { productListApi } from "../../requests/product"
 import { errorMsg } from "../../util/errorMsg"
 import { IProductListResponse } from "../../types/IProductListResponse"
-import ProductsContainer from "../Products/ProductsContainer"
+import ProductsContainer from "../Products/ProductsContainer/ProductsContainer"
 
 export default class Home extends React{
 

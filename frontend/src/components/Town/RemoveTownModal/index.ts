@@ -27,4 +27,9 @@ export default class RemoveTownModal {
   close() {
     this.modal.close();
   }
+  css() {
+    return ``
+  }
+
+  methods() {}
 }

@@ -28,4 +28,9 @@ export default class AddTownModal {
     ($('#Add-Town-Input').get() as HTMLInputElement).value = '';
     ($('#Add-Town-Button').get() as HTMLButtonElement).disabled = true;
   }
+  css() {
+    return ``
+  }
+
+  methods() {}
 }

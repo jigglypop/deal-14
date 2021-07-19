@@ -21,4 +21,9 @@ export default class UserTownItem extends React {
       </div>
     `
   }
+  css() {
+    return ``
+  }
+
+  methods() {}
 }

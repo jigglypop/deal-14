@@ -1,0 +1,17 @@
+.CardOuter{
+    height: 200px;
+}
+
+
+.product-images {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px var(--back);
+    transition: all .3s ease-in;
+}
+
+.product-images:hover {
+    box-shadow: 2px 2px 20px var(--back);
+}

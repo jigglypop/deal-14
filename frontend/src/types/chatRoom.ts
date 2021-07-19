@@ -1,5 +1,10 @@
-import { ProductImageTypes } from './productImage';
-
+interface ProductImageTypes {
+  id: number;
+  filePath: string;
+  productId: number;
+  createdAt: string;
+  updatedAt: string;
+}
 export type SpecificChatRoomTypes = {
   id: number;
   productId: number;

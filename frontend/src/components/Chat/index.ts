@@ -13,7 +13,7 @@ import { fetchChatMessage, fetchMoreChatMessage, sendChatMessage } from '../../r
 import SendButton from '../../svgicon/SendButton';
 import { SpecificChatRoomTypes } from '../../types/chatRoom';
 
-import '../../public/css/Chat.css';
+import './Chat.css';
 import { ChatMessageTypes } from '../../types/chatMessage';
 import LeaveChatModal from './LeaveChatModal';
 
@@ -265,4 +265,8 @@ export default class Chat extends React {
         }, 500);
       });
   }
+    css() {
+    return ``
+  }
+
 }

@@ -1,5 +1,0 @@
-#Category-Inner {
-    transform: translateX(var(--base-X));
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: all .3s ease-in;
-}

@@ -1,16 +1,21 @@
 import React from "../../util/react"
-import "../../public/css/TownContainer.css"
+import "./TownContainer.css"
 import { redux } from "../../index"
 import { LeftArrow } from "../../svgicon/LeftArrow"
-import '../../public/css/Town.css';
 import { $ } from '../../util/select';
 import convertElementTarget from '../../util/convertEventTarget';
-import UserTownItem from '../../templates/UserTownItem';
-import { UserTownTypes } from '../../types/userTown';
-import OpenAddModalButton from '../../templates/Town/OpenAddModalButton';
-import AddModal from '../../templates/Town/AddModal';
-import RemoveModal from '../../templates/Town/RemoveModal';
-import Modal from '../../templates/Modal';
+import Modal from "../../common/Modal";
+import AddModal from "./templates/Town/AddModal";
+import RemoveModal from "./templates/Town/RemoveModal";
+import { UserTownTypes } from "../../types/userTown";
+import UserTownItem from "./templates/UserTownItem";
+import OpenAddModalButton from "./templates/Town/OpenAddModalButton";
+// import UserTownItem from '../../templates/UserTownItem';
+// import { UserTownTypes } from '../../types/userTown';
+// import OpenAddModalButton from '../../templates/Town/OpenAddModalButton';
+// import AddModal from '../../templates/Town/AddModal';
+// import RemoveModal from '../../templates/Town/RemoveModal';
+// import Modal from '../../templates/Modal';
 
 export default class TownContainer extends React{
 

@@ -25,7 +25,7 @@ body {
 
     --baemin: #12fff7;
     --back: #1d1d1d;
-    --text: white;
+    --text: #1d1d1d;
     --app: white;
     --red: #ED213A;
     --background-dark: linear-gradient(45deg, #000000, #434343);
@@ -39,6 +39,8 @@ body {
     --baseX: 400px;
     --base-X: -400px;
     --baseY: 665px;
+    --base_sY: 555px;
+    --base_ssY: 505px;
     --slider-header: gray;
 
     --primary1: #2AC1BC;
@@ -260,4 +262,23 @@ input:-webkit-autofill:active {
     -webkit-transition: background-color 9999s ease-out;
     -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
     -webkit-text-fill-color: gray !important;
+}
+
+a {
+    transition: all .3s ease-in;
+}
+
+a:link { 
+    color: var(--text); 
+    text-decoration: none;
+}
+ 
+a:visited { 
+    color: var(--text);
+    text-decoration: none;
+}
+ 
+a:hover { 
+    color: var(--text);    
+    text-decoration: none;
 }

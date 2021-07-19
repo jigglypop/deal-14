@@ -1,6 +1,6 @@
 import { LocationSVG } from "../../svgicon/location"
 import React from "../../util/react"
-import "../../public/css/Header.css"
+import "./Header.css"
 import { HamburgerSVG } from "../../svgicon/hamburger"
 import { BoxSVG } from "../../svgicon/box"
 import { AvatarSVG } from "../../svgicon/Avatar"

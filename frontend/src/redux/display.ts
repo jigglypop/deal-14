@@ -6,6 +6,8 @@ const Display = function() {
         width: "",
         height: "",
         _width: "",
+        heightS: "",
+        heightSS: "",
     }
     return {
         // width, height 설정
