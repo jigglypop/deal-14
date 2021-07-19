@@ -257,7 +257,6 @@ export default class Chat extends React {
       .then(() => {
         // 데이터 Fetch 후 타이버 등록
         this.fetchTimer = setInterval(() => {
-          console.log('pass');
           this.fetchMore();
         }, 500);
       });
