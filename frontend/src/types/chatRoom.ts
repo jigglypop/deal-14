@@ -15,3 +15,6 @@ export type SpecificChatRoomTypes = {
   productImages: ProductImageTypes[];
   partnerId: string;
 }
+
+
+export type ChatRoomTypes = SpecificChatRoomTypes & {}
