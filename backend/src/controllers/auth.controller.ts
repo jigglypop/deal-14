@@ -40,16 +40,11 @@ class AuthController {
     const user = await userService.register(registerRegister);
     const token = jwtService.generate(user.id);
 
-    // 서버 헤더 뚫기
-    const FRONT = process.env.FRONT
-    if (!FRONT) {
-      throw new HTTPError(401, "서버 주소가 없음")
-    }
     res.header({
       token
-    })
-    res.setHeader("Access-Control-Expose-Headers", "*")
-    res.setHeader('Access-Control-Allow-Origin', FRONT)
+    });
+    res.setHeader("Access-Control-Expose-Headers", "*");
+    res.setHeader('Access-Control-Allow-Origin', dotenv.CLIENT_URL);
 
     res.status(200).json({
       message: '회원가입 성공',

@@ -195,6 +195,19 @@ class ProductService {
       title = ?, content = ?, price = ?, category = ?, updatedAt = ?
       WHERE id = ?`, [title, content, price ?? 'NULL', category, now, productId]);
   }
+
+  async remove(userId: string, productId: number) {
+    const product = await productQuery.findByPk(productId);
+    if (product === null) {
+      throw new HTTPError(404, '상품 정보 없음');
+    }
+
+    if (product.userId !== userId) {
+      throw new HTTPError(403, '본인의 상품에만 접근 가능');
+    }
+
+    await productQuery.executeQuery(`DELETE FROM product WHERE id = ?`, [productId]);
+  }
 }
 
 export default new ProductService();

@@ -93,6 +93,20 @@ class ProductController {
       message: '상품 수정 성공',
     });
   }
+
+  async remove(req: Request, res: Response) {
+    const { userId, params } = req;
+
+    if (Number.isNaN(Number(params.productId))) {
+      throw new HTTPError(400, '상품 번호 검증 오류');
+    }
+
+    await productService.remove(userId, Number(params.productId));
+
+    res.status(200).json({
+      message: '상품 삭제 성공',
+    });
+  }
 }
 
 export default new ProductController();
