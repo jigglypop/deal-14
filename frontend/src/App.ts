@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import "./public/css/App.css"
 import Town from './components/Town';
 import Location from "./components/Location";
+import Chat from './components/Chat';
+import ChatRoomItem from './components/ChatRoom/ChatRoomItem';
 
 export interface IServiceConstructor {
     $target: HTMLElement
@@ -39,6 +41,10 @@ class App extends React {
                     break;
                 case 'town':
                     new Town(this.$outer)
+                    break;
+                case 'chat':
+                    // new Chat(this.$outer);
+                    new ChatRoomItem(this.$outer, {} as any);
                     break;
                 default:
                     new Home(this.$outer)
