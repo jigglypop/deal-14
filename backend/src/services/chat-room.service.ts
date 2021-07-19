@@ -41,7 +41,8 @@ class ChatroomService {
     LEFT JOIN chat_message ON chat_message.id = (
       SELECT c.id FROM chat_message as c WHERE c.chatRoomId = chat_room.id ORDER BY createdAt DESC LIMIT 1
     )
-    WHERE host.id = ? OR client.id = ?`;
+    WHERE host.id = ? OR client.id = ?
+    ORDER BY chat_message.createdAt DESC`;
 
     const chatRooms = await chatRoomQuery.select(sql, [userId, userId]);
     const detailChatRooms = await Promise.all(chatRooms.map(chatRoom => {
