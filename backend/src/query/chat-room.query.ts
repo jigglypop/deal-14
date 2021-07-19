@@ -71,6 +71,10 @@ class ChatRoomQuery extends BaseQuery<ChatRoom, number, CreateTypes> {
     chatroom.clientId = row['client.id'];
     chatroom.createdAt = row.createdAt;
     chatroom.updatedAt = row.updatedAt;
+    chatroom.recentMessage = {
+      content: row['chat_message.content'],
+      createdAt: row['chat_message.createdAt'],
+    }
 
     return chatroom;
   }
