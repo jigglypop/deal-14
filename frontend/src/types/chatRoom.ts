@@ -1,10 +1,5 @@
-interface ProductImageTypes {
-  id: number;
-  filePath: string;
-  productId: number;
-  createdAt: string;
-  updatedAt: string;
-}
+import { ProductImageTypes } from './productImage'
+
 export type SpecificChatRoomTypes = {
   id: number;
   productId: number;
@@ -22,4 +17,9 @@ export type SpecificChatRoomTypes = {
 }
 
 
-export type ChatRoomTypes = SpecificChatRoomTypes & {}
+export type ChatRoomTypes = SpecificChatRoomTypes & {
+  recentMessage: {
+    content: string;
+    createdAt: string;
+  }
+}

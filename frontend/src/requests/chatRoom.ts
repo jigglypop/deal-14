@@ -11,6 +11,16 @@ export const fetchChatRoom = (id: number): Promise<any> => {
   });
 }
 
+export const fetchChatRoomList = (): Promise<any> => {
+  return fetchThen(`/api/chat-room/my`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cache.get('token').value}`,
+    },
+  })
+}
+
 export const leaveChatRoom = (id: number): Promise<any> => {
   return fetchThen(`/api/chat-room/leave/${id}`, {
     method: 'DELETE',

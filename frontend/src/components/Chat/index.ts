@@ -20,6 +20,7 @@ import LeaveChatModal from './LeaveChatModal';
 const NEW_CHAT_NOTICE_SHOWING_TIME = 5000;
 
 export default class Chat extends React {
+  private chatRoomId: number;
   private leaveChatModal: LeaveChatModal;
   private canFetchMore = true;
   private chatRoom!: SpecificChatRoomTypes;
@@ -30,6 +31,7 @@ export default class Chat extends React {
   constructor($target: HTMLElement) {
     super($target, 'Chat');
     this.leaveChatModal = new LeaveChatModal($target, this.onLeaveButtonClicked);
+    this.chatRoomId = Number(location.hash.replace('#chat/', ''));
     this.init();
   }
 
@@ -62,7 +64,7 @@ export default class Chat extends React {
 
   onLeaveButtonClicked = () => {
     // 현재 채팅방 조회로 대치
-    leaveChatRoom(1)
+    leaveChatRoom(this.chatRoom.id)
       .then(() => {
         // 홈으로 돌아가기
       })
@@ -127,7 +129,7 @@ export default class Chat extends React {
 
   fetchData() {
     // 현재 채팅방 조회로 변경 필요
-    return fetchChatRoom(1)
+    return fetchChatRoom(this.chatRoomId)
       .then(data => {
         const { chatRoom } = data.data;
         this.chatRoom = chatRoom;
@@ -265,7 +267,7 @@ export default class Chat extends React {
         }, 500);
       });
   }
-    css() {
+  css() {
     return ``
   }
 

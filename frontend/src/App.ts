@@ -9,6 +9,7 @@ import Product from "./components/Product/Product/Product";
 import ChatRoomItem from "./components/ChatRoom/ChatRoomItem";
 import Chat from "./components/Chat";
 import Town from "./components/Town/Town";
+import ChatRoomList from './components/ChatRoom/ChatRoomList';
 
 export interface IServiceConstructor {
     $target: HTMLElement
@@ -40,7 +41,7 @@ class App extends React {
             const slider = new Slider(this.$outer)
 
             redux.instance.setInstance('header', header)
-            redux.instance.setInstance('slider',slider)
+            redux.instance.setInstance('slider', slider)
             check()
 
             switch (hash[0]) {
@@ -51,7 +52,7 @@ class App extends React {
                     new Chat(this.$outer);
                     break;
                 case 'chatroom':
-                    new ChatRoomItem(this.$outer, {} as any);
+                    new ChatRoomList(this.$outer);
                     break;
                 case 'town':
                     console.log("타운임")
@@ -65,7 +66,7 @@ class App extends React {
         }
     }
 
-    methods() {}
+    methods() { }
 
 }
 
