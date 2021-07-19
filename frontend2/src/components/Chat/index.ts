@@ -12,10 +12,10 @@ import { fetchChatRoom, leaveChatRoom } from '../../requests/chatRoom';
 import { fetchChatMessage, fetchMoreChatMessage, sendChatMessage } from '../../requests/chatMessage';
 import SendButton from '../../svgicon/SendButton';
 import { SpecificChatRoomTypes } from '../../types/chatRoom';
-
-import './Chat.css';
 import { ChatMessageTypes } from '../../types/chatMessage';
 import LeaveChatModal from './LeaveChatModal';
+
+import './index.css';
 
 const NEW_CHAT_NOTICE_SHOWING_TIME = 5000;
 
@@ -62,7 +62,7 @@ export default class Chat extends React {
 
   onLeaveButtonClicked = () => {
     // 현재 채팅방 조회로 대치
-    leaveChatRoom(8)
+    leaveChatRoom(2)
       .then(() => {
         // 홈으로 돌아가기
       })
@@ -127,7 +127,7 @@ export default class Chat extends React {
 
   fetchData() {
     // 현재 채팅방 조회로 변경 필요
-    return fetchChatRoom(8)
+    return fetchChatRoom(2)
       .then(data => {
         const { chatRoom } = data.data;
         this.chatRoom = chatRoom;
@@ -265,7 +265,7 @@ export default class Chat extends React {
         }, 500);
       });
   }
-    css() {
+  css() {
     return ``
   }
 
