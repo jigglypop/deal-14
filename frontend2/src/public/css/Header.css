@@ -1,0 +1,102 @@
+.location-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.location-svg:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.hamburger-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.hamburger-svg:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.box-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.box-svg:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.avatar-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.avatar-svg:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+
+#FaB-Button {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1;
+
+    bottom: -600px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: gray 1px 1px 10px;
+    cursor: pointer;
+    transition: all .3s ease-in;
+    background-image: var(--header);
+}
+
+#FaB-Button:hover {
+    box-shadow: gray 2px 2px 20px;
+}
+
+.Menu-Slider {
+    position: absolute;
+    top: 50px;
+    border-radius: 5px;
+    background-color: var(--gray);
+    width: 160px;
+    height: 100px;
+
+    font-size: 12px;
+    font-weight: 400;
+
+    transition: all .3s ease-in;
+}
+
+#Menu-Slider-Top {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 50px;
+
+    border-bottom: 2px solid var(--dark-gray);
+}
+
+#Menu-Slider-Bottom {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 50px;
+
+    cursor: pointer;
+}
+
+.UpperHide {
+    transform: translateY(-200px);
+}

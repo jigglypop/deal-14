@@ -1,0 +1,15 @@
+.WriteCategory {
+    border: 2px solid var(--dark-gray);
+    padding: 5px;
+    border-radius: 10px;
+    margin: 3px;
+    color: var(--dark-gray);
+    box-shadow: 2px 2px 10px var(--dark-gray);
+    transition: all .3s ease-in;
+    cursor: pointer;
+}
+.WriteCategory.isOn {
+    color: var(--baemin);
+    border: 2px solid var(--baemin);
+    box-shadow: 2px 2px 10px var(--baemin);
+}  
