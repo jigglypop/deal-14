@@ -11,6 +11,9 @@ const cache = {
     set(key: string, data: object) {
         localStorage.setItem(key, JSON.stringify(data));
     },
+    remove(key: string) {
+        localStorage.removeItem(key)
+    }
 };
 
 export default cache;

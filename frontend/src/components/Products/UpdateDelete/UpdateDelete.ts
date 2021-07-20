@@ -11,10 +11,12 @@ export default class UpdateDelete extends React{
 
     ID = getID()
     productId: number
+    item: any
 
-    constructor($target: HTMLElement, productId: number) {
+    constructor($target: HTMLElement, productId: number, item: any) {
         super($target, 'UpdateDelete')
         this.productId = productId
+        this.item = item
         this.init()
     }
 
@@ -25,8 +27,8 @@ export default class UpdateDelete extends React{
             <div id="UpdateDelete-Inner-${this.ID}" class="UpdateDelete-Inner" >
                 <div id="UpdateDelete-Button-${this.ID}" class="UpdateDelete-Button" >${DotSVG}</div>
                 <div id="UpdateDelete-Slider-${this.ID}" class="UpdateDelete-Slider" >
-                    <a href="/#update/${this.productId}">
-                        <div id="Go-Update-${this.ID}" class="UpdateDelete-Slider-Item" >
+                    <a href="/#update/${this.productId}" id="Go-Update-${this.ID}" >
+                        <div class="UpdateDelete-Slider-Item" >
                             <h6>수정하기</h6>
                         </div>
                     </a>
@@ -62,6 +64,13 @@ export default class UpdateDelete extends React{
             if (Slider) {
                 Slider.classList.toggle("isSlid");
             }
+        })
+
+        $(`#Go-Update-${this.ID}`).on('click', function () {
+            redux.update.setUpdateForm('category', that.item.category)
+            redux.update.setUpdateForm("title", that.item.title)
+            redux.update.setUpdateForm("price", that.item.price)
+            redux.update.setUpdateForm("content", that.item.content)
         })
 
         $(`#Go-Delete-${this.ID}`).on('click', function () {

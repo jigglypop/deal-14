@@ -120,7 +120,7 @@ export default class Card extends React{
                     </div>
                 </div>
 
-                <h5 class="price-text" >${this.item.price ? this.item.price + "원" : "비공개"}</h5>
+                <h5 class="price-text" >${this.item.price ? this.item.price.toLocaleString('en-AU') + "원" : "비공개"}</h5>
                 <div class="Card-Content-Bottom" >
                     <h5 class="time-text" >${getTimes().getTime(this.item.createdAt)}</h5>
                     <div id="Card-Chat-Button-${this.ID}" class="Card-Chat-Button" >
@@ -140,9 +140,9 @@ export default class Card extends React{
             const userId = this.item.userId
             if (checkedId && !this.isMy) {
                 if (checkedId !== userId) {
-                    new LikeButton(CardContentTop, this.item.id)
+                    new LikeButton(CardContentTop, this.item.id, this.item)
                 } else {
-                    new UpdateDelete(CardContentTop, this.item.id)
+                    new UpdateDelete(CardContentTop, this.item.id, this.item)
                 }
             }
         }
