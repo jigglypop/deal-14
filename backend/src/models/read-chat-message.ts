@@ -4,3 +4,5 @@ class ReadChatMessage {
   chatMessageId!: number;
   userId!: string;
 }
+
+export default ReadChatMessage;

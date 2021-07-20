@@ -1,4 +1,6 @@
 import HTTPError from '../errors/http-error';
+import ProductImage from '../models/product-image';
+import chatMessageQuery from '../query/chat-message.query';
 import chatRoomQuery from '../query/chat-room.query';
 import productImageQuery from '../query/product-image.query';
 import productQuery from '../query/product.query';
@@ -46,14 +48,24 @@ class ChatroomService {
 
     const chatRooms = await chatRoomQuery.select(sql, [userId, userId]);
     const detailChatRooms = await Promise.all(chatRooms.map(chatRoom => {
+      let image: ProductImage[] = [];
       return productImageQuery.findByProduct(chatRoom.productId)
         .then(image => {
+          image = image;
+
+          return chatMessageQuery.count(`
+          SELECT COUNT(*) FROM chat_message WHERE id > (
+            SELECT chatMessageId FROM read_chat_message WHERE userId = ? AND chatRoomId = ? LIMIT 1
+          ) AND chatRoomId = ?`, [userId, chatRoom.id, chatRoom.id]);
+        })
+        .then(count => {
           return {
             ...chatRoom,
             productImages: image,
             partnerId: chatRoom.clientId === userId ? chatRoom.hostId : chatRoom.clientId,
+            newMessageCount: count,
           };
-        });
+        })
     }));
 
     return detailChatRooms;
