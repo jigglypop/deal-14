@@ -28,11 +28,21 @@ class ChatroomService {
   }
 
   async findMyChatRooms(userId: string) {
-    const sql = `SELECT  chat_room.*, host.id as 'host.id', client.id as 'client.id' FROM chat_room
+    const sql = `SELECT
+    chat_room.*,
+    host.id as 'host.id',
+    client.id as 'client.id',
+    chat_message.content as 'chat_message.content',
+    chat_message.createdAt as 'chat_message.createdAt'
+    FROM chat_room
     LEFT JOIN user as client ON client.id = chat_room.userId
     LEFT JOIN product ON product.id = chat_room.productId
     LEFT JOIN user as host ON product.userId = host.id
-    WHERE host.id = ? OR client.id = ?`;
+    LEFT JOIN chat_message ON chat_message.id = (
+      SELECT c.id FROM chat_message as c WHERE c.chatRoomId = chat_room.id ORDER BY createdAt DESC LIMIT 1
+    )
+    WHERE host.id = ? OR client.id = ?
+    ORDER BY chat_message.createdAt DESC`;
 
     const chatRooms = await chatRoomQuery.select(sql, [userId, userId]);
     const detailChatRooms = await Promise.all(chatRooms.map(chatRoom => {

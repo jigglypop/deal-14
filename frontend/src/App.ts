@@ -11,8 +11,13 @@ import Product from "./components/Product/Product/Product";
 import ChatRoomItem from "./components/ChatRoom/ChatRoomItem";
 import CategoryPage from "./components/CategoryPage/CategoryPage";
 import Chat from "./components/Chat";
+<<<<<<< HEAD
+import Town from "./components/Town/Town";
+import ChatRoomList from './components/ChatRoom/ChatRoomList';
+=======
 import Town from "./components/Town/Town/Town";
 import Update from "./components/Update/Update/Update";
+>>>>>>> dev
 
 export interface IServiceConstructor {
     $target: HTMLElement
@@ -64,16 +69,20 @@ class App extends React {
                     new Chat(this.$outer);
                     break;
                 case 'chatroom':
+<<<<<<< HEAD
+                    new ChatRoomList(this.$outer);
+=======
                     redux.router.pushRouter(location.hash)
                     new ChatRoomItem(this.$outer, {} as any);
+>>>>>>> dev
                     break;
                 case 'town':
                     redux.router.pushRouter(location.hash)
-                    new Town(this.$outer);       
+                    new Town(this.$outer);
                     break;
                 case 'update':
                     redux.router.pushRouter(location.hash)
-                    new Update(this.$outer, Number(hash[1]));       
+                    new Update(this.$outer, Number(hash[1]));
                     break;
                 default:
                     redux.router.pushRouter(location.hash)
@@ -84,7 +93,7 @@ class App extends React {
         }
     }
 
-    methods() {}
+    methods() { }
 
 }
 
