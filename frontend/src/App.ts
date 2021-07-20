@@ -40,7 +40,7 @@ class App extends React {
         if (this.$outer) {
             this.$outer.innerHTML = ""
             // 헤더 인스턴스 등록
-            // 로그인 여부 체크
+
             const header = new Header(this.$outer)
             const slider = new Slider(this.$outer)
             const removeModal = new RemoveModal(this.$outer)
@@ -48,7 +48,7 @@ class App extends React {
             redux.instance.setInstance('header', header)
             redux.instance.setInstance('slider', slider)
             redux.instance.setInstance('removeModal', removeModal)
-
+            // 로그인 여부 체크
             check()
 
             switch (hash[0]) {

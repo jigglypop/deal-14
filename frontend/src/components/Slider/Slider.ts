@@ -5,6 +5,7 @@ import Category from "../Category/Category/Category"
 import Auth from "../Auth/Auth/Auth"
 import Write from "../Write/Write/Write"
 import { $ } from "../../util/select"
+import { redux } from "../.."
 // import Town from "../Town/Town/Town"
 
 export default class Slider extends React{
@@ -15,7 +16,7 @@ export default class Slider extends React{
     constructor($target: HTMLElement) {
         super($target, 'Slider', 'aside')
 
-        this.init()
+        // this.init()
     }
     css() {
         return `
@@ -52,7 +53,8 @@ export default class Slider extends React{
             // 회원가입/로그인
             new Auth(SliderInner)
             // 글쓰기
-            new Write(SliderInner)
+            const write = new Write(SliderInner)
+            redux.instance.setInstance('write', write)
         }
     }
 

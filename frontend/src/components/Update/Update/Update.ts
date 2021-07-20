@@ -11,12 +11,12 @@ export default class Update extends React{
     constructor($target: HTMLElement, productId: number) {
         super($target, 'Update')
         this.productId = productId
+        redux.update.setUpdateForm("productId", productId)
         this.init()
     }
 
     css() {
-        return `        
-        `
+        return ``
     }
     render() {
         this.$outer.innerHTML = `
@@ -24,7 +24,7 @@ export default class Update extends React{
             </div>`
         const UpdateInner = $('#Update-Inner').get()
         if (UpdateInner) {
-            const Updatecontainer = new UpdateContainer(UpdateInner)
+            const Updatecontainer = new UpdateContainer(UpdateInner, this.productId)
             redux.instance.setInstance('Updatecontainer',Updatecontainer)
         }
     }

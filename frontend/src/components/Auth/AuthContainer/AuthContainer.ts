@@ -9,6 +9,7 @@ import { loginApi, registerApi } from "../../../requests/auth";
 import { ILoginForm, IRegisterForm } from "../../../types/IAuthForm";
 import { errorMsg } from "../../../util/errorMsg";
 import check from "../../../util/check";
+import cache from "../../../util/cache";
 
 export default class AuthContainer extends React{
 
@@ -111,7 +112,7 @@ export default class AuthContainer extends React{
     }
 
     logout() {
-        localStorage.clear()
+        cache.remove('token')
         redux.check.resetCheckForm()
         check()
         const display = redux.display.getWidthHeight()

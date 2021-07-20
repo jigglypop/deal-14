@@ -6,6 +6,7 @@ import getTimes from "../../../util/getTimes"
 import { LeftArrow } from "../../../svgicon/LeftArrow"
 import { $ } from "../../../util/select"
 import { redux } from "../../.."
+import { BLocationSVG } from "../../../svgicon/location"
 
 export default class ProductContainer extends React{
 
@@ -73,7 +74,7 @@ export default class ProductContainer extends React{
 
         .product-time {
             font-size: 12px;
-            margin: 5px_0;
+            margin: 10px_0;
             color: var(--deep-gray);
         }
 
@@ -112,6 +113,23 @@ export default class ProductContainer extends React{
             color: var(--deep-gray);
         }
 
+        #product-content-under {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;             
+        }
+
+        .product-price {
+            color: var(--deep-gray);
+        }
+
+        .product-town {
+            display: flex;
+            justify-content: center;
+            align-items: center;            
+        }
+
         `
     }
 
@@ -132,7 +150,11 @@ export default class ProductContainer extends React{
                     <h3 class="product-title" >${this.product.title}</h3>
                     <h3 class="product-time" >기타 중고물품 - ${getTimes().getTime(this.product.createdAt)}</h3>    
                     <h3 class="product-content" >${this.product.content}</h3>
-                    <h4>${this.product.price ? this.product.price + "원" : "비공개"}</h4>
+                    <div id="product-content-under" >
+                        <h4 class="product-price">${this.product.price ? this.product.price.toLocaleString('en-AU') + "원" : "비공개"}</h4>
+                        <h4 class="product-town">${BLocationSVG}${this.product.town.townName}</h4>
+                    </div>
+
                 </div>
                 <div id="product-user" >
                     <div class="product-user-item" >
@@ -140,7 +162,7 @@ export default class ProductContainer extends React{
                     </div>
                     <div class="product-user-item" >
                         <h5 class="product-user-name" >${this.product.userId}</h5>
-                        <h5 class="product-user-town" >역삼동</h5>
+                        <h5 class="product-user-town" >${this.product.town.townName}</h5>
                     </div>
                 </div>
             </div>

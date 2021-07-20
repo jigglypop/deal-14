@@ -9,7 +9,8 @@ import { $ } from "../../util/select"
 export default class Header extends React{
 
     state = {
-        id: ''
+        id: '',
+        townName: '',
     }
 
     constructor($target: HTMLElement) {
@@ -96,7 +97,7 @@ export default class Header extends React{
                     <div class="header-link-item" id="category-button" >${BoxSVG}</div>
                 </div>
                 <div class="header-link" >
-                    <div class="header-link-item" id="Menu-Slider-Button" >${LocationSVG} 역삼동</div>
+                    <div class="header-link-item" id="Menu-Slider-Button" >${LocationSVG} ${this.state.townName}</div>
                     <div class="Menu-Slider UpperHide" id="Menu-Slider" >
                         <div id="Menu-Slider-Top" >
                             <h4 class="Menu-Slider-Text" >역삼동</h4>

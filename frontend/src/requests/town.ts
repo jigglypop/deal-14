@@ -2,7 +2,7 @@ import fetchThen from '../util/api';
 import cache from '../util/cache';
 
 export const fetchMyTowns = (): Promise<any> => {
-        const token = cache.get('token')
+  const token = cache.get('token')
 
   return fetchThen('/api/town/my', {
     method: 'GET',
@@ -18,7 +18,7 @@ type AddTownRequest = {
 }
 
 export const addMyTown = (addTownRequest: AddTownRequest): Promise<any> => {
-        const token = cache.get('token')
+  const token = cache.get('token')
 
   return fetchThen('/api/town/my', {
     method: 'POST',
@@ -33,7 +33,7 @@ export const addMyTown = (addTownRequest: AddTownRequest): Promise<any> => {
 }
 
 export const removeMyTown = (userTownId: number): Promise<any> => {
-        const token = cache.get('token')
+  const token = cache.get('token')
 
   return fetchThen(`/api/town/my/${userTownId}`, {
     method: 'DELETE',

@@ -3,43 +3,67 @@ import AuthContainer from "../components/Auth/AuthContainer/AuthContainer"
 import Header from "../components/Header/Header"
 import MenuContainer from "../components/Menu/MenuContainer/MenuContainer"
 import { checkApi } from "../requests/auth"
+import { fetchMyTowns } from "../requests/town"
 import cache from "./cache"
 
 const check = () => {
     // 토큰 받기
     const token = cache.get('token')
     // 리덕스 체크, 상태바꾸기 함수
-    const ChangeState = (_id: string) => {
+    const ChangeState = (_id: string, townName: string) => {
         redux.check.setCheckForm('id', _id)
-        
         const header: Header = redux.instance.getInstance('header')
         header.setState({
-            id: _id
+            id: _id,
+            townName: townName
         })
-        const authcontainer: AuthContainer = redux.instance.getInstance('authcontainer')
-        authcontainer.setState({
-            checked: _id
-        })
-        
-        const menucontainser: MenuContainer = redux.instance.getInstance('menucontainer')
-        menucontainser.setState({
-            checked: _id
-        })
+            
+        const slider = redux.instance.getInstance('slider')
+        slider.init()
+//             console.log(redux.instance.getInstanceAll())
+// 
+//             const authcontainer: AuthContainer = redux.instance.getInstance('authcontainer')
+//             authcontainer.setState({
+//                 checked: _id
+//             })
+//             
+//             const menucontainser: MenuContainer = redux.instance.getInstance('menucontainer')
+//             menucontainser.setState({
+//                 checked: _id
+//             })
 
     }
 
     // 토큰 없으면 헤더 처리, auth창 닫기
     if (!token) {
-        ChangeState('')
+        const townName = cache.get('townName')
+        ChangeState('', townName )
         return 
     }
     // 있으면 헤더 처리
     checkApi()
         .then(data => {
             if (data.data.user.id) {
-                ChangeState(data.data.user.id)
+                FetchMyTowns(data.data.user.id)
             }
         })
+    
+    const FetchMyTowns = (userId: string) => {
+        fetchMyTowns()
+            .then(data => {
+                redux.check.setCheckForm('mytown', data.data.userTowns)
+                const checkform = redux.check.getCheckForm()
+                const townName = checkform.townName
+                const townId = checkform.townId
+                cache.set("townName", townName)
+                
+                redux.write.setWriteForm('townName', townName)
+                redux.write.setWriteForm('townId', townId)
+
+
+                ChangeState(userId, townName)
+            })
+    }
 }
 
 export default check
