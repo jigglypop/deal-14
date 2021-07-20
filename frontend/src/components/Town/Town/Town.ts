@@ -1,15 +1,16 @@
-import { LeftArrow } from '../../svgicon/LeftArrow';
-import React from '../../util/react';
+import { LeftArrow } from '../../../svgicon/LeftArrow';
+import React from '../../../util/react';
 import './Town.css';
-import { $ } from '../../util/select';
-import convertElementTarget from '../../util/convertEventTarget';
-import { UserTownTypes } from '../../types/userTown';
-import UserTownItem from './UserTownItem';
-import PlusTownItem from './PlusTownItem';
-import { addMyTown, fetchMyTowns, removeMyTown } from '../../requests/town';
-import AddTownModal from './AddTownModal';
-import RemoveTownModal from './RemoveTownModal';
-import ErrorModal from '../../common/ErrorModal';
+import { $ } from '../../../util/select';
+import convertElementTarget from '../../../util/convertEventTarget';
+import { UserTownTypes } from '../../../types/userTown';
+import UserTownItem from '../UserTownItem';
+import PlusTownItem from '../PlusTownItem';
+import { addMyTown, fetchMyTowns, removeMyTown } from '../../../requests/town';
+import AddTownModal from '../AddTownModal';
+import RemoveTownModal from '../RemoveTownModal';
+import ErrorModal from '../../../common/ErrorModal';
+import { redux } from '../../..';
 
 export default class Town extends React {
   private addTownModal: AddTownModal;
@@ -97,6 +98,10 @@ export default class Town extends React {
     ($('#Add-Town-Button').get() as HTMLButtonElement).disabled = !(inputText.trim().length > 0);
   }
 
+  goBack() {
+    redux.router.goRouter()
+  }
+
   methods() {
     $('.PlusTownItem').get()?.removeEventListener('click', this.onOpenAddButtonClicked);
     $('.Town-List').get()?.removeEventListener('click', this.onTownListClicked);
@@ -111,6 +116,7 @@ export default class Town extends React {
     $('#Close-Add-Town-Modal').on('click', this.onCloseAddButtonClicked);
     $('#Close-Remove-Town-Modal').on('click', this.onCloseRemoveButtonClicked);
     $('#Add-Town-Button').on('click', this.onAddButtonClicked);
+    $('#Town-Go-Back').on("click", this.goBack)
   }
 
   fetchUserTowns() {
@@ -146,7 +152,7 @@ export default class Town extends React {
     this.$outer.innerHTML = `
       <div id="Town-Inner">
         <header class="Town-Header">
-          <div>${LeftArrow}</div>
+          <div id="Town-Go-Back" >${LeftArrow}</div>
           <h4>내 동네 설정하기</h4>
           <div></div>
         </header>

@@ -1,18 +1,23 @@
-
+.TownOuter {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
 #Town-Inner {
   position: absolute;
-  z-index: 2;
+  /* z-index: 2; */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
 
   top: 0;
   left: 0;
   width: var(--baseX);
   height: var(--baseY);
   /* transform: translateX(var(--base-X)); */
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
   transition: all .3s ease-in;
 }
 
@@ -66,4 +71,8 @@
 
 #Add-Town-Button:disabled {
   color: var(--deep-gray);
+}
+
+#Town-Go-Back {
+  cursor: pointer;
 }

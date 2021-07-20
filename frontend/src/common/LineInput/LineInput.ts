@@ -3,25 +3,29 @@ import React from "../../util/react"
 import { $ } from "../../util/select"
 import "./LineInput.css"
 
-export default class LineInput extends React{
+export default class LineInput extends React {
 
     text = ""
     ID = getID()
     labelText = ""
+    type = ""
     method = (e: string) => {}
 
-    constructor($target: HTMLElement, method: (e: string) =>  void, labelText: string) {
+    constructor($target: HTMLElement, method: (e: string) =>  void, labelText: string, type?: string) {
         super($target, 'LineInput')
 
         this.method = method
         this.labelText = labelText
+        if (type) {
+            this.type = type
+        }
         this.init()
     }
 
     render() {
         this.$outer.innerHTML = `
-            <div class="LineInput" id="LineInput-${this.ID}" >
-                <input id="${this.ID}" >${this.text}</button>
+            <div class="LineInput" id="LineInput-${this.ID}"  >
+                <input id="${this.ID}" ${this.type === 'number' ? 'type="number"' : ""} >${this.text}</button>
                 <label>${this.labelText}</label>
             </div>
         `

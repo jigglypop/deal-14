@@ -12,10 +12,12 @@ export default class Card extends React{
 
     item: any
     ID = getID()
+    isMy = false
 
-    constructor($target: HTMLElement, item: any) {
+    constructor($target: HTMLElement, item: any, isMy: boolean) {
         super($target, 'Card')
         this.item = item
+        this.isMy = isMy
         this.init()
     }
 
@@ -136,15 +138,13 @@ export default class Card extends React{
 
             const checkedId = redux.check.getCheckForm().id
             const userId = this.item.userId
-            if (checkedId) {
+            if (checkedId && !this.isMy) {
                 if (checkedId !== userId) {
-                    new LikeButton(CardContentTop)
+                    new LikeButton(CardContentTop, this.item.id)
                 } else {
-                    new UpdateDelete(CardContentTop)
+                    new UpdateDelete(CardContentTop, this.item.id)
                 }
             }
-
-
         }
     }
 }
