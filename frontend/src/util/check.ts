@@ -1,5 +1,5 @@
 import { redux } from ".."
-import AuthContainer from "../components/Auth/AuthContainer/AuthContainer"
+// import AuthContainer from "../components/Auth/AuthContainer/AuthContainer"
 import Header from "../components/Header/Header"
 import Home from "../components/Home/Home"
 import MenuContainer from "../components/Menu/MenuContainer/MenuContainer"
@@ -13,6 +13,9 @@ const check = () => {
     // 리덕스 체크, 상태바꾸기 함수
     const ChangeState = (_id: string, townName: string) => {
         redux.check.setCheckForm('id', _id)
+        if (_id === '') {
+            redux.check.setCheckForm("profileImage", "")
+        }
         const header: Header = redux.instance.getInstance('header')
         header.setState({
             id: _id,
@@ -51,6 +54,9 @@ const check = () => {
         .then(data => {
             if (data.data.user.id) {
                 FetchMyTowns(data.data.user.id)
+            }
+            if (data.data.user.profileImage) {
+                redux.check.setCheckForm('profileImage', data.data.user.profileImage)
             }
         })
     

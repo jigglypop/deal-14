@@ -1,0 +1,17 @@
+#chat-product-button {
+    bottom: 100px;
+}
+
+.product-button-Inner {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    padding-left: 200px;
+    padding-bottom: 200px;
+}

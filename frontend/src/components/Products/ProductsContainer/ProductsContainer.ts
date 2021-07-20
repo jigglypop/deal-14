@@ -6,6 +6,7 @@ import { ProductTypes } from "../../../types/product"
 import getID from "../../../util/getID"
 import { redux } from "../../.."
 import { likeproductListApi, productListApi } from "../../../requests/product"
+import { NotHave } from "../../../common/NotHave/NotHave"
 
 export default class ProductsContainer extends React{
 
@@ -45,11 +46,17 @@ export default class ProductsContainer extends React{
         <div id="products-container-content${this.ID}" ></div>`
         const productsContainerContent = $(`#products-container-content${this.ID}`).getById()
         if (productsContainerContent) {
-            this.state.products.forEach(product => {
-                const UUID = getID()
-                const card = new Card(productsContainerContent, product, this.isMy, UUID)
-                redux.instance.setInstance(`card-${UUID}`, card)
-            })
+            const products = this.state.products
+
+            if (products.length !== 0) {
+                products.forEach(product => {
+                    const UUID = getID()
+                    const card = new Card(productsContainerContent, product, this.isMy, UUID)
+                    redux.instance.setInstance(`card-${UUID}`, card)
+                })
+            } else {
+                productsContainerContent.innerHTML = NotHave
+            }
         }
         
     }

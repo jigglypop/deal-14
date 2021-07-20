@@ -10,6 +10,7 @@ import { ChatSVG } from "../../../svgicon/Chat"
 import { ProductTypes } from "../../../types/product"
 import { HeartSVG, SHeartSVG } from "../../../svgicon/Heart"
 import { likeApi, unlikeApi } from "../../../requests/product"
+import Avatar from "../../../common/Avatar/Avatar"
 
 export default class Card extends React{
 
@@ -71,7 +72,7 @@ export default class Card extends React{
             justify-content: center;
             align-items: flex-start;
             text-align: flex-start;
-            line-height: 50px;
+            line-height: 30px;
             padding: 10px;
 
             width: 60%;
@@ -135,6 +136,29 @@ export default class Card extends React{
             cursor: pointer;
         }
 
+        .card-user-text{
+            margin: 5px;
+            color: var(--deep-gray);
+        }
+
+        .isSold {
+            color: var(--deep-gray);
+            border: 2px_solid_var(-deep-gray);
+            margin: 0;
+            padding: 0_10px;
+            box-shadow: 2px_2px_10px_var(--deep-gray);
+            border-radius: 10px;
+        }
+
+        .isNotSold {
+            color: var(--text);
+            border: 2px_solid_var(--text);
+            margin: 0;
+            padding: 0_10px;
+            box-shadow: 2px_2px_10px_var(--text);
+            border-radius: 10px;
+        }
+
         .Card-Right {
 
         }`
@@ -177,15 +201,28 @@ export default class Card extends React{
                         <h4>${this.item.title}</h4>
                     </a>
                     <div id="Card-Login-Button-${this.ID}" >
-                        <div id="LikeButton-Inner-${this.item.id}" class="LikeButton-Inner" >
+                        ${!this.isMy ?
+                        `<div id="LikeButton-Inner-${this.item.id}" class="LikeButton-Inner" >
                             ${HeartSVG(this.state.isUserLiked)}
-                        </div>
+                        </div>` :
+                        ''}
                     </div>
 
                 </div>
 
                 <h5 class="price-text" >${this.item.price ? this.item.price.toLocaleString('en-AU') + "원" : "비공개"}</h5>
                 <div class="Card-Content-Bottom" >
+                    <div class="isSoldOut" >${this.item.isSoldOut ? '<h6 class="isSold" >판매완료</h6>' : '<h6 class="isNotSold" >판매중</h6>'}</div>
+                    <div id="Card-Chat-Button-${this.ID}" class="Card-Chat-Button" >
+
+                        <h5 class="card-user-text" >
+                            ${this.item.user.id}
+                        </h5>
+                        <div class="card-user-item" id="card-user-item-${this.ID}">
+                        </div>
+                    </div>
+                </div>
+                    <div class="Card-Content-Bottom" >
                     <h5 class="time-text" >${getTimes().getTime(this.item.createdAt)}</h5>
                     <div id="Card-Chat-Button-${this.ID}" class="Card-Chat-Button" >
                         <div class="card-item">
@@ -214,21 +251,29 @@ export default class Card extends React{
 
             const checkedId = redux.check.getCheckForm().id
             const userId = this.item.userId
+            const CardLoginButton = $(`#Card-Login-Button-${this.ID}`).getById()
 
-            if (checkedId) {
+            if (checkedId !== "") {
                 if (checkedId === userId) {
-                    const CardLoginButton = $(`#Card-Login-Button-${this.ID}`).getById()
                     if (CardLoginButton) {
                         CardLoginButton.innerHTML = ""
                         new UpdateDelete(CardLoginButton, this.item.id, this.item)
                     }
                 } 
+            } else {
+                if (CardLoginButton) {
+                    CardLoginButton.innerHTML = ""
+                }
             }
+        }
+
+        const carduseritem = $(`#card-user-item-${this.ID}`).getById()
+        if (carduseritem) {
+            new Avatar(carduseritem, this.item.user.profileImage, "35px", "35px", "none")
         }
 
         let that = this
         $(`#LikeButton-Inner-${this.item.id}`).on('click', function () {
-            console.log("클릭")
             if (that.state.isUserLiked) {
                 that.UnLikeApi(that.item.id)
             } else {

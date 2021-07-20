@@ -1,8 +1,8 @@
-import React from "../../util/react"
-import { $ } from "../../util/select"
+import React from "../../../util/react"
+import { $ } from "../../../util/select"
 import "./index.css"
-import { redux } from "../.."
-import { removeApi } from "../../requests/product"
+import { redux } from "../../.."
+import { removeApi } from "../../../requests/product"
 
 export default class RemoveModal extends React{
 
@@ -33,8 +33,9 @@ export default class RemoveModal extends React{
         if (RemoveModal) {
             RemoveModal.classList.remove("isDisplay")
         }
-        const products = redux.instance.getInstance('products')
-        products.init()
+        location.href = "#"
+        const home = redux.instance.getInstance('home')
+        home.init()
 
         const menucontainer = redux.instance.getInstance('menucontainer')
         menucontainer.init()

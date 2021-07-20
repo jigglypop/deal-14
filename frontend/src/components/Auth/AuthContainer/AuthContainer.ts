@@ -10,6 +10,7 @@ import { ILoginForm, IRegisterForm } from "../../../types/IAuthForm";
 import { errorMsg } from "../../../util/errorMsg";
 import check from "../../../util/check";
 import cache from "../../../util/cache";
+import Avatar from "../../../common/Avatar/Avatar";
 
 export default class AuthContainer extends React{
 
@@ -122,6 +123,7 @@ export default class AuthContainer extends React{
     
 
     renderChecked(content: HTMLElement) {
+        new Avatar(content, redux.check.getCheckForm().profileImage, "150px", "150px")
         const h3 = document.createElement("h3")
         h3.id = "myid"
         h3.innerText = redux.check.getCheckForm().id

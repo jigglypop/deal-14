@@ -2,7 +2,7 @@ import Home from "./components/Home/Home";
 import React from "./util/react";
 import Header from "./components/Header/Header";
 import Slider from "./components/Slider/Slider";
-import RemoveModal from "./common/RemoveModal";
+import RemoveModal from "./components/Products/RemoveModal";
 
 import "./public/css/App.css"
 import { redux } from ".";

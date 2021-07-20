@@ -5,6 +5,7 @@ import { myproductListApi } from "../../../requests/product"
 import { IProductListResponse } from "../../../types/IProductListResponse"
 import { $ } from "../../../util/select"
 import ProductsContainer from "../../Products/ProductsContainer/ProductsContainer"
+import { redux } from "../../.."
 
 export default class MyProduct extends React{
 
@@ -48,7 +49,7 @@ export default class MyProduct extends React{
         const MyProductPage = $("#MyProduct-Page").getById()
         if (MyProductPage && data) {
             if (data) {
-                const products = new ProductsContainer(MyProductPage, data.data.products, '520px')
+                const products = new ProductsContainer(MyProductPage, data.data.products, redux.display.getWidthHeight().heightSS)
                 products.init()
             } else {
                 MyProductPage.innerHTML = `<h4>${err}</h4>`
