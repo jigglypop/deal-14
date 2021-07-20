@@ -1,6 +1,7 @@
 import { SpecificChatRoomTypes } from '../../../types/chatRoom';
 import { formatPrice } from '../../../util/price';
 import React from '../../../util/react';
+import { $ } from '../../../util/select';
 
 import './index.css';
 
@@ -30,12 +31,20 @@ export default class ChatProduct extends React {
       <div class="ChatProduct-Status">${this.chatRoom.product.isSoldOut ? '판매완료' : '판매중'}</div>
     </div>
     `
+
+    this.methods();
   }
 
   css() {
     return ``
   }
 
-  methods() {}
+  onChatProductClicked = () => {
+    location.href = `/#product/${this.chatRoom.productId}`;
+  }
+
+  methods() {
+    $('.ChatProduct').on('click', this.onChatProductClicked);
+  }
 
 }

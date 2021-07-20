@@ -4,6 +4,7 @@ export type SpecificChatRoomTypes = {
   id: number;
   productId: number;
   product: {
+    id: number;
     title: string;
     price: number | null;
     isSoldOut: number;
