@@ -4,6 +4,7 @@ import chatMessageQuery from '../query/chat-message.query';
 import chatRoomQuery from '../query/chat-room.query';
 import productImageQuery from '../query/product-image.query';
 import productQuery from '../query/product.query';
+import readChatMessageQuery from '../query/read-chat-message.query';
 
 class ChatroomService {
 
@@ -53,10 +54,17 @@ class ChatroomService {
         .then(image => {
           image = image;
 
+          return readChatMessageQuery.select(
+            `SELECT * FROM read_chat_message WHERE userId = ? AND chatRoomId = ? LIMIT 1`, [userId, chatRoom.id]);
+        })
+        .then(lastReadChatMessage => {
+          let chatMessageId = 0;
+          if (lastReadChatMessage.length > 0) {
+            chatMessageId = lastReadChatMessage[0].chatMessageId;
+          }
+
           return chatMessageQuery.count(`
-          SELECT COUNT(*) FROM chat_message WHERE id > (
-            SELECT chatMessageId FROM read_chat_message WHERE userId = ? AND chatRoomId = ? LIMIT 1
-          ) AND chatRoomId = ?`, [userId, chatRoom.id, chatRoom.id]);
+          SELECT COUNT(*) FROM chat_message WHERE id > ? AND chatRoomId = ?`, [chatMessageId, chatRoom.id]);
         })
         .then(count => {
           return {

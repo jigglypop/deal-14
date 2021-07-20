@@ -43,7 +43,7 @@ export default class ChatRoomList extends React {
       })
       .catch(error => {
         // error handling
-      })
+      });
   }
 
   render(): void {

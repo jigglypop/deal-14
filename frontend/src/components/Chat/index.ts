@@ -9,13 +9,14 @@ import { $ } from '../../util/select';
 import ChatProduct from './ChatProduct';
 import ChatMessage from './ChatMessage';
 import { fetchChatRoom, leaveChatRoom } from '../../requests/chatRoom';
-import { fetchChatMessage, fetchMoreChatMessage, sendChatMessage } from '../../requests/chatMessage';
+import { fetchChatMessage, fetchMoreChatMessage, readChatMessage, sendChatMessage } from '../../requests/chatMessage';
 import SendButton from '../../svgicon/SendButton';
 import { SpecificChatRoomTypes } from '../../types/chatRoom';
 
 import './Chat.css';
 import { ChatMessageTypes } from '../../types/chatMessage';
 import LeaveChatModal from './LeaveChatModal';
+import { redux } from '../..';
 
 const NEW_CHAT_NOTICE_SHOWING_TIME = 5000;
 
@@ -23,6 +24,7 @@ export default class Chat extends React {
   private chatRoomId: number;
   private leaveChatModal: LeaveChatModal;
   private canFetchMore = true;
+  private canRead = true;
   private chatRoom!: SpecificChatRoomTypes;
   private newMessageNoticeTimeout: NodeJS.Timeout | null = null;
   private fetchTimer: NodeJS.Timeout | null = null;
@@ -44,6 +46,20 @@ export default class Chat extends React {
     return $chatList.clientHeight + $chatList.scrollTop >= $chatList.scrollHeight;
   }
 
+  readMessage() {
+    if (!this.canRead) {
+      return;
+    }
+
+    if (this.chatMessages.length > 0) {
+      this.canRead = false;
+      readChatMessage(this.chatRoom.id, this.chatMessages[this.chatMessages.length - 1].id)
+        .finally(() => {
+          this.canRead = true;
+        })
+    }
+  }
+
   scrollToBottom(initialScroll?: boolean) {
     const $chatList = $('.Chat-List').get();
     if ($chatList === null) {
@@ -56,17 +72,21 @@ export default class Chat extends React {
     });
   }
 
-  onWindowHashChanged = () => {
+  onWindowHashChanged = (e: Event) => {
     if (this.fetchTimer !== null) {
       clearTimeout(this.fetchTimer);
     }
+  }
+
+  onGoBackClicked = () => {
+    redux.router.goRouter();
   }
 
   onLeaveButtonClicked = () => {
     // 현재 채팅방 조회로 대치
     leaveChatRoom(this.chatRoom.id)
       .then(() => {
-        // 홈으로 돌아가기
+        redux.router.goRouter();
       })
       .catch(error => {
         // error handling
@@ -144,6 +164,7 @@ export default class Chat extends React {
       .then(data => {
         const { chatMessages } = data.data;
         this.chatMessages = chatMessages;
+        this.readMessage();
         this.componentWillMount();
         this.scrollToBottom(true);
       })
@@ -174,6 +195,8 @@ export default class Chat extends React {
           ...this.chatMessages,
           ...chatMessages,
         ];
+
+        this.readMessage();
 
         const shouldScrollToBottom = this.shouldScrollToBottom();
         const $chatList = $('.Chat-List').get();
@@ -224,6 +247,7 @@ export default class Chat extends React {
     $('#Chat-Message-Input').on('keypress', this.onChatMessageInputKeyPressed);
     $('#Open-Leave-Chat-Modal-Button').on('click', this.onOpenLeaveChatModalButtonClicked);
     $('.New-Chat-Notice').on('click', this.onNewChatNoticeClicked);
+    $('#Chat-Go-Back').on('click', this.onGoBackClicked);
   }
 
   render(): void {
@@ -231,7 +255,7 @@ export default class Chat extends React {
       <div id="Chat-Inner">
         <header>
           <div class="Chat-Header">
-            <div class="Header-Left">${LeftArrow}</div>
+            <div class="Header-Left"><span id="Chat-Go-Back">${LeftArrow}<span></div>
             <h4 class="ChatRoom-Title"></h4>
             <div class="Header-Right" id="Open-Leave-Chat-Modal-Button">${Logout}</div>
           </div>
