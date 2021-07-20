@@ -2,6 +2,9 @@ const styled = (El: any, root: string, text: string) => {
 
   // 처음 지정해준 El 내에서만 스타일링됨
   const rootEls = El.querySelectorAll(`${root}`);
+  if (!rootEls) {
+    return
+  }
   // 파싱 부분
   // 공백 없애기
   const words = text.replace(/(\r\n\t|\n|\r\t|\s)/g, "");

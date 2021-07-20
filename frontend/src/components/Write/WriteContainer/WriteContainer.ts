@@ -154,7 +154,7 @@ export default class WriteContainer extends React{
                 redux.write.checkVailidate()
 
             }
-            new LineInput(WriteUnderContent, setPrice, "가격(선택사항)")
+            new LineInput(WriteUnderContent, setPrice, "가격(선택사항)", "number")
 
             const setContent = (e: string) => {
                 redux.write.setWriteForm('content', e)

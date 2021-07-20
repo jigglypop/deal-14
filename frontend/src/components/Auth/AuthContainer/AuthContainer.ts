@@ -29,83 +29,12 @@ export default class AuthContainer extends React{
 
     css() {
         return `
-        #Auth-Page {
-            position: relative;
-            
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
-            width: 100%;
-            height: 100%;
-        }
+
 
         .title {
             font-size: 18px;
             font-weight: 400;
-        }
-
-        #Auth-Header {
-            position: sticky;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background-color: var(--gray);
-        }
-
-        #Auth-Content {
-            position: relative;
-
-            width: 95%;
-            height: 95%;
-            background-color: var(--app);
-        }
-
-        #Auth-Arrow {
-            position: absolute;
-            margin-left: 250px;
-            cursor: pointer;
-        }
-
-        #Auth-Under {
-            position: relative;
-            width: 100%;
-            height: 100%;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-        }
-
-        #Auth-Under-Content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;       
-        }
-
-        #error {
-            font-size: 12px;
-            font-weight: 800;
-            color: var(--red);
-            margin: 10px;
-        }
-
-        #myid {
-            margin: 15px;
-        }
-
-        #isLogin {
-            cursor: pointer;
         }`
-
-
     }
     render() {
         this.$outer.innerHTML = `
@@ -138,27 +67,29 @@ export default class AuthContainer extends React{
             }
         }
     }
+
+
  
     getLoginApi(form: ILoginForm) {
         loginApi(form)
             .then(data => {
-                if (data.hasOwnProperty('status')) {
-                    this.setError(errorMsg(data))
-                } else {
-                    this.componentWillMount()
-                }
+                this.rerender(data)
             })
     }
 
     getRegisterApi(form: IRegisterForm) {
         registerApi(form)
             .then(data => {
-                if (data.hasOwnProperty('status')) {
-                    this.setError(errorMsg(data))
-                } else {
-                    this.componentWillMount()
-                }
+                this.rerender(data)
             })
+    }
+
+    rerender(data: any) {
+        if (data.hasOwnProperty('status')) {
+            this.setError(errorMsg(data))
+        } else {
+            this.componentWillMount()
+        }
     }
 
     componentWillMount() {
@@ -166,6 +97,10 @@ export default class AuthContainer extends React{
 
         const display = redux.display.getWidthHeight()
         $("#Auth-Inner").css("transform", `translateX(${display.width})`)
+
+        const products = redux.instance.getInstance("products")
+        products.init()
+        
     }
 
     setError(err: any) {
@@ -181,7 +116,11 @@ export default class AuthContainer extends React{
         check()
         const display = redux.display.getWidthHeight()
         $("#Auth-Inner").css("transform", `translateX(${display.width})`)
+
+        const products = redux.instance.getInstance("products")
+        products.init()
     }
+    
 
     renderChecked(content: HTMLElement) {
         const h3 = document.createElement("h3")
@@ -225,6 +164,7 @@ export default class AuthContainer extends React{
         const h5 = document.createElement("h5")
         h5.id = "error"
         content.appendChild(h5)
+
     }
 
     methods() {

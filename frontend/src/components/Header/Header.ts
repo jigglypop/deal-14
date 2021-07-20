@@ -101,9 +101,19 @@ export default class Header extends React{
                         <div id="Menu-Slider-Top" >
                             <h4 class="Menu-Slider-Text" >역삼동</h4>
                         </div>
-                        <div id="Menu-Slider-Bottom" >
-                            <h4 class="Menu-Slider-Text" >내 동네 설정하기</h4>
-                        </div>
+                        ${this.state.id === '' ?
+                        `
+                           <div id="Menu-Slider-Login" >
+                                <h4>로그인이 필요합니다</h4>
+                            </div>                          
+                        ` :
+                        `
+                            <a href="/#town" >
+                                <div id="Menu-Slider-Bottom" >
+                                        <h4 class="Menu-Slider-Text" >내 동네 설정하기</h4>
+                                </div>
+                            </a>                      
+                        ` }
                     </div>
                 </div>
                 <div class="header-link-right" >
@@ -113,9 +123,8 @@ export default class Header extends React{
                     </div>
                     <div class="header-link-item" id="menu-button" >${HamburgerSVG}</div>
                 </div>
-                <div id="FaB-Button" >
-                    <h1>+</h1>
-                </div>
+                <a href="/#" ><div id="Home-Button" >홈</div></a>
+                ${this.state.id === '' ? '' : ` <div id="FaB-Button" ><h1>+</h1></div>` }
             </div>
         `
     }

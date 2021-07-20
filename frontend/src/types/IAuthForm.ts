@@ -4,6 +4,7 @@ export interface ILoginForm {
 
 export interface ICheckForm {
     id: string;
+    mylike: number[];
 }
 
 export interface IRegisterForm {
