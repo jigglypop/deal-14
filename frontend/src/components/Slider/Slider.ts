@@ -5,7 +5,7 @@ import Category from "../Category/Category/Category"
 import Auth from "../Auth/Auth/Auth"
 import Write from "../Write/Write/Write"
 import { $ } from "../../util/select"
-// import Town from "../Town/Town"
+// import Town from "../Town/Town/Town"
 
 export default class Slider extends React{
 
@@ -53,8 +53,6 @@ export default class Slider extends React{
             new Auth(SliderInner)
             // 글쓰기
             new Write(SliderInner)
-            // // 타운
-            // new Town(SliderInner)
         }
     }
 

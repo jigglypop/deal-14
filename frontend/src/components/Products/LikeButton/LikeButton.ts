@@ -4,13 +4,16 @@ import { $ } from "../../../util/select";
 import { redux } from "../../../";
 import getID from "../../../util/getID";
 import { HeartSVG } from "../../../svgicon/Heart";
+import { unlikeApi, likeApi } from "../../../requests/product";
 
 export default class LikeButton extends React{
 
     ID = getID()
+    productId: number
 
-    constructor($target: HTMLElement) {
+    constructor($target: HTMLElement, productId: number) {
         super($target, 'LikeButton')
+        this.productId = productId
         this.init()
     }
 
@@ -23,17 +26,56 @@ export default class LikeButton extends React{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                text-align: center;    
+                text-align: center;
+                
+                cursor: pointer;
             }
         `
     }
     render() {
         this.$outer.innerHTML = `
-            <div id="LikeButton-Inner-${this.ID}" class="LikeButton-Inner" >
+            <div id="LikeButton-Inner-${this.productId}" class="LikeButton-Inner" >
                 ${HeartSVG}
             </div>`
     }
+
+    getLikeApi(productId: number) {
+        likeApi(productId)
+            .then(data => {
+                if (!data.hasOwnProperty("status")) {
+                    const products = redux.instance.getInstance('products')
+                    products.init()
+                }
+            })
+    }
+
+    getUnLikeApi(productId: number) {
+        unlikeApi(productId)
+            .then(data => {
+                if (!data.hasOwnProperty("status")) {
+                    const products = redux.instance.getInstance('products')
+                    products.init()
+                }
+            })      
+    }
  
     methods() {
+        let that = this
+        $(`#LikeButton-Inner-${this.productId}`).on('click', function () {
+            const heart = $(`#LikeButton-Inner-${that.productId}`).getById()
+            console.log(heart)
+            if (heart) {
+                const heartSVG = heart.querySelector(".like-heart")
+                if (heartSVG) {
+                    if (heartSVG.getAttribute('fill') === 'var(--deep-gray)') {
+                        console.log("라이크")
+                        that.getLikeApi(that.productId)
+                    } else {
+                        console.log("언라이크")
+                        that.getUnLikeApi(that.productId)
+                    }
+                }
+            }  
+        })
     }
 }
