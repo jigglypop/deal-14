@@ -1,6 +1,5 @@
 import { RowDataPacket } from 'mysql2';
 import ChatMessage from '../models/chat-message';
-import chatMessage from '../models/chat-message';
 import BaseQuery from './base.query';
 
 type CreateTypes = {
@@ -9,12 +8,12 @@ type CreateTypes = {
   content: string;
 }
 
-class chatMessageQuery extends BaseQuery<chatMessage, number, CreateTypes> {
+class ChatMessageQuery extends BaseQuery<ChatMessage, number, CreateTypes> {
   constructor() {
     super('chat_message');
   }
 
-  async findByPk(id: number): Promise<chatMessage | null> {
+  async findByPk(id: number): Promise<ChatMessage | null> {
     const chatMessages = await this.select(`SELECT * FROM ${this.tableName} WHERE id = ?`, [id]);
     if (chatMessages.length === 0) {
       return null;
@@ -23,19 +22,19 @@ class chatMessageQuery extends BaseQuery<chatMessage, number, CreateTypes> {
     return chatMessages[0];
   }
 
-  async findByChatRoom(chatRoomId: number): Promise<chatMessage[]> {
+  async findByChatRoom(chatRoomId: number): Promise<ChatMessage[]> {
     const chatRooms = await this.select(`SELECT * FROM ${this.tableName} WHERE chatRoomId = ?`, [chatRoomId]);
 
     return chatRooms;
   }
 
-  async findByChatRoomAfterThan(chatRoomId: number, chatMessageId: number): Promise<chatMessage[]> {
+  async findByChatRoomAfterThan(chatRoomId: number, chatMessageId: number): Promise<ChatMessage[]> {
     const chatMessages = await this.select(`SELECT * FROM ${this.tableName} WHERE chatRoomId = ? AND id > ?`, [chatRoomId, chatMessageId]);
 
     return chatMessages;
   }
 
-  async create(data: CreateTypes): Promise<chatMessage> {
+  async create(data: CreateTypes): Promise<ChatMessage> {
     const { chatRoomId, userId, content } = data;
     const now = new Date();
     const insertResult = await this.save(
@@ -50,7 +49,7 @@ class chatMessageQuery extends BaseQuery<chatMessage, number, CreateTypes> {
     return chatMessage;
   }
 
-  map(row: RowDataPacket): chatMessage {
+  map(row: RowDataPacket): ChatMessage {
     const chatMessage = new ChatMessage();
     chatMessage.id = row.id;
     chatMessage.chatRoomId = row.chatRoomId;
@@ -63,4 +62,4 @@ class chatMessageQuery extends BaseQuery<chatMessage, number, CreateTypes> {
   }
 }
 
-export default new chatMessageQuery();
+export default new ChatMessageQuery();
