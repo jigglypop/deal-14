@@ -11,13 +11,9 @@ import Product from "./components/Product/Product/Product";
 import ChatRoomItem from "./components/ChatRoom/ChatRoomItem";
 import CategoryPage from "./components/CategoryPage/CategoryPage";
 import Chat from "./components/Chat";
-<<<<<<< HEAD
-import Town from "./components/Town/Town";
-import ChatRoomList from './components/ChatRoom/ChatRoomList';
-=======
 import Town from "./components/Town/Town/Town";
 import Update from "./components/Update/Update/Update";
->>>>>>> dev
+import ChatRoom from './components/ChatRoom';
 
 export interface IServiceConstructor {
     $target: HTMLElement
@@ -69,12 +65,8 @@ class App extends React {
                     new Chat(this.$outer);
                     break;
                 case 'chatroom':
-<<<<<<< HEAD
-                    new ChatRoomList(this.$outer);
-=======
                     redux.router.pushRouter(location.hash)
-                    new ChatRoomItem(this.$outer, {} as any);
->>>>>>> dev
+                    new ChatRoom(this.$outer);
                     break;
                 case 'town':
                     redux.router.pushRouter(location.hash)

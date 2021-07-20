@@ -13,7 +13,7 @@ class UserService {
   }
 
   async register(registerRequest: RegisterRequest) {
-    const { id, town } = registerRequest;
+    const { id, profileImage, town } = registerRequest;
 
     const duplicateUser = await userQuery.findByPk(id);
     if (duplicateUser !== null) {
@@ -22,6 +22,7 @@ class UserService {
 
     const registeredUser = await userQuery.create({
       id,
+      profileImage,
     });
 
     const createdTown = await townQuery.findOrCreateByTownName(town);

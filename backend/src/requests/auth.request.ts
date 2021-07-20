@@ -18,6 +18,10 @@ export class RegisterRequest extends BaseRequest {
   id!: string;
 
   @IsNotEmpty()
+  profileImage!: string;
+
+
+  @IsNotEmpty()
   @Length(1, 25)
   town!: string;
 
@@ -25,5 +29,6 @@ export class RegisterRequest extends BaseRequest {
     super();
     this.id = data.id;
     this.town = data.town;
+    this.profileImage = data.profileImage;
   }
 }
