@@ -3,7 +3,7 @@ import { $ } from "../util/select"
 
 const Update = function() {
     let updateForm : any = {
-        id: '',
+        productId: '',
         price: -1,
         category: -1,
         title: '',

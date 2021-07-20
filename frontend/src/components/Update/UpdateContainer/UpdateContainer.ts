@@ -4,13 +4,18 @@ import { RightArrow } from "../../../svgicon/RightArrow"
 import { $ } from "../../../util/select"
 import LineInput from "../../../common/LineInput/LineInput"
 import { redux } from "../../../index"
-import { uploadApi, writeApi } from "../../../requests/product"
+import { updateApi, uploadApi, writeApi } from "../../../requests/product"
 import { UCheckSVG } from "../../../svgicon/UCheck"
 
 export default class UpdateContainer extends React{
 
-    constructor($target: HTMLElement) {
+    item: any
+    productId: number
+
+    constructor($target: HTMLElement, productId: number) {
         super($target, 'UpdateContainer')
+        this.item = redux.update.getUpdateForm()
+        this.productId = productId
         this.init()
     }
 
@@ -58,6 +63,7 @@ export default class UpdateContainer extends React{
          
         #Update-Under {
             position: relative;
+            margin-top: 20px;
             width: 100%;
             height: 505px;
             overflow: scroll;
@@ -98,15 +104,8 @@ export default class UpdateContainer extends React{
         `
     }
 
-    componentDidMount() {
-        // 설정할 필요 없는 파라미터 추가
-        const check = redux.check.getCheckForm()
-
-        redux.update.setUpdateForm('id', check.id)
-    }
 
     render() {
-        this.componentDidMount()
         this.$outer.innerHTML = `
             <div id="Update-Page" >
                 <div id="Update-Content" >
@@ -136,29 +135,29 @@ export default class UpdateContainer extends React{
                 redux.update.setUpdateForm('title', e)
                 redux.update.checkVailidate()
             }
-            new LineInput(UpdateUnderContent, setTitle, "글 제목")
+            new LineInput(UpdateUnderContent, setTitle, "글 제목", "", this.item.title)
 
             const setPrice = (e: string) => {
                 redux.update.setUpdateForm('price', e)
                 redux.update.checkVailidate()
 
             }
-            new LineInput(UpdateUnderContent, setPrice, "가격(선택사항)", "number")
+            new LineInput(UpdateUnderContent, setPrice, "가격(선택사항)", "number", this.item.price)
 
             const setContent = (e: string) => {
                 redux.update.setUpdateForm('content', e)
                 redux.update.checkVailidate()
             }
-            new LineInput(UpdateUnderContent, setContent, "게시글 내용을 작성해 주세요")
+            new LineInput(UpdateUnderContent, setContent, "게시글 내용을 작성해 주세요", "", this.item.content)
         }
     }
 
-    // getUpdateApi() {
-    //     writeApi()
-    //         .then(data => {
-    //             location.href = `/#product/${data.data.product.id}`
-    //         })
-    // }
+    UpdateApi() {
+        updateApi()
+            .then(data => {
+                location.href = `/#product/${this.productId}`
+            })
+    }
 
 
     goBack() {
@@ -172,7 +171,7 @@ export default class UpdateContainer extends React{
         $("#Update-Success").on('click', function () {
             const isComplite = redux.update.getIsComplete()
             if (isComplite) {
-                // that.getUploadApi()
+                that.UpdateApi()
             }
         })
     }

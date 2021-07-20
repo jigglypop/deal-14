@@ -9,6 +9,7 @@ import Uploader from "../Uploader/Uploader"
 import Categories, { ICategory } from "../../../constants/category.constants"
 import WriteCategory from "../WriteCategory/WriteCategory"
 import { uploadApi, writeApi } from "../../../requests/product"
+import { BLocationSVG, LocationSVG } from "../../../svgicon/location"
 
 export default class WriteContainer extends React{
 
@@ -97,6 +98,13 @@ export default class WriteContainer extends React{
         #Write-Success {
             cursor: pointer;
         }
+
+        #location {
+            display: flex;
+            justify-content: center;
+            align-items: center;              
+        }
+
         `
     }
 
@@ -127,6 +135,9 @@ export default class WriteContainer extends React{
                         <div id="Write-Under-Content" >
                         </div>
                     </div>
+                    <div id="location">
+                        ${BLocationSVG}${redux.write.getWriteForm().townName}
+                    </div>
                 </div>
             </div>
         `
@@ -140,6 +151,7 @@ export default class WriteContainer extends React{
             div.innerHTML = `
                 <h4 id="WriteCategory-Title" >카테고리 설정(필수)</h4>
                 <div id="WriteCategory-Set" ></div>
+
             `
             WriteUnderContent.appendChild(div)
             
@@ -168,7 +180,6 @@ export default class WriteContainer extends React{
     getUploadApi() {
         uploadApi()
             .then(data => {
-                
                 if (data.message === "파일 업로드 성공") {
                     redux.write.setWriteForm('images', data.data.files)
                 }

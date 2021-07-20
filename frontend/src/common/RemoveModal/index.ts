@@ -26,7 +26,7 @@ export default class RemoveModal extends React{
 
   RemoveApi() {
     const productId = redux.remove.getRemove()
-    console.log(productId)
+
     removeApi(productId)
       .then(data => {
         const RemoveModal = $('.RemoveModalOuter').get()

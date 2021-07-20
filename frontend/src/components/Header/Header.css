@@ -101,6 +101,10 @@
     transition: all .3s ease-in;
 }
 
+#Menu-Slider-Button {
+    color: var(--app);
+}
+
 #Menu-Slider-Top {
     position: relative;
     display: flex;

@@ -4,12 +4,13 @@ import { $ } from "../util/select"
 const Write = function() {
     let writeForm : any = {
         id: '',
-        townId: 1,
+        townId: -1,
         price: 0,
         category: -1,
         title: '',
         content: '',
-        images: ['']
+        images: [''],
+        townName: ''
     }
     let isComplite = false
     return {

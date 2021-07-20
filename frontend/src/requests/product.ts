@@ -115,6 +115,7 @@ export const writeApi = () => {
     const token = cache.get('token')
 
     WriteForm.price = Number(WriteForm.price)
+    delete WriteForm['townName']
     
     return fetchThen("/api/product", {
         method: "POST",
@@ -123,5 +124,25 @@ export const writeApi = () => {
             'Authorization' : `Bearer ${token.value}`
         },
         body: JSON.stringify(WriteForm)
+    })
+}
+
+export const updateApi = () => {
+    const UpdateForm = redux.update.getUpdateForm()
+    // 체크시 토큰을 캐시에서 받아와서 요청
+    const token = cache.get('token')
+
+    const productId = UpdateForm.productId
+    delete UpdateForm.productId
+
+    UpdateForm.price = Number(UpdateForm.price)
+    
+    return fetchThen(`/api/product/${productId}`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token.value}`
+        },
+        body: JSON.stringify(UpdateForm)
     })
 }

@@ -9,9 +9,10 @@ export default class LineInput extends React {
     ID = getID()
     labelText = ""
     type = ""
+    defaultValue : any = null
     method = (e: string) => {}
 
-    constructor($target: HTMLElement, method: (e: string) =>  void, labelText: string, type?: string) {
+    constructor($target: HTMLElement, method: (e: string) =>  void, labelText: string, type?: string, defaultValue?: string | number) {
         super($target, 'LineInput')
 
         this.method = method
@@ -19,13 +20,16 @@ export default class LineInput extends React {
         if (type) {
             this.type = type
         }
+        if (defaultValue) {
+            this.defaultValue = defaultValue
+        }
         this.init()
     }
 
     render() {
         this.$outer.innerHTML = `
             <div class="LineInput" id="LineInput-${this.ID}"  >
-                <input id="${this.ID}" ${this.type === 'number' ? 'type="number"' : ""} >${this.text}</button>
+                <input id="${this.ID}" ${this.type === 'number' ? 'type="number"' : ""} ${this.defaultValue !== null && this.defaultValue !== -1 ? `value="${this.defaultValue}"`:""} >${this.text}</button>
                 <label>${this.labelText}</label>
             </div>
         `
@@ -36,11 +40,11 @@ export default class LineInput extends React {
     methods() {
         let that = this
         const input = $(`#${this.ID}`).getById()
+        const LineInput = $(`#LineInput-${that.ID}`).getById()
         if (input) {
             $(input).on('input', function (e: Event) {
                 const target = e.target as HTMLButtonElement;
                 that.method(target.value)
-                const LineInput = $(`#LineInput-${that.ID}`).getById()
 
                 if (LineInput) {
                     if (target.value.length > 0) {
@@ -50,7 +54,12 @@ export default class LineInput extends React {
                     }
                 }
             })
-
         }
+
+        const defaultValue = this.defaultValue
+
+        if (defaultValue && defaultValue !== -1 && LineInput) {
+            LineInput.classList.add("Hold")
+        } 
     }
 }

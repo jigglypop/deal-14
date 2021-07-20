@@ -12,6 +12,9 @@ const Instance = function() {
         },
         getInstance(key: string) {
             return instance[key]            
+        },
+        getInstanceAll() {
+            return instance
         }
     }
 }
