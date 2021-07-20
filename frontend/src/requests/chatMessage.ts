@@ -33,3 +33,16 @@ export const sendChatMessage = (chatRoomId: number, content: string): Promise<an
     }),
   });
 }
+
+export const readChatMessage = (chatRoomId: number, chatMessageId: number): Promise<any> => {
+  return fetchThen(`/api/chat-message/read/${chatRoomId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cache.get('token').value}`,
+    },
+    body: JSON.stringify({
+      chatMessageId,
+    }),
+  });
+}

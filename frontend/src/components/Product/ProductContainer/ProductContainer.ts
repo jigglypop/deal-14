@@ -7,8 +7,9 @@ import { LeftArrow } from "../../../svgicon/LeftArrow"
 import { $ } from "../../../util/select"
 import { redux } from "../../.."
 import { BLocationSVG } from "../../../svgicon/location"
+import { joinChatRoom } from '../../../requests/chatRoom'
 
-export default class ProductContainer extends React{
+export default class ProductContainer extends React {
 
     productId = ""
     product: ProductTypes
@@ -145,7 +146,7 @@ export default class ProductContainer extends React{
                     <div>
                     </div>
                 </div>
-                <img src="${this.product.productImages? this.product.productImages[0].filePath : 'public/image/shoes.jpg'}" class="product-images" />
+                <img src="${this.product.productImages ? this.product.productImages[0].filePath : 'public/image/shoes.jpg'}" class="product-images" />
                 <div id="product-content" >
                     <h3 class="product-title" >${this.product.title}</h3>
                     <h3 class="product-time" >기타 중고물품 - ${getTimes().getTime(this.product.createdAt)}</h3>    
@@ -165,6 +166,8 @@ export default class ProductContainer extends React{
                         <h5 class="product-user-town" >${this.product.town.townName}</h5>
                     </div>
                 </div>
+
+                <button id="chat-product-button">문의하기</button>
             </div>
         `
     }
@@ -173,7 +176,19 @@ export default class ProductContainer extends React{
         redux.router.goRouter()
     }
 
+    onChatProductButtonClicked = () => {
+        joinChatRoom(this.product.id)
+            .then(data => {
+                const { chatRoom } = data.data;
+                location.href = `/#chat/${chatRoom.id}`;
+            })
+            .catch(error => [
+                // error handling
+            ])
+    }
+
     methods() {
         $("#Product-Top-Back").on("click", this.goBack)
+        $('#chat-product-button').on('click', this.onChatProductButtonClicked);
     }
 }

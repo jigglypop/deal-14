@@ -40,6 +40,7 @@
 
 .ChatRoomItem-Partner {
   color: #222222;
+  font-weight: normal;
   margin-bottom: 2px;
 }
 
@@ -75,17 +76,17 @@
   font-weight: normal;
   color: #888888;
   margin-bottom: 2px;
+  font-size: 12px;
 }
 
 .RecentMessage-Count {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #2AC1BC;
   font-weight: normal;
   color: #ffffff;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
+  height: 20px;
+  min-width: 20px;
+  padding: 4px;
+  border-radius: 999px;
   margin-top: 2px;
+  font-size: 12px;
 }

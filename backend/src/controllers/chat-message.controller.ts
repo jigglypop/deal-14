@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import chatMessageService from '../services/chat-message.service';
 import HTTPError from '../errors/http-error';
 import { SendChatMessageRequest } from '../requests/chat-message.request';
+import { ReadChatMessageRequest } from '../requests/read-chat-message.request';
+import readChatMessageService from '../services/read-chat-message.service';
 
 class ChatMessageController {
 
@@ -40,6 +42,21 @@ class ChatMessageController {
     });
   }
 
+  async read(req: Request, res: Response) {
+    const { userId, params, body } = req;
+    if (isNaN(Number(params.chatRoomId))) {
+      throw new HTTPError(400, '채팅방 번호 검증 오류');
+    }
+
+    const readChatMessageRequest = new ReadChatMessageRequest(body);
+    await readChatMessageRequest.validate();
+
+    await readChatMessageService.readMessage(userId, Number(params.chatRoomId), readChatMessageRequest);
+
+    res.status(200).json({
+      message: '채팅 읽음 성공',
+    });
+  }
 
 }
 

@@ -30,3 +30,13 @@ export const leaveChatRoom = (id: number): Promise<any> => {
     },
   });
 }
+
+export const joinChatRoom = (productId: number): Promise<any> => {
+  return fetchThen(`/api/chat-room/join/${productId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cache.get('token').value}`,
+    },
+  });
+}
