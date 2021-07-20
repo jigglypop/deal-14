@@ -1,0 +1,52 @@
+.RemoveModalOuter {
+  position: absolute;
+  z-index: 10;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  top: 0;
+  left: 0;
+  width: var(--baseX);
+  height: var(--baseY);
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all .3s ease-in;
+}
+
+.isDisplay {
+  display: flex;
+}
+
+#RemoveModal-inner {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gray);
+  width: 200px;
+  height: 150px;
+  border-radius: 5px;
+}
+
+#RemoveModal-inner-Item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#removemodal-title {
+  margin: 10px;
+}
+
+#removemodal-goback {
+  margin: 20px;
+  cursor: pointer;
+}
+
+#removemodal-delete {
+  color: var(--red);
+  margin: 20px;
+  cursor: pointer;
+}

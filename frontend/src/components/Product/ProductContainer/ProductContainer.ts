@@ -5,6 +5,7 @@ import { ProductTypes } from "../../../types/product"
 import getTimes from "../../../util/getTimes"
 import { LeftArrow } from "../../../svgicon/LeftArrow"
 import { $ } from "../../../util/select"
+import { redux } from "../../.."
 
 export default class ProductContainer extends React{
 
@@ -41,7 +42,7 @@ export default class ProductContainer extends React{
             flex-direction: space-between;
             align-items: flex-start;
             padding: 20px;
-            z-index: 3;        
+            z-index: 1;        
         }
 
         #Product-Top-Back {
@@ -119,7 +120,7 @@ export default class ProductContainer extends React{
             <div id="Product-Page" >
                 <div id="Product-Top" >
                     <div id="Product-Top-Back" >
-                        <a href="/#" >${LeftArrow}</a>
+                        ${LeftArrow}
                     </div>
                     <div>
                     </div>
@@ -146,7 +147,11 @@ export default class ProductContainer extends React{
         `
     }
 
-    methods() {
+    goBack() {
+        redux.router.goRouter()
+    }
 
+    methods() {
+        $("#Product-Top-Back").on("click", this.goBack)
     }
 }

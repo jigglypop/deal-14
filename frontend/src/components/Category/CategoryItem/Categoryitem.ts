@@ -27,9 +27,10 @@ export default class CategoryItem extends React{
             width: 80px;
             height: 80px;
             margin: 10px;
+            cursor: pointer;
         }
         .Category-Text {
-            margin-top: 6px;
+            margin-top: 16px;
             font-size: 11px;
         }
 
@@ -42,6 +43,7 @@ export default class CategoryItem extends React{
             border: 1px solid #D7D7D7;
             box-sizing: border-box;
             border-radius: 6px;
+            box-shadow: 2px_2px_10px_var(--text)
         }
 
         .Category-Item-Inner {
@@ -50,14 +52,16 @@ export default class CategoryItem extends React{
     }
     render() {
         this.$outer.innerHTML = `
-            <div class="Category-Item" >
-                <div class="Category-Item-Inner" >
-                    <div class="Category-Box" ></div>
+            <a href="/#category/${this.data?.keys}" >
+                <div class="Category-Item" >
+                    <div class="Category-Item-Inner" >
+                        <div class="Category-Box" ></div>
+                    </div>
+                    <div class="Category-Item-Inner" >
+                        <h5 class="Category-Text" >${this.data?.name}</h5>
+                    </div>
                 </div>
-                <div class="Category-Item-Inner" >
-                    <h5 class="Category-Text" >${this.data?.name}</h5>
-                </div>
-            </div>`
+            </a>`
     }
     methods() {
 

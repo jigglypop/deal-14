@@ -27,7 +27,46 @@ export const myproductListApi = () => {
     })
 }
 
+export const likeproductListApi = () => {
 
+    // 체크시 토큰을 캐시에서 받아와서 요청
+    const token = cache.get('token')
+    
+    return fetchThen("/api/product/liked", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token.value}`
+        },
+    })
+}
+
+export const unlikeApi = (productId: number) => {
+
+    // 체크시 토큰을 캐시에서 받아와서 요청
+    const token = cache.get('token')
+    
+    return fetchThen(`/api/product/unlike/${productId}`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token.value}`
+        },
+    })
+}
+export const likeApi = (productId: number) => {
+
+    // 체크시 토큰을 캐시에서 받아와서 요청
+    const token = cache.get('token')
+    
+    return fetchThen(`/api/product/like/${productId}`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token.value}`
+        },
+    })
+}
 export const productApi = (productId: string) => {
 
     return fetchThen(`/api/product/${productId}`, {
@@ -38,6 +77,18 @@ export const productApi = (productId: string) => {
     }) 
 }
 
+export const removeApi = (productId: number) => {
+
+    const token = cache.get('token')
+    
+    return fetchThen(`/api/product/${productId}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token.value}`
+        },
+    })
+}
 
 
 export const uploadApi = () => {
@@ -62,6 +113,8 @@ export const writeApi = () => {
     const WriteForm = redux.write.getWriteForm()
     // 체크시 토큰을 캐시에서 받아와서 요청
     const token = cache.get('token')
+
+    WriteForm.price = Number(WriteForm.price)
     
     return fetchThen("/api/product", {
         method: "POST",
