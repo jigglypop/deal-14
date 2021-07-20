@@ -1,9 +1,12 @@
-import Product from './product';
-
-type ChatRoomProduct = {
+type ChatRoomProductTypes = {
   title: string;
   price: number;
   isSoldOut: string;
+}
+
+type RecentMessageTypes = {
+  content: string | null;
+  createdAt: Date | null;
 }
 
 class ChatRoom {
@@ -13,7 +16,8 @@ class ChatRoom {
   createdAt!: Date;
   updatedAt!: Date;
   hostId!: string;
-  product!: ChatRoomProduct;
+  product!: ChatRoomProductTypes;
+  recentMessage?: RecentMessageTypes
 }
 
 export default ChatRoom;
