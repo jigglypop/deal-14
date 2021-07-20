@@ -9,7 +9,7 @@ import { $ } from '../../util/select';
 import ChatProduct from './ChatProduct';
 import ChatMessage from './ChatMessage';
 import { fetchChatRoom, leaveChatRoom } from '../../requests/chatRoom';
-import { fetchChatMessage, fetchMoreChatMessage, sendChatMessage } from '../../requests/chatMessage';
+import { fetchChatMessage, fetchMoreChatMessage, readChatMessage, sendChatMessage } from '../../requests/chatMessage';
 import SendButton from '../../svgicon/SendButton';
 import { SpecificChatRoomTypes } from '../../types/chatRoom';
 
@@ -23,6 +23,7 @@ export default class Chat extends React {
   private chatRoomId: number;
   private leaveChatModal: LeaveChatModal;
   private canFetchMore = true;
+  private canRead = true;
   private chatRoom!: SpecificChatRoomTypes;
   private newMessageNoticeTimeout: NodeJS.Timeout | null = null;
   private fetchTimer: NodeJS.Timeout | null = null;
@@ -44,6 +45,20 @@ export default class Chat extends React {
     return $chatList.clientHeight + $chatList.scrollTop >= $chatList.scrollHeight;
   }
 
+  readMessage() {
+    if (!this.canRead) {
+      return;
+    }
+
+    if (this.chatMessages.length > 0) {
+      this.canRead = false;
+      readChatMessage(this.chatRoom.id, this.chatMessages[this.chatMessages.length - 1].id)
+        .finally(() => {
+          this.canRead = true;
+        })
+    }
+  }
+
   scrollToBottom(initialScroll?: boolean) {
     const $chatList = $('.Chat-List').get();
     if ($chatList === null) {
@@ -56,7 +71,7 @@ export default class Chat extends React {
     });
   }
 
-  onWindowHashChanged = () => {
+  onWindowHashChanged = (e: Event) => {
     if (this.fetchTimer !== null) {
       clearTimeout(this.fetchTimer);
     }
@@ -144,6 +159,7 @@ export default class Chat extends React {
       .then(data => {
         const { chatMessages } = data.data;
         this.chatMessages = chatMessages;
+        this.readMessage();
         this.componentWillMount();
         this.scrollToBottom(true);
       })
@@ -174,6 +190,8 @@ export default class Chat extends React {
           ...this.chatMessages,
           ...chatMessages,
         ];
+
+        this.readMessage();
 
         const shouldScrollToBottom = this.shouldScrollToBottom();
         const $chatList = $('.Chat-List').get();

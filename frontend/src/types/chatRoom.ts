@@ -21,5 +21,6 @@ export type ChatRoomTypes = SpecificChatRoomTypes & {
   recentMessage: {
     content: string;
     createdAt: string;
-  }
+  },
+  newMessageCount: number;
 }
