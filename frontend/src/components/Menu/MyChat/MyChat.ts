@@ -6,7 +6,6 @@ export default class MyChat extends React{
     constructor($target: HTMLElement) {
         super($target, 'MyChat')
         this.init()
-        this.methods()
     }
 
     css() {

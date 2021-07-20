@@ -16,4 +16,8 @@ export type ProductTypes = {
             filePath: string
         }
     ]
+    chatroomCount: number;
+    isUserLiked: boolean;
+    likeCount: number;
+
 }

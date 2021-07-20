@@ -1,6 +1,7 @@
 import { redux } from ".."
 import AuthContainer from "../components/Auth/AuthContainer/AuthContainer"
 import Header from "../components/Header/Header"
+import Home from "../components/Home/Home"
 import MenuContainer from "../components/Menu/MenuContainer/MenuContainer"
 import { checkApi } from "../requests/auth"
 import { fetchMyTowns } from "../requests/town"
@@ -20,17 +21,22 @@ const check = () => {
             
         const slider = redux.instance.getInstance('slider')
         slider.init()
-//             console.log(redux.instance.getInstanceAll())
-// 
-//             const authcontainer: AuthContainer = redux.instance.getInstance('authcontainer')
-//             authcontainer.setState({
-//                 checked: _id
-//             })
-//             
-//             const menucontainser: MenuContainer = redux.instance.getInstance('menucontainer')
-//             menucontainser.setState({
-//                 checked: _id
-//             })
+
+        // const authcontainer: AuthContainer = redux.instance.getInstance('authcontainer')
+        // authcontainer.setState({
+        //     checked: _id
+        // })
+        // 
+        const menucontainser: MenuContainer = redux.instance.getInstance('menucontainer')
+        menucontainser.setState({
+            checked: _id
+        })
+        // 라우팅별로 check후에 잡아주기
+        if (location.hash === "" || location.hash === "#") {
+            const home: Home = redux.instance.getInstance('home')
+            home.init()       
+        }
+        
 
     }
 
@@ -56,7 +62,8 @@ const check = () => {
                 const townName = checkform.townName
                 const townId = checkform.townId
                 cache.set("townName", townName)
-                
+                cache.set("townId", townId)
+
                 redux.write.setWriteForm('townName', townName)
                 redux.write.setWriteForm('townId', townId)
 

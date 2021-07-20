@@ -3,11 +3,15 @@ import fetchThen from "../util/api"
 import cache from "../util/cache"
 
 export const productListApi = () => {
+    // 체크시 토큰을 캐시에서 받아와서 요청
+    const token = cache.get('token')
+    const townId = cache.get("townId")
 
-    return fetchThen("/api/product", {
+    return fetchThen(`/api/product/${townId ? `?townId=${townId}` : ''}`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token?.value}`
         },
     }) 
 }
@@ -68,6 +72,7 @@ export const likeApi = (productId: number) => {
     })
 }
 export const productApi = (productId: string) => {
+
 
     return fetchThen(`/api/product/${productId}`, {
         method: "GET",

@@ -8,10 +8,10 @@ import ProductsContainer from "../../Products/ProductsContainer/ProductsContaine
 
 export default class MyProduct extends React{
 
+
     constructor($target: HTMLElement) {
         super($target, 'MyProduct')
         this.init()
-        this.methods()
     }
 
     css() {
@@ -48,7 +48,8 @@ export default class MyProduct extends React{
         const MyProductPage = $("#MyProduct-Page").getById()
         if (MyProductPage && data) {
             if (data) {
-                new ProductsContainer(MyProductPage, data.data.products, '520px')
+                const products = new ProductsContainer(MyProductPage, data.data.products, '520px')
+                products.init()
             } else {
                 MyProductPage.innerHTML = `<h4>${err}</h4>`
             }
