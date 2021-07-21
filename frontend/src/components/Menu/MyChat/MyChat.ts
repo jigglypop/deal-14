@@ -1,7 +1,9 @@
 import React from "../../../util/react"
+import { $ } from '../../../util/select'
+import ChatRoomList from '../../ChatRoom/ChatRoomList'
 import "./MyChat.css"
 
-export default class MyChat extends React{
+export default class MyChat extends React {
 
     constructor($target: HTMLElement) {
         super($target, 'MyChat')
@@ -13,10 +15,6 @@ export default class MyChat extends React{
         #MyChat-Page {
             position: relative;
             
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
             width: 100%;
             height: 100%;
         }
@@ -26,9 +24,13 @@ export default class MyChat extends React{
     render() {
         this.$outer.innerHTML = `
             <div id="MyChat-Page" >
-                <h4>채팅</h4>
             </div>
         `
+
+        const $myChatPage = $('#MyChat-Page').get();
+        if ($myChatPage === null) return;
+
+        new ChatRoomList($myChatPage);
     }
 
     methods() {
