@@ -2,221 +2,161 @@ import React from "../../../util/react"
 import "./ProductContainer.css"
 import { IProductResponse } from "../../../types/IProducResponse"
 import { ProductTypes } from "../../../types/product"
-import getTimes from "../../../util/getTimes"
-import { LeftArrow } from "../../../svgicon/LeftArrow"
 import { $ } from "../../../util/select"
 import { redux } from "../../.."
-import { BLocationSVG } from "../../../svgicon/location"
 import { joinChatRoom } from '../../../requests/chatRoom'
-import GlassButton from "../../../common/GlassButton/GlassButton"
-import UpdateDelete from "../../Products/UpdateDelete/UpdateDelete"
-import Avatar from "../../../common/Avatar/Avatar"
+import { ProductImageTypes } from '../../../types/productImage'
+import { LeftArrow } from '../../../svgicon/LeftArrow'
+import Categories, { ICategory } from '../../../constants/category.constants'
+import getTimes from '../../../util/getTimes'
+import { HeartSVG } from '../../../svgicon/Heart'
+import { formatPrice } from '../../../util/price'
+import { likeApi, unlikeApi, updateApi, updateSpecificApi } from '../../../requests/product'
+import UpdateDelete from '../../Products/UpdateDelete/UpdateDelete'
+
+const SELLING = 'SELLING';
+const SOLD_OUT = 'SOLD_OUT';
+
+const getCategoryName = (categoryKey: number) => {
+    const category: ICategory | undefined = Categories.find(c => c.keys === categoryKey);
+    if (category === undefined) {
+        return '없음';
+    }
+
+    return category.name;
+}
 
 export default class ProductContainer extends React {
 
-    productId = ""
-    product: ProductTypes
+    private product: ProductTypes
 
     constructor($target: HTMLElement, data: IProductResponse) {
         super($target, 'ProductContainer')
-
-        this.product = data.data.product
-        this.init()
+        this.product = data.data.product;
+        this.init();
     }
 
     css() {
-        return `
-        #Product-Page {
-            position: relative;
-            
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            
-            width: 100%;
-            height: 600px;
-            overflow: scroll;
-        }
-
-        #Product-Top {
-            position: absolute;
-            top: 5px;
-            width: 100%;
-            display: flex;
-            flex-direction: space-between;
-            align-items: flex-start;
-            padding: 20px;
-            z-index: 1;        
-        }
-
-        #Product-Top-Back {
-            cursor: pointer;
-        }
-        
-        .product-images {
-            position: relative;
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-        }
-
-        #product-content {
-            position: relative;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 20px;
-        }
-
-        .product-title {
-            font-size: 18px;
-            margin: 20px_0_0_0;
-            font-weight: 400;
-        }
-
-        .product-time {
-            font-size: 12px;
-            margin: 10px_0;
-            color: var(--deep-gray);
-        }
-
-        .product-content {
-            font-size: 16px;
-            margin: 24px_0;
-            
-            height: 100px;
-        }
-
-        #product-user {
-            position: relative;
-            width: 100%;
-            height: 50px;
-            background-color: var(--gray);
-
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            align-items: center;
-        }
-
-        .product-user-item {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .product-user-name {
-            font-size: 14px;
-            margin: 5px;
-        }
-
-        .product-user-town {
-            font-size: 12px;
-            color: var(--deep-gray);
-        }
-
-        #product-content-under {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;             
-        }
-
-        .product-price {
-            color: var(--deep-gray);
-        }
-
-        .product-town {
-            display: flex;
-            justify-content: center;
-            align-items: center;            
-        }
-
-        .isSold {
-            color: var(--deep-gray);
-            border: 2px_solid_var(-deep-gray);
-            margin: 5px;
-            padding: 5px_10px;
-            box-shadow: 2px_2px_10px_var(--deep-gray);
-            border-radius: 10px;
-        }
-
-        .isNotSold {
-            color: var(--text);
-            border: 2px_solid_var(--text);
-            margin: 5px;
-            padding: 5px_10px;
-            box-shadow: 2px_2px_10px_var(--text);
-            border-radius: 10px;
-        }
-
-        `
+        return ``
     }
 
     render() {
         this.$outer.innerHTML = `
-            <div id="Product-Page" >
-                <div id="Product-Top" >
-                    <div id="Product-Top-Back" >
-                        ${LeftArrow}
-                    </div>
-                    <div id="isMyProduct" class="product-button-Inner" >
-                    </div>
+        <div class="image-slider-wrapper">
+            <div class="image-header">
+                <span class="product-go-back">${LeftArrow}</span>
+                <div class="image-control">
                 </div>
-                <img src="${this.product.productImages ? this.product.productImages[0].filePath : 'public/image/shoes.jpg'}" class="product-images" />
-                <div id="product-content" >
-                    <h3 class="product-title" >${this.product.title}</h3>
-                    <div class="isSoldOut" >${this.product.isSoldOut ? '<h6 class="isSold" >판매완료</h6>' : '<h6 class="isNotSold" >판매중</h6>'}</div>
-
-                    <h3 class="product-time" >기타 중고물품 - ${getTimes().getTime(this.product.createdAt)}</h3>    
-                    <h3 class="product-content" >${this.product.content}</h3>
-                    <div id="product-content-under" >
-                        <h4 class="product-price">${this.product.price ? this.product.price.toLocaleString('en-AU') + "원" : "비공개"}</h4>
-                        <h4 class="product-town">${BLocationSVG}${this.product.town.townName}</h4>
-                    </div>
-
-                </div>
-                <div id="product-user" >
-                    <div class="product-user-item" >
-                        <h5>판매자 정보</h5>
-                    </div>
-                    <div class="product-user-item" >
-                        <h5 class="product-user-town" >${this.product.town.townName}</h5>
-                        <h5 class="product-user-name" >${this.product.userId}</h5>
-                         <div id="product-avatar" ></div>
-                    </div>
-                </div>
-
-                <div id="chat-product-button"></div>
             </div>
+            <div class="image-slider">
+            </div>
+
+            <div class="image-slider-dot-wrapper">
+            </div>
+        </div>
+
+        <div class="product-content">
+            <div class="product-sold-out-wrapper disappear">
+                <select class="product-sold-out-select">
+                    <option ${!this.product.isSoldOut && 'selected'} value="${SELLING}">판매중</option>
+                    <option ${this.product.isSoldOut && 'selected'} value="${SOLD_OUT}">판매완료</option>
+                </select>
+            </div>
+            <h1>${this.product.title}</h1>
+            <div class="product-category-time">
+                ${getCategoryName(this.product.category)},
+                ${getTimes().getTime(this.product.createdAt)}
+            </div>
+            <div class="product-content-text">
+                ${this.product.content}
+            </div>
+            <div class="product-detail-info">
+                <span>채팅 ${this.product.chatroomCount}</span>
+                <span>관심 <span class="product-like-count">${this.product.likeCount}</span></span>
+            </div>
+            <div class="product-user">
+                <span>판매자 정보</span>
+                <div class="product-user-profile">
+                    <img src="${this.product.user.profileImage}" />
+                    <span class="product-user-name">
+                        ${this.product.userId}
+                    </span>
+                    <span class="product-user-town">
+                        ${this.product.town.townName}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="product-footer">
+            <div class="product-footer-detail">
+                <div class="product-like-button-wrapper">
+                    ${HeartSVG(this.product.isUserLiked)}
+                </div>
+                <span class="product-footer-price">${formatPrice(this.product.price)}</span>
+            </div>
+
+            <div class="chat-button-wrapper">
+            <div>
+        </footer>
         `
         this.componentWillMount()
     }
 
+    appendImageOnSlider(productImages: ProductImageTypes[]) {
+        const slider = $('.image-slider').get();
+        const sliderDot = $('.image-slider-dot-wrapper').get();
+
+        $('.image-slider').css('width', `calc(var(--baseX) * ${productImages.length})`);
+
+        productImages.forEach((image, index) => {
+            const { filePath } = image;
+
+            const $image = document.createElement('img');
+            $image.src = filePath;
+            slider?.appendChild($image);
+
+            const $dot = document.createElement('div');
+            $dot.className = 'image-slider-dot';
+            if (index === 0) {
+                $dot.classList.add('selected');
+            }
+
+            $dot.dataset.imageIndex = index.toString();
+            sliderDot?.appendChild($dot);
+        });
+    }
+
     componentWillMount() {
-        const chatProductButton = $('#chat-product-button').getById()
-        if (chatProductButton) {
-            new GlassButton(chatProductButton, "문의하기", this.onChatProductButtonClicked)
-        }
-        const isMyProduct = $('#isMyProduct').getById()
-        if (isMyProduct && redux.check.getCheckForm().id === this.product.user.id) {
-            new UpdateDelete(isMyProduct, Number(this.productId), this.product)
+        const $chatButtonWrapper = $('.chat-button-wrapper').get() as HTMLElement;
+        const isHost = redux.check.getCheckForm().id === this.product.userId;
+
+        if (isHost) {
+            $chatButtonWrapper.innerHTML = `
+                <button class="product-chat-button show-chatroom">채팅 목록 보기</button>
+            `;
+            $('.product-like-button-wrapper').get()?.classList.add('disappear');
+
+            const $imageControl = $('.image-control').get();
+            if ($imageControl !== null) {
+                new UpdateDelete($imageControl, this.product.id, this.product);
+            }
+
+            $('.product-sold-out-wrapper').get()?.classList.remove('disappear');
+        } else {
+            $chatButtonWrapper.innerHTML = `
+                <button class="product-chat-button ask-product">문의하기</button>
+            `
         }
 
-        const productAvatar = $('#product-avatar').getById()
-        if (productAvatar) {
-            new Avatar(productAvatar, this.product.user.profileImage, "45px", "45px")
-        }
+        this.appendImageOnSlider(this.product.productImages);
     }
 
     goBack() {
         redux.router.goRouter()
     }
 
-    onChatProductButtonClicked = () => {
+    onAskProductClicked = () => {
         joinChatRoom(this.product.id)
             .then(data => {
                 const { chatRoom } = data.data;
@@ -227,7 +167,95 @@ export default class ProductContainer extends React {
             ])
     }
 
+    onChatButtonClicked = (e: Event) => {
+        if (redux.check.getCheckForm().id === '') {
+            // 로그인해주세요
+            alert('login required');
+            return;
+        }
+
+        const target = e.target as HTMLElement;
+        if (target.classList.contains('ask-product')) {
+            this.onAskProductClicked();
+        } else if (target.classList.contains('show-chatroom')) {
+            this.onShowChatRoomClicked();
+        }
+    }
+
+    onShowChatRoomClicked = () => {
+        location.href = '#chatroom';
+    }
+
+    onSoldOutSelectChanged = (e: Event) => {
+        const { value } = (e.target as HTMLSelectElement);
+        console.log(value);
+
+        if (value === SELLING) {
+            updateSpecificApi({
+                ...this.product,
+                isSoldOut: false,
+            }).then(() => {
+                this.product.isSoldOut = false;
+            })
+        } else {
+            updateSpecificApi({
+                ...this.product,
+                isSoldOut: true,
+            }).then(() => {
+                this.product.isSoldOut = true;
+            })
+        }
+    }
+
+    slideImages(e: Event) {
+        const { imageIndex } = (e.target as HTMLElement).dataset;
+        if (!imageIndex || isNaN(Number(imageIndex))) {
+            return;
+        }
+
+        $('.image-slider-dot.selected').get()?.classList.remove('selected');
+        $('.image-slider').css('transform', `translateX(calc(${Number(imageIndex)} * var(--base-X)))`);
+        (e.target as HTMLElement).classList.add('selected');
+    }
+
+    onLikeButtonClicked() {
+        if (redux.check.getCheckForm().id === '') {
+            alert('login required');
+        }
+
+        let requestPromise;
+        if (this.product.isUserLiked) {
+            requestPromise = unlikeApi(this.product.id);
+        } else {
+            requestPromise = likeApi(this.product.id);
+        }
+
+        requestPromise
+            .then(() => {
+                this.product.isUserLiked = !this.product.isUserLiked;
+                const $productLikedButtonWrapper = $('.product-like-button-wrapper').get();
+                if ($productLikedButtonWrapper === null) return;
+
+                $productLikedButtonWrapper.innerHTML = `
+                    ${HeartSVG(this.product.isUserLiked)}
+                `
+
+                const $productLikeCount = $('.product-like-count').get();
+                if ($productLikeCount === null) return;
+                const increaseCount = this.product.isUserLiked ? 1 : -1;
+                $productLikeCount.innerText = `${this.product.likeCount + increaseCount}`;
+                this.product.likeCount += increaseCount;
+            })
+            .catch(error => {
+                alert(error);
+            })
+    }
+
     methods() {
-        $("#Product-Top-Back").on("click", this.goBack)
+        $('.product-go-back').on("click", this.goBack)
+        $('.image-slider-dot-wrapper').on('click', this.slideImages);
+        $('.product-chat-button').on('click', this.onChatButtonClicked);
+        $('.product-like-button-wrapper').on('click', this.onLikeButtonClicked.bind(this));
+        $('.product-sold-out-select').on('change', this.onSoldOutSelectChanged.bind(this));
     }
 }

@@ -7,13 +7,12 @@ import { productApi } from "../../../requests/product";
 import { errorMsg } from "../../../util/errorMsg";
 import { IProductResponse } from "../../../types/IProducResponse";
 
-export default class Product extends React{
+export default class Product extends React {
 
     productId = ""
 
     constructor($target: HTMLElement, productId: string) {
         super($target, 'Product')
-
         this.productId = productId
         this.init()
     }
@@ -31,7 +30,7 @@ export default class Product extends React{
                 } else {
                     this.componentWillMount(data)
                 }
-        })
+            })
     }
 
     render() {
@@ -46,9 +45,9 @@ export default class Product extends React{
     setError(err: string) {
         const ProductInner = $('#Product-Inner').get()
         if (ProductInner) {
-          ProductInner.innerHTML = `
+            ProductInner.innerHTML = `
             <h4 id="product-error" >${err}</h4>
-            `          
+            `
         }
 
 
@@ -61,7 +60,7 @@ export default class Product extends React{
             redux.instance.setInstance('productcontainer', Productcontainer)
         }
     }
- 
+
     methods() {
     }
 }
