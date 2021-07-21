@@ -101,7 +101,7 @@ export default class MenuContainer extends React{
 
     methods() {
         $("#Menu-Arrow").on('click', function() {
-            $("#Menu-Inner").css("transform", "translateX(400px)")
+            $("#Menu-Inner").css("transform", "translateX(var(--baseX))")
         })
 
         const MenuMyContent = $("#Menu-My-Content").getById()

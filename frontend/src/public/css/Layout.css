@@ -11,7 +11,6 @@ body {
 }
 html,
 body {
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,13 +22,14 @@ body {
 
 body {
     --background-button: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
-    /* --background: linear-gradient(45deg, #8e2de2, #4a00e0); */
+    --background-purple: linear-gradient(45deg, #000000, #434343);
     --background: linear-gradient(45deg, #000000, #434343);
 
 
     --baemin: #12fff7;
     --back: #1d1d1d;
     --text: #1d1d1d;
+    --white-text: white;
     --app: white;
     --red: #ED213A;
     --background-dark: linear-gradient(45deg, #000000, #434343);
@@ -45,6 +45,16 @@ body {
     --baseY: 665px;
     --base_sY: 555px;
     --base_ssY: 505px;
+
+    --outerX: 435px;
+    --outerY: 700px;
+
+    --halfX: 300px;
+    --halfY: 450px;
+    --cardX: 390px;
+    --IPad: none;
+    --Hheight: 50px;
+
     --slider-header: gray;
 
     --primary1: #2AC1BC;
@@ -52,6 +62,11 @@ body {
 
     background: var(--background);
 }
+
+.IPad {
+    display: var(--IPad);
+}
+
 
 main {
     z-index: 2;
@@ -172,40 +187,8 @@ main {
     margin: 0;
 }
 
-.setbutton {
-    color: var(--baemin);
-    font-weight: 800;
-    box-shadow: black 2px 2px 10px;
-    transition: all .3s ease-in;
-    cursor: pointer;
-}
 
-.setbutton:hover {
-    box-shadow: black 4px 4px 30px;
-}
 
-.white {
-    font-size: 12px;
-    color: white;
-    font-family: "BMDOHYEON_ttf";
-    text-shadow: black 1px 1px 10px;
-}
-
-.blue {
-    font-size: 12px;
-    color: var(--baemin);
-    font-family: "BMDOHYEON_ttf";
-    text-shadow: black 1px 1px 10px;
-}
-
-.pagetitle {
-    color: var(--baemin);
-    margin: 20px;
-    font-size: 16px;
-    font-weight: 800;
-    font-family: "BMDOHYEON_ttf";
-    text-shadow: var(--baemin) 1px 1px 10px;
-}
 
 .buttontext {
     transition: all .3s ease-in;
@@ -217,7 +200,7 @@ main {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
+    background-image: var(--header);
     border-radius: 10px;
     background-clip: padding-box;
     border: 3px solid transparent;
@@ -286,3 +269,5 @@ a:hover {
     color: var(--text);    
     text-decoration: none;
 }
+
+

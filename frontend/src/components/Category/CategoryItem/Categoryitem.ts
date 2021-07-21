@@ -43,11 +43,7 @@ export default class CategoryItem extends React{
             border: 1px solid #D7D7D7;
             box-sizing: border-box;
             border-radius: 6px;
-            box-shadow: 2px_2px_10px_var(--text)
-        }
-
-        .Category-Item-Inner {
-
+            box-shadow: 2px_2px_10px_var(--back);
         }`
     }
     render() {

@@ -116,7 +116,7 @@ export default class CategoryContainer extends React{
 
     methods() {
         $("#CategoryContainer-Arrow").on('click', function() {
-            $("#Category-Inner").css("transform", `translateX(${redux.display.getWidthHeight()._width})`)
+            $("#Category-Inner").css("transform", `translateX(var(--base-X))`)
         })
     }
     

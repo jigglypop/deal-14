@@ -5,7 +5,6 @@ import "./ProductsContainer.css"
 import { ProductTypes } from "../../../types/product"
 import getID from "../../../util/getID"
 import { redux } from "../../.."
-import { likeproductListApi, productListApi } from "../../../requests/product"
 import { NotHave } from "../../../common/NotHave/NotHave"
 
 export default class ProductsContainer extends React{
@@ -19,9 +18,11 @@ export default class ProductsContainer extends React{
     }
     protected isMy = false
 
-    constructor($target: HTMLElement, products: ProductTypes[], height: string, isMy?: boolean) {
+    constructor($target: HTMLElement, products: ProductTypes[], height?: string, isMy?: boolean) {
         super($target, 'ProductsContainer')
-        this.height = height;
+        if (height) {
+            this.height = height;
+        }
         this.setState({
             products: products
         })
@@ -38,6 +39,12 @@ export default class ProductsContainer extends React{
             height: ${this.height};
             overflow-x: hidden;
             overflow-y: scroll;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            flex-wrap: wrap;
         }`
     }
 

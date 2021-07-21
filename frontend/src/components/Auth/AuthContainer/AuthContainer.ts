@@ -11,6 +11,7 @@ import { errorMsg } from "../../../util/errorMsg";
 import check from "../../../util/check";
 import cache from "../../../util/cache";
 import Avatar from "../../../common/Avatar/Avatar";
+import { createToast } from "../../../util/createToast";
 
 export default class AuthContainer extends React{
 
@@ -76,6 +77,9 @@ export default class AuthContainer extends React{
         loginApi(form)
             .then(data => {
                 this.rerender(data)
+                if (!data.hasOwnProperty('status')) {
+                    createToast("로그인")   
+                }
             })
     }
 
@@ -83,6 +87,9 @@ export default class AuthContainer extends React{
         registerApi(form)
             .then(data => {
                 this.rerender(data)
+                if (!data.hasOwnProperty('status')) {
+                    createToast("회원가입")   
+                }
             })
     }
 
@@ -119,6 +126,7 @@ export default class AuthContainer extends React{
         $("#Auth-Inner").css("transform", `translateX(${display.width})`)
 
         redux.router.moveRouter("#")
+        createToast("로그아웃")
     }
     
 
@@ -174,7 +182,7 @@ export default class AuthContainer extends React{
         let that = this
         const display = redux.display.getWidthHeight()
         $("#Auth-Arrow").on('click', function() {
-            $("#Auth-Inner").css("transform", `translateX(${display.width})`)
+            $("#Auth-Inner").css("transform", `translateX(var(--baseX))`)
             redux.slidertoggle.setSliderToggle('auth')
         })
 

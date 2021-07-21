@@ -29,6 +29,10 @@ export default class DummyUpload extends React{
                 align-items: center;
                 padding: 10px;
             }
+
+            #dummy-length {
+                color: var(--text);
+            }
         `
     }
 

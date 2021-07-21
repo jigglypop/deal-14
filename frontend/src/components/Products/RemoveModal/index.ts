@@ -3,6 +3,7 @@ import { $ } from "../../../util/select"
 import "./index.css"
 import { redux } from "../../.."
 import { removeApi } from "../../../requests/product"
+import { createToast } from "../../../util/createToast"
 
 export default class RemoveModal extends React{
 
@@ -39,6 +40,7 @@ export default class RemoveModal extends React{
 
         const menucontainer = redux.instance.getInstance('menucontainer')
         menucontainer.init()
+        createToast("글 삭제")
       })
   }
 
@@ -53,6 +55,7 @@ export default class RemoveModal extends React{
     
     $(`#removemodal-delete`).on('click', function () {
         that.RemoveApi()
+        
     })
   }
 }

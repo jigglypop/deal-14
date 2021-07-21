@@ -35,8 +35,9 @@ export default class Products extends React{
 
     componentWillMount(data: IProductListResponse | null, err: string) {
         const ProductsInner = $('#Products-Inner').get()
-        if (ProductsInner && data) {
-            const Productscontainer = new ProductsContainer(ProductsInner, data.data.products, redux.display.getWidthHeight().height)
+        const base_sY = $('body').getV("--base_sY")
+        if (ProductsInner && data && base_sY) {
+            const Productscontainer = new ProductsContainer(ProductsInner, data.data.products, base_sY)
             redux.instance.setInstance('Productscontainer',Productscontainer)
         }
     }

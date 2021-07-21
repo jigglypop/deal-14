@@ -32,7 +32,7 @@ const Router = function() {
             router.push(hash)
             const historyHash = $("#history-hash").getById()
             historyHash?.setAttribute('href', hash)
-            historyHash?.click()            
+            historyHash?.click()
         }
     }
 }

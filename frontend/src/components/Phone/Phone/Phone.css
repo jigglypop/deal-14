@@ -1,0 +1,17 @@
+.PhoneOuter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Phone {
+    position: relative;
+    background-color: black;
+    z-index: 1;
+    width: var(--outerX);
+    height: var(--outerY);
+    border-radius: 20px;
+}

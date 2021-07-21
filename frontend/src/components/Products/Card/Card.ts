@@ -162,6 +162,7 @@ export default class Card extends React{
         }
 
         .price-text {
+            color: var(--text);
             font-size: 10px;
         }
 
