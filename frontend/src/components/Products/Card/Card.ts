@@ -45,8 +45,8 @@ export default class Card extends React{
         }
 
         .Card-Img {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             padding: 5px;
             box-shadow: 2px_2px_20px_black;
             border-radius: 5px;
@@ -62,8 +62,6 @@ export default class Card extends React{
 
             width: 40%;
             height: 100%;
-
-
         }
 
         .Card-Mid{
@@ -137,26 +135,39 @@ export default class Card extends React{
         }
 
         .card-user-text{
+            font-size: 10px;
             margin: 5px;
             color: var(--deep-gray);
         }
 
         .isSold {
             color: var(--deep-gray);
-            border: 2px_solid_var(-deep-gray);
             margin: 0;
             padding: 0_10px;
-            box-shadow: 2px_2px_10px_var(--deep-gray);
+            box-shadow: 1px_1px_10px_var(--deep-gray);
             border-radius: 10px;
+            font-size: 8px;
         }
 
         .isNotSold {
             color: var(--text);
-            border: 2px_solid_var(--text);
             margin: 0;
             padding: 0_10px;
-            box-shadow: 2px_2px_10px_var(--text);
+            box-shadow: 1px_1px_10px_var(--text);
             border-radius: 10px;
+        }
+
+        .time-text {
+            font-size: 10px;
+        }
+
+        .price-text {
+            font-size: 10px;
+        }
+
+        .card-title-text {
+            font-size: 13px;
+            margin-bottom: 15px;
         }
 
         .Card-Right {
@@ -198,7 +209,7 @@ export default class Card extends React{
             <div class="Card-Mid" >
                 <div id="Card-Content-Top-${this.ID}" class="Card-Content-Top" >
                     <a href="/#product/${this.item.id}">
-                        <h4>${this.item.title}</h4>
+                        <h4 class="card-title-text" >${this.item.title}</h4>
                     </a>
                     <div id="Card-Login-Button-${this.ID}" >
                         ${!this.isMy ?
@@ -207,10 +218,8 @@ export default class Card extends React{
                         </div>` :
                         ''}
                     </div>
-
                 </div>
 
-                <h5 class="price-text" >${this.item.price ? this.item.price.toLocaleString('en-AU') + "원" : "비공개"}</h5>
                 <div class="Card-Content-Bottom" >
                     <div class="isSoldOut" >${this.item.isSoldOut ? '<h6 class="isSold" >판매완료</h6>' : '<h6 class="isNotSold" >판매중</h6>'}</div>
                     <div id="Card-Chat-Button-${this.ID}" class="Card-Chat-Button" >
@@ -223,6 +232,7 @@ export default class Card extends React{
                     </div>
                 </div>
                     <div class="Card-Content-Bottom" >
+                    <h5 class="price-text" >${this.item.price ? this.item.price.toLocaleString('en-AU') + "원" : "비공개"}</h5>
                     <h5 class="time-text" >${getTimes().getTime(this.item.createdAt)}</h5>
                     <div id="Card-Chat-Button-${this.ID}" class="Card-Chat-Button" >
                         <div class="card-item">
@@ -269,7 +279,7 @@ export default class Card extends React{
 
         const carduseritem = $(`#card-user-item-${this.ID}`).getById()
         if (carduseritem) {
-            new Avatar(carduseritem, this.item.user.profileImage, "35px", "35px", "none")
+            new Avatar(carduseritem, this.item.user.profileImage, "30px", "30px", "none")
         }
 
         let that = this
