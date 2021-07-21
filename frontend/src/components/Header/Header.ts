@@ -7,6 +7,7 @@ import { BoxSVG } from "../../svgicon/box"
 import { $ } from "../../util/select"
 import { redux } from "../.."
 import Avatar from "../../common/Avatar/Avatar"
+import { idText } from "typescript"
 
 export default class Header extends React{
 
@@ -159,10 +160,10 @@ export default class Header extends React{
             
             $("#Town-Inner").css("transform", "translateX(0)")
         })
-
+        
         const authbutton = $("#auth-button").getById()
         if (authbutton) {
-            new Avatar(authbutton, redux.check.getCheckForm().profileImage, "50px", "50px", "2px_2px_20px_var(--text)")
+            new Avatar(authbutton, redux.check.getCheckForm().profileImage, "40px", "40px", "2px_2px_20px_var(--text)")
         }
     }
 }
