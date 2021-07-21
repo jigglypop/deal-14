@@ -1,3 +1,5 @@
+import { ProductImageTypes } from './productImage';
+
 export type ProductTypes = {
     id: number;
     title: string;
@@ -11,11 +13,7 @@ export type ProductTypes = {
     updatedAt: string;
     user?: any;
     town?: any;
-    productImages: [
-        {
-            filePath: string
-        }
-    ]
+    productImages: ProductImageTypes[];
     chatroomCount: number;
     isUserLiked: boolean;
     likeCount: number;

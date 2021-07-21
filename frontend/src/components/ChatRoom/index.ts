@@ -1,3 +1,4 @@
+import { redux } from '../..';
 import { LeftArrow } from '../../svgicon/LeftArrow';
 import React from '../../util/react';
 import { $ } from '../../util/select';
@@ -21,10 +22,15 @@ export default class ChatRoom extends React {
   }
 
   render(): void {
+    if (redux.check.getCheckForm().id === '') {
+      location.href = '/#';
+      return;
+    }
+
     this.$outer.innerHTML = `
     <div id="ChatRoom-Inner">
       <header class="ChatRoom-Header">
-        <div>${LeftArrow}</div>
+        <span class="ChatRoom-Go-Back">${LeftArrow}</span>
         <h4>채팅하기</h4>
         <div></div>
       </header>
@@ -37,11 +43,16 @@ export default class ChatRoom extends React {
     this.componentWillMount();
   }
 
+  onGoBack() {
+    redux.router.goRouter();
+  }
+
   css(): string {
     return ``;
   }
 
   methods(): void {
+    $('.ChatRoom-Go-Back').on('click', this.onGoBack);
   }
 
 }

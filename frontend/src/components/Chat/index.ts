@@ -142,7 +142,7 @@ export default class Chat extends React {
 
     if ($chatList !== null) {
       this.chatMessages.forEach(chatMessage => {
-        return new ChatMessage($chatList, chatMessage, 'jinu');
+        return new ChatMessage($chatList, chatMessage, redux.check.getCheckForm().id);
       });
     }
   }
@@ -190,6 +190,10 @@ export default class Chat extends React {
 
     fetchMessages
       .then((data) => {
+        if (data.status) {
+          throw data;
+        }
+
         const { chatMessages } = data.data;
         this.chatMessages = [
           ...this.chatMessages,
@@ -202,7 +206,7 @@ export default class Chat extends React {
         const $chatList = $('.Chat-List').get();
         if ($chatList !== null) {
           chatMessages.forEach((chatMessage: any) => {
-            return new ChatMessage($chatList, chatMessage, 'jinu');
+            return new ChatMessage($chatList, chatMessage, redux.check.getCheckForm().id);
           });
         }
 
@@ -212,7 +216,7 @@ export default class Chat extends React {
           } else {
             let isAllMine = true;
             for (const chatMessage of chatMessages) {
-              if ('jinu' !== chatMessage.userId) {
+              if (redux.check.getCheckForm().id !== chatMessage.userId) {
                 isAllMine = false;
                 break;
               }
@@ -234,7 +238,14 @@ export default class Chat extends React {
         }
       })
       .catch(error => {
-        // error handling
+        const { status } = error;
+        switch (status) {
+          case 404:
+            $('.Chat-Leave-Notice').get()?.classList.add('appear');
+            setTimeout(() => {
+              location.href = '/#';
+            }, 3000);
+        }
       })
       .finally(() => {
         this.canFetchMore = true;
@@ -251,6 +262,11 @@ export default class Chat extends React {
   }
 
   render(): void {
+    if (redux.check.getCheckForm().id === '') {
+      location.href = '/#'
+      return;
+    }
+
     this.$outer.innerHTML = `
       <div id="Chat-Inner">
         <header>
@@ -269,6 +285,10 @@ export default class Chat extends React {
 
             <div class="New-Chat-Notice disappear">
               새로운 메시지가 왔습니다
+            </div>
+
+            <div class="Chat-Leave-Notice disappear">
+              상대방이 대화를 종료하여 3초 후 퇴장됩니다
             </div>
           </div>
 

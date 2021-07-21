@@ -3,6 +3,7 @@ import { redux } from ".."
 import Header from "../components/Header/Header"
 import Home from "../components/Home/Home"
 import MenuContainer from "../components/Menu/MenuContainer/MenuContainer"
+import Product from '../components/Product/Product/Product'
 import { checkApi } from "../requests/auth"
 import { fetchMyTowns } from "../requests/town"
 import cache from "./cache"
@@ -21,7 +22,7 @@ const check = () => {
             id: _id,
             townName: townName
         })
-            
+
         const slider = redux.instance.getInstance('slider')
         slider.init()
 
@@ -37,17 +38,20 @@ const check = () => {
         // 라우팅별로 check후에 잡아주기
         if (location.hash === "" || location.hash === "#") {
             const home: Home = redux.instance.getInstance('home')
-            home.init()       
+            home.init()
+        } else if (location.hash.split('/')[0] === '#product') {
+            const product: Product = redux.instance.getInstance('productcontainer')
+            product.init();
         }
-        
+
 
     }
 
     // 토큰 없으면 헤더 처리, auth창 닫기
     if (!token) {
         const townName = cache.get('townName')
-        ChangeState('', townName )
-        return 
+        ChangeState('', townName)
+        return
     }
     // 있으면 헤더 처리
     checkApi()
@@ -59,7 +63,7 @@ const check = () => {
                 redux.check.setCheckForm('profileImage', data.data.user.profileImage)
             }
         })
-    
+
     const FetchMyTowns = (userId: string) => {
         fetchMyTowns()
             .then(data => {

@@ -59,7 +59,8 @@
   flex-grow: 1;
 }
 
-.New-Chat-Notice {
+.New-Chat-Notice,
+.Chat-Leave-Notice {
   display: none;
   align-items: center;
   justify-content: center;
@@ -75,6 +76,7 @@
   cursor: pointer;
 }
 
+.Chat-Leave-Notice.appear,
 .New-Chat-Notice.appear {
   display: flex;
 }
