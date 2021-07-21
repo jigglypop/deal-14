@@ -182,7 +182,7 @@ class ProductService {
   }
 
   async modify(userId: string, productId: number, modifyProductRequest: ModifyProductRequest) {
-    const { title, content, price, category } = modifyProductRequest;
+    const { title, content, price, category, isSoldOut } = modifyProductRequest;
 
     const product = await productQuery.findByPk(productId);
     if (product === null) {
@@ -195,8 +195,8 @@ class ProductService {
 
     const now = new Date();
     await productQuery.save(`UPDATE product SET
-      title = ?, content = ?, price = ?, category = ?, updatedAt = ?
-      WHERE id = ?`, [title, content, price ?? 'NULL', category, now, productId]);
+      title = ?, content = ?, price = ?, category = ?, isSoldOut = ?, updatedAt = ?
+      WHERE id = ?`, [title, content, price ?? 'NULL', category, isSoldOut, now, productId]);
   }
 
   async remove(userId: string, productId: number) {

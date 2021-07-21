@@ -27,6 +27,12 @@ const Router = function() {
                 historyHash?.setAttribute('href', "/#" + go.replace("#", ""))
                 historyHash?.click()
             }
+        },
+        moveRouter(hash: string) {
+            router.push(hash)
+            const historyHash = $("#history-hash").getById()
+            historyHash?.setAttribute('href', hash)
+            historyHash?.click()            
         }
     }
 }

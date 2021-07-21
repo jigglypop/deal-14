@@ -2,7 +2,7 @@ import Home from "./components/Home/Home";
 import React from "./util/react";
 import Header from "./components/Header/Header";
 import Slider from "./components/Slider/Slider";
-import RemoveModal from "./common/RemoveModal";
+import RemoveModal from "./components/Products/RemoveModal";
 
 import "./public/css/App.css"
 import { redux } from ".";
@@ -48,17 +48,18 @@ class App extends React {
             redux.instance.setInstance('header', header)
             redux.instance.setInstance('slider', slider)
             redux.instance.setInstance('removeModal', removeModal)
-            // 로그인 여부 체크
-            check()
+
 
             switch (hash[0]) {
                 case 'product':
                     redux.router.pushRouter(location.hash)
-                    new Product(this.$outer, hash[1])
+                    const product = new Product(this.$outer, hash[1])
+                    redux.instance.setInstance('product', product)
                     break;
                 case 'category':
                     redux.router.pushRouter(location.hash)
-                    new CategoryPage(this.$outer, Number(hash[1]))
+                    const categorypage = new CategoryPage(this.$outer, Number(hash[1]))
+                    redux.instance.setInstance('categorypage', categorypage)
                     break;
                 case 'chat':
                     redux.router.pushRouter(location.hash)
@@ -78,10 +79,12 @@ class App extends React {
                     break;
                 default:
                     redux.router.pushRouter(location.hash)
-                    new Home(this.$outer)
+                    const home = new Home(this.$outer)
+                    redux.instance.setInstance('home', home)
                     break;
             }
-
+            // 로그인 여부 체크
+            check()
         }
     }
 

@@ -1,4 +1,3 @@
-import { redux } from ".."
 import { $ } from "../util/select"
 
 const Update = function() {
@@ -8,6 +7,7 @@ const Update = function() {
         category: -1,
         title: '',
         content: '',
+        isSoldOut: -1,
     }
     let isComplite = false
     return {

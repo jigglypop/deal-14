@@ -3,8 +3,10 @@ import React from "../../util/react"
 import "./Header.css"
 import { HamburgerSVG } from "../../svgicon/hamburger"
 import { BoxSVG } from "../../svgicon/box"
-import { AvatarSVG } from "../../svgicon/Avatar"
+// import { AvatarSVG } from "../../svgicon/Avatar"
 import { $ } from "../../util/select"
+import { redux } from "../.."
+import Avatar from "../../common/Avatar/Avatar"
 
 export default class Header extends React{
 
@@ -62,6 +64,7 @@ export default class Header extends React{
         .header-link-item {
             display: flex;
             justify-content: flex-start;
+            margin: 5px;
             align-items: center;
         }
 
@@ -118,10 +121,8 @@ export default class Header extends React{
                     </div>
                 </div>
                 <div class="header-link-right" >
-                    <div class="header-link-item" id="auth-button" >${AvatarSVG}</div>
-                    <div class="header-link-item">
-                        <h5 id="checkedId" >${this.state.id === '' ? '비로그인' : this.state.id }</h5>
-                    </div>
+                    <div class="header-link-item" id="auth-button" ></div>
+
                     <div class="header-link-item" id="menu-button" >${HamburgerSVG}</div>
                 </div>
                 <a href="/#" ><div id="Home-Button" >홈</div></a>
@@ -158,5 +159,10 @@ export default class Header extends React{
             
             $("#Town-Inner").css("transform", "translateX(0)")
         })
+
+        const authbutton = $("#auth-button").getById()
+        if (authbutton) {
+            new Avatar(authbutton, redux.check.getCheckForm().profileImage, "50px", "50px", "2px_2px_20px_var(--text)")
+        }
     }
 }

@@ -13,4 +13,5 @@ export interface ICheckForm {
 export interface IRegisterForm {
     id: string;
     town: string;
+    profileImage: string;
 }

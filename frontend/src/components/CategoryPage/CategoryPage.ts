@@ -6,6 +6,7 @@ import ProductsContainer from "../Products/ProductsContainer/ProductsContainer";
 import { productListApi } from "../../requests/product";
 import { ProductTypes } from "../../types/product";
 import KeyByCategory from "./KeyByCategory";
+import { NotHave } from "../../common/NotHave/NotHave";
 
 export default class CategoryPage extends React{
 
@@ -49,17 +50,9 @@ export default class CategoryPage extends React{
         const ProductsInner = $('#CategoryPage-Inner').get()
         if (ProductsInner && products) {
             redux.products.setProducts(products)
-            if (products.length !== 0) {
-                const Productscontainer = new ProductsContainer(ProductsInner, products, redux.display.getWidthHeight().heightS)
-                redux.instance.setInstance('Productscontainer',Productscontainer)
-            } else {
-                ProductsInner.innerHTML = `
-                    <div class="no-category-outer" >
-                        <img src="public/image/main.png" class="no-category" />
-                        <h4>카테고리 상품이 없습니다</h4>
-                    </div>
-                `
-            }
+
+            const Productscontainer = new ProductsContainer(ProductsInner, products, redux.display.getWidthHeight().heightS)
+            redux.instance.setInstance('Productscontainer',Productscontainer)
 
         }
     }

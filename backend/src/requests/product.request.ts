@@ -65,11 +65,14 @@ export class ModifyProductRequest extends BaseRequest {
   @IsInt()
   category: Categories;
 
-  constructor(data: WriteProductRequest) {
+  isSoldOut: boolean;
+
+  constructor(data: ModifyProductRequest ) {
     super();
     this.title = data.title;
     this.price = data.price ?? null;
     this.content = data.content;
     this.category = data.category;
+    this.isSoldOut = data.isSoldOut;
   }
 }

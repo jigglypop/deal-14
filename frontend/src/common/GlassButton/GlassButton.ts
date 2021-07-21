@@ -25,14 +25,14 @@ export default class GlassButton extends React{
         return `
         .glass-button {
             text-decoration: none;
-            width: 250px;
+            width: 280px;
             height: 40px;
             position: relative;
             overflow: hidden;
             font-size: 14px;
             font-weight: 800;
 
-            background-color: var(--primary1);
+            background: var(--background-button);
             box-shadow: 1px_1px_10px_var(--back);
             border: none;
 
@@ -40,7 +40,7 @@ export default class GlassButton extends React{
 
             cursor: pointer;
             font-size: 14px;
-            color: white;
+            color: var(--text);
             margin: 10px;
         }`
     }

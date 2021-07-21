@@ -6,18 +6,18 @@ import { ProductTypes } from "../../../types/product"
 import getID from "../../../util/getID"
 import { redux } from "../../.."
 import { likeproductListApi, productListApi } from "../../../requests/product"
+import { NotHave } from "../../../common/NotHave/NotHave"
 
 export default class ProductsContainer extends React{
 
-
-    products: ProductTypes[] = []
-    height = '620px'
-    ID = getID()
-    state = {
+    protected products: ProductTypes[] = []
+    protected height = redux.display.getWidthHeight().heightSS
+    protected ID = getID()
+    public state = {
         flag: false,
         products: []
     }
-    isMy = false
+    protected isMy = false
 
     constructor($target: HTMLElement, products: ProductTypes[], height: string, isMy?: boolean) {
         super($target, 'ProductsContainer')
@@ -36,36 +36,30 @@ export default class ProductsContainer extends React{
         #products-container-content${this.ID} {
             position: relative;
             height: ${this.height};
-            overflow: scroll;
+            overflow-x: hidden;
+            overflow-y: scroll;
         }`
     }
-    getMyList() {
-        likeproductListApi()
-            .then(data => {
-                if (!data.hasOwnProperty('status')) {
-                    const _product = data.data.products
-                    for (let item of _product) {
-                        // mylike.push(item.id)
-                        let temp = $(`#LikeButton-Inner-${item.id}`).getById()
-                        let heart: any = temp?.querySelector(".like-heart")
-                        if (heart) {
-                            heart.setAttribute('fill', "var(--red)")
-                        }
-                    }
-                } 
-            })
-        
-    }
+
     render() {
         this.$outer.innerHTML = `
         <div id="products-container-content${this.ID}" ></div>`
         const productsContainerContent = $(`#products-container-content${this.ID}`).getById()
         if (productsContainerContent) {
-            this.state.products.forEach(product=> new Card(productsContainerContent, product, this.isMy))       
+            const products = this.state.products
+
+            if (products.length !== 0) {
+                products.forEach(product => {
+                    const UUID = getID()
+                    const card = new Card(productsContainerContent, product, this.isMy, UUID)
+                    redux.instance.setInstance(`card-${UUID}`, card)
+                })
+            } else {
+                productsContainerContent.innerHTML = NotHave
+            }
         }
         
     }
     methods() {
-        this.getMyList()
     }
 }

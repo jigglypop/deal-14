@@ -101,6 +101,21 @@ export default class UpdateContainer extends React{
         #Update-Success {
             cursor: pointer;
         }
+
+        #soldout-setting {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #update-soldout {
+            border: 2px_solid_var(--text);
+            padding: 5px_15px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
         `
     }
 
@@ -121,9 +136,14 @@ export default class UpdateContainer extends React{
                         </div>
                     </div>
                     <div id="Update-Under" >
+                        <div id="soldout-setting" >
+                            <h5>판매완료 여부 : </h5>
+                            <h5 id="update-soldout" >판매중</h5>
+                        </div>
                         <div id="Update-Under-Content" >
                         </div>
                     </div>
+
                 </div>
             </div>
         `
@@ -150,6 +170,20 @@ export default class UpdateContainer extends React{
             }
             new LineInput(UpdateUnderContent, setContent, "게시글 내용을 작성해 주세요", "", this.item.content)
         }
+        this.componentWillMount()
+    }
+
+    componentWillMount() {
+        const updateSoldout = $('#update-soldout').getById()
+        const isSoldOut = redux.update.getUpdateForm().isSoldOut
+
+        if (updateSoldout) {
+            if (!isSoldOut) {
+                updateSoldout.innerText = "판매중"   
+            }else {
+                updateSoldout.innerText = "판매완료"
+            }
+        }
     }
 
     UpdateApi() {
@@ -172,6 +206,20 @@ export default class UpdateContainer extends React{
             const isComplite = redux.update.getIsComplete()
             if (isComplite) {
                 that.UpdateApi()
+            }
+        })
+
+        $('#update-soldout').on('click', function () {
+            const updateSoldout = $('#update-soldout').getById()
+            
+            if (updateSoldout) {
+                if (updateSoldout.innerText === "판매중") {
+                    updateSoldout.innerText = "판매완료"
+                    redux.update.setUpdateForm('isSoldOut', 1)
+                } else {
+                    updateSoldout.innerText = "판매중"
+                    redux.update.setUpdateForm('isSoldOut', 0)
+                }
             }
         })
     }

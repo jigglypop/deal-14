@@ -8,7 +8,7 @@ export default class Home extends React{
 
     constructor($target: HTMLElement) {
         super($target, 'Home')
-        this.init() 
+        // this.init() 
     }
     css() {
         return `

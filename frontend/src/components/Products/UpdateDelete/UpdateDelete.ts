@@ -1,7 +1,5 @@
 import React from "../../../util/react"
 import "./UpdateDelete.css"
-// import { $ } from "../../../util/select";
-// import { redux } from "../../../";
 import getID from "../../../util/getID";
 import { DotSVG } from "../../../svgicon/Dot";
 import { $ } from "../../../util/select";
@@ -27,11 +25,9 @@ export default class UpdateDelete extends React{
             <div id="UpdateDelete-Inner-${this.ID}" class="UpdateDelete-Inner" >
                 <div id="UpdateDelete-Button-${this.ID}" class="UpdateDelete-Button" >${DotSVG}</div>
                 <div id="UpdateDelete-Slider-${this.ID}" class="UpdateDelete-Slider" >
-                    <a href="/#update/${this.productId}" id="Go-Update-${this.ID}" >
-                        <div class="UpdateDelete-Slider-Item" >
-                            <h6>수정하기</h6>
-                        </div>
-                    </a>
+                    <div class="UpdateDelete-Slider-Item" id="Go-Update-${this.ID}">
+                        <h6>수정하기</h6>
+                    </div>
                     <div id="Go-Delete-${this.ID}" class="UpdateDelete-Slider-Item" >
                         <h6 class="delete-text" >삭제하기</h6>
                     </div>
@@ -71,6 +67,12 @@ export default class UpdateDelete extends React{
             redux.update.setUpdateForm("title", that.item.title)
             redux.update.setUpdateForm("price", that.item.price)
             redux.update.setUpdateForm("content", that.item.content)
+            redux.update.setUpdateForm("isSoldOut", that.item.isSoldOut)
+            if (location.hash.split("/")[0] === '#product') {
+                redux.router.moveRouter("/#update/" + location.hash.split("/")[1])
+            } else {
+                redux.router.moveRouter("/#update/" + that.productId)
+            }
         })
 
         $(`#Go-Delete-${this.ID}`).on('click', function () {
@@ -78,7 +80,11 @@ export default class UpdateDelete extends React{
             if (RemoveModal) {
                 RemoveModal.classList.add("isDisplay")
             }
-            redux.remove.setRemove(that.productId)
+            if (location.hash.split("/")[0] === '#product') {
+                redux.remove.setRemove(Number(location.hash.split("/")[1]))
+            } else {
+                redux.remove.setRemove(that.productId)
+            }
         })
     }
 }

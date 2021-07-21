@@ -3,13 +3,14 @@ import "./AuthContainer.css"
 import { RightArrow } from "../../../svgicon/RightArrow"
 import { $ } from "../../../util/select"
 import { redux } from "../../../index";
-import Input from "../../../common/Input/Input";
+import LineInput from "../../../common/LineInput/LineInput";
 import GlassButton from "../../../common/GlassButton/GlassButton";
 import { loginApi, registerApi } from "../../../requests/auth";
 import { ILoginForm, IRegisterForm } from "../../../types/IAuthForm";
 import { errorMsg } from "../../../util/errorMsg";
 import check from "../../../util/check";
 import cache from "../../../util/cache";
+import Avatar from "../../../common/Avatar/Avatar";
 
 export default class AuthContainer extends React{
 
@@ -99,8 +100,7 @@ export default class AuthContainer extends React{
         const display = redux.display.getWidthHeight()
         $("#Auth-Inner").css("transform", `translateX(${display.width})`)
 
-        const products = redux.instance.getInstance("products")
-        products.init()
+        redux.router.moveRouter("#")
         
     }
 
@@ -118,12 +118,12 @@ export default class AuthContainer extends React{
         const display = redux.display.getWidthHeight()
         $("#Auth-Inner").css("transform", `translateX(${display.width})`)
 
-        const products = redux.instance.getInstance("products")
-        products.init()
+        redux.router.moveRouter("#")
     }
     
 
     renderChecked(content: HTMLElement) {
+        new Avatar(content, redux.check.getCheckForm().profileImage, "150px", "150px")
         const h3 = document.createElement("h3")
         h3.id = "myid"
         h3.innerText = redux.check.getCheckForm().id
@@ -134,7 +134,7 @@ export default class AuthContainer extends React{
     renderLogin(content: HTMLElement) {
 
         const setId = (e: string) => redux.login.setLoginForm('id', e)
-        new Input(content, setId)
+        new LineInput(content, setId, "로그인 아이디")
 
         const submitLogin = () => {
             const loginForm = redux.login.getLoginForm()
@@ -147,14 +147,16 @@ export default class AuthContainer extends React{
         content.appendChild(h5)
     }
 
-
     renderRegister(content: HTMLElement) {
 
         const setId = (e: string) => redux.register.setRegisterForm('id', e)
-        new Input(content, setId)
+        new LineInput(content, setId, "회원가입 아이디 영문 + 숫자 조합")
+
+        const setImage = (e: string) => redux.register.setRegisterForm('profileImage', e)
+        new LineInput(content, setImage, "프로필 이미지(선택사항)")
 
         const setTown = (e: string) => redux.register.setRegisterForm('town', e)
-        new Input(content, setTown)
+        new LineInput(content, setTown, "동네 이름 입력")
 
         const submitRegister = () => {
             const registerForm = redux.register.getRegisterForm()
