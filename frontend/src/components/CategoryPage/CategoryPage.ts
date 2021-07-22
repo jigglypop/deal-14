@@ -7,7 +7,7 @@ import { productListApi } from "../../requests/product";
 import { ProductTypes } from "../../types/product";
 import KeyByCategory from "./KeyByCategory";
 
-export default class CategoryPage extends React{
+export default class CategoryPage extends React {
 
     categoryId: number
 
@@ -64,10 +64,9 @@ export default class CategoryPage extends React{
             redux.products.setProducts(products)
 
             const Productscontainer = new ProductsContainer(ProductsInner, products, false)
-            redux.instance.setInstance('Productscontainer',Productscontainer)
-
+            redux.instance.setInstance('Productscontainer', Productscontainer)
         }
     }
- 
+
 
 }
