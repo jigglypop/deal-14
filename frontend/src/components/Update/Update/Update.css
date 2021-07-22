@@ -8,7 +8,5 @@
     left: 0;
     width: var(--baseX);
     height: var(--baseY);
-    /* transform: translateX(var(--baseX)); */
-    /* background-color: rgba(0,0,0,0.5); */
     transition: all .3s ease-in;
 }

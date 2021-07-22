@@ -40,7 +40,7 @@ export default class MenuContainer extends React{
             top: 0;
             left: 0;
             width: 100%;
-            height: 70px;
+            height: 50px;
             background-color: var(--gray);
         }
 
@@ -70,6 +70,7 @@ export default class MenuContainer extends React{
 
             width: 100%;
             height: 80%;
+            margin-top: 10px;
         }        
         `
     }
@@ -101,7 +102,7 @@ export default class MenuContainer extends React{
 
     methods() {
         $("#Menu-Arrow").on('click', function() {
-            $("#Menu-Inner").css("transform", "translateX(400px)")
+            $("#Menu-Inner").css("transform", "translateX(var(--baseX))")
         })
 
         const MenuMyContent = $("#Menu-My-Content").getById()

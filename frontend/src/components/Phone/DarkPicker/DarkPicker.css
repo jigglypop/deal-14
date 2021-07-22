@@ -1,0 +1,44 @@
+.DarkPickerOuter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#DarkPicker {
+    position: relative;
+    background-color: black;
+    z-index: 1;
+    transform: translateX(var(--halfX));
+    margin-top: 400px;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dark-item {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 10px;
+    transition: all .3s ease-in;
+}
+
+.dark-item:hover {
+    transform: scale(1.2);
+}

@@ -6,7 +6,6 @@ import Auth from "../Auth/Auth/Auth"
 import Write from "../Write/Write/Write"
 import { $ } from "../../util/select"
 import { redux } from "../.."
-// import Town from "../Town/Town/Town"
 
 export default class Slider extends React{
 

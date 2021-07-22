@@ -48,7 +48,7 @@ export default class MyLike extends React{
         const MyProductPage = $("#MyLike-Page").getById()
         if (MyProductPage && data) {
             if (data) {
-                new ProductsContainer(MyProductPage, data.data.products, redux.display.getWidthHeight().heightSS, true)
+                new ProductsContainer(MyProductPage, data.data.products, true, true)
             } else {
                 MyProductPage.innerHTML = `<h4>${err}</h4>`
             }

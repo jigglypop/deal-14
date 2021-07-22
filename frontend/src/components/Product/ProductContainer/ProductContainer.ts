@@ -17,6 +17,10 @@ import UpdateDelete from '../../Products/UpdateDelete/UpdateDelete'
 const SELLING = 'SELLING';
 const SOLD_OUT = 'SOLD_OUT';
 
+interface IImages {
+    filePath: string;
+}
+
 const getCategoryName = (categoryKey: number) => {
     const category: ICategory | undefined = Categories.find(c => c.keys === categoryKey);
     if (category === undefined) {
@@ -56,17 +60,21 @@ export default class ProductContainer extends React {
         </div>
 
         <div class="product-content">
+            <hr/>
             <div class="product-sold-out-wrapper disappear">
                 <select class="product-sold-out-select">
                     <option ${!this.product.isSoldOut && 'selected'} value="${SELLING}">판매중</option>
                     <option ${this.product.isSoldOut && 'selected'} value="${SOLD_OUT}">판매완료</option>
                 </select>
             </div>
-            <h1>${this.product.title}</h1>
+            <div class="product-title-wrapper">
+                <h1 class="product-title" >${this.product.title}</h1>
+            </div>
             <div class="product-category-time">
                 ${getCategoryName(this.product.category)},
                 ${getTimes().getTime(this.product.createdAt)}
             </div>
+            <hr/>
             <div class="product-content-text">
                 ${this.product.content}
             </div>
@@ -77,7 +85,7 @@ export default class ProductContainer extends React {
             <div class="product-user">
                 <span>판매자 정보</span>
                 <div class="product-user-profile">
-                    <img src="${this.product.user.profileImage}" />
+                    <img src="${this.product.user.profileImage}" class="product-user-profile-image" />
                     <span class="product-user-name">
                         ${this.product.userId}
                     </span>
@@ -99,11 +107,13 @@ export default class ProductContainer extends React {
             <div class="chat-button-wrapper">
             <div>
         </footer>
+        <div id="product-dummy">
+        </div>
         `
         this.componentWillMount()
     }
 
-    appendImageOnSlider(productImages: ProductImageTypes[]) {
+    appendImageOnSlider(productImages: IImages[]) {
         const slider = $('.image-slider').get();
         const sliderDot = $('.image-slider-dot-wrapper').get();
 
@@ -188,7 +198,6 @@ export default class ProductContainer extends React {
 
     onSoldOutSelectChanged = (e: Event) => {
         const { value } = (e.target as HTMLSelectElement);
-        console.log(value);
 
         if (value === SELLING) {
             updateSpecificApi({

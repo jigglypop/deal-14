@@ -26,11 +26,6 @@ const check = () => {
         const slider = redux.instance.getInstance('slider')
         slider.init()
 
-        // const authcontainer: AuthContainer = redux.instance.getInstance('authcontainer')
-        // authcontainer.setState({
-        //     checked: _id
-        // })
-        // 
         const menucontainser: MenuContainer = redux.instance.getInstance('menucontainer')
         menucontainser.setState({
             checked: _id

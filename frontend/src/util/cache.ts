@@ -8,7 +8,7 @@ const cache = {
             return null
         }
     },
-    set(key: string, data: object) {
+    set(key: string, data: object | string) {
         localStorage.setItem(key, JSON.stringify(data));
     },
     remove(key: string) {

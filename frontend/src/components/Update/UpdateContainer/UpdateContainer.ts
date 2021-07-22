@@ -6,6 +6,7 @@ import LineInput from "../../../common/LineInput/LineInput"
 import { redux } from "../../../index"
 import { updateApi, uploadApi, writeApi } from "../../../requests/product"
 import { UCheckSVG } from "../../../svgicon/UCheck"
+import { createToast } from "../../../util/createToast"
 
 export default class UpdateContainer extends React{
 
@@ -46,7 +47,7 @@ export default class UpdateContainer extends React{
         }
         .title {
             font-size: 18px;
-            color: var(--dark);
+            color: var(--text);
         }
         #Update-Content {
             position: relative;
@@ -90,6 +91,7 @@ export default class UpdateContainer extends React{
         
         #UpdateCategory-Title {
             font-size: 14px;
+            color: var(--text);
         }
         #UpdateCategoryWrapper {
             display: flex;
@@ -107,6 +109,7 @@ export default class UpdateContainer extends React{
             justify-content: center;
             align-items: center;
             text-align: center;
+            color: var(--text);
         }
 
         #update-soldout {
@@ -190,6 +193,7 @@ export default class UpdateContainer extends React{
         updateApi()
             .then(data => {
                 location.href = `/#product/${this.productId}`
+                createToast("업데이트")
             })
     }
 

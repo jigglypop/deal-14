@@ -49,7 +49,7 @@ export default class MyProduct extends React{
         const MyProductPage = $("#MyProduct-Page").getById()
         if (MyProductPage && data) {
             if (data) {
-                const products = new ProductsContainer(MyProductPage, data.data.products, redux.display.getWidthHeight().heightSS)
+                const products = new ProductsContainer(MyProductPage, data.data.products, true)
                 products.init()
             } else {
                 MyProductPage.innerHTML = `<h4>${err}</h4>`
