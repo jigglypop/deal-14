@@ -41,9 +41,6 @@ export default class ChatRoomList extends React {
         this.chatRoomList = chatRooms;
         this.componentWillMount();
       })
-      .catch(error => {
-        // error handling
-      });
   }
 
   render(): void {

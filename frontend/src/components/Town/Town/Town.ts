@@ -11,6 +11,7 @@ import AddTownModal from '../AddTownModal';
 import RemoveTownModal from '../RemoveTownModal';
 import ErrorModal from '../../../common/ErrorModal';
 import { redux } from '../../..';
+import { createToast } from '../../../util/createToast';
 
 export default class Town extends React {
   private addTownModal: AddTownModal;
@@ -52,11 +53,12 @@ export default class Town extends React {
     addMyTown({
       townName,
     })
-      .then(() => {
-        this.fetchUserTowns();
-      })
-      .catch((error: any) => {
-        this.errorModal.open(error.message);
+      .then((data) => {
+        if (data.status) {
+          createToast('2개 이상의 동네를 설정할 수 없습니다');
+        } else {
+          this.fetchUserTowns();
+        }
       })
       .finally(() => {
         this.addTownModal.close();
@@ -81,11 +83,12 @@ export default class Town extends React {
     }
 
     removeMyTown(this.removeUserTownId)
-      .then(() => {
-        this.fetchUserTowns();
-      })
-      .catch((error: any) => {
-        this.errorModal.open(error.message)
+      .then((data) => {
+        if (data.status) {
+          createToast('1개 이하의 동네를 설정할 수 없습니다');
+        } else {
+          this.fetchUserTowns();
+        }
       })
       .finally(() => {
         this.removeTownModal.close();
@@ -126,12 +129,8 @@ export default class Town extends React {
         this.userTowns = userTowns;
         this.componentWillMount();
       })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
-  // todo BaseResponse 개발 후 제내릭
   componentWillMount() {
     const $townList = $('.Town-List').get();
     if ($townList === null) {
@@ -166,9 +165,9 @@ export default class Town extends React {
 
     this.fetchUserTowns();
   }
-    
-    css() {
-        return ``
-    }
+
+  css() {
+    return ``
+  }
 
 }

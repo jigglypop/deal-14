@@ -88,9 +88,6 @@ export default class Chat extends React {
       .then(() => {
         redux.router.goRouter();
       })
-      .catch(error => {
-        // error handling
-      })
       .finally(() => {
         this.leaveChatModal.close();
       })
@@ -108,9 +105,6 @@ export default class Chat extends React {
       .then(() => {
         $chatMessageInput.value = '';
         this.fetchMore();
-      })
-      .catch(error => {
-        // error handling
       })
   }
 
