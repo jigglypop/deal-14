@@ -13,6 +13,7 @@ import { HeartSVG } from '../../../svgicon/Heart'
 import { formatPrice } from '../../../util/price'
 import { likeApi, unlikeApi, updateApi, updateSpecificApi } from '../../../requests/product'
 import UpdateDelete from '../../Products/UpdateDelete/UpdateDelete'
+import { createToast } from '../../../util/createToast'
 
 const SELLING = 'SELLING';
 const SOLD_OUT = 'SOLD_OUT';
@@ -172,9 +173,9 @@ export default class ProductContainer extends React {
                 const { chatRoom } = data.data;
                 location.href = `/#chat/${chatRoom.id}`;
             })
-            .catch(error => [
-                // error handling
-            ])
+            .catch(error => {
+                createToast('채팅방 가입에 실패했습니다');
+            })
     }
 
     onChatButtonClicked = (e: Event) => {
