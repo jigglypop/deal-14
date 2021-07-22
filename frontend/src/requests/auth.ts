@@ -10,7 +10,7 @@ export const loginApi = (data: ILoginForm) => {
         },
         body: JSON.stringify(data)
     })
-    
+
 }
 
 
@@ -23,19 +23,19 @@ export const registerApi = (data: IRegisterForm) => {
         },
         body: JSON.stringify(data)
     })
-    
+
 }
 
 export const checkApi = () => {
     // 체크시 토큰을 캐시에서 받아와서 요청
     const token = cache.get('token')
-    
+
     return fetchThen("/api/auth/check", {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
-            'token' : `Bearer ${token.value}`
+            'token': `Bearer ${token?.value}`
         },
     })
-    
+
 }

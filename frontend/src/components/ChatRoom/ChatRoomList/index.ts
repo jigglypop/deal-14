@@ -1,3 +1,4 @@
+import { NotHave } from '../../../common/NotHave/NotHave';
 import { fetchChatRoomList } from '../../../requests/chatRoom';
 import { ChatRoomTypes } from '../../../types/chatRoom';
 import React from '../../../util/react';
@@ -29,9 +30,13 @@ export default class ChatRoomList extends React {
       return;
     }
 
-    this.chatRoomList.forEach(chatRoom => {
-      new ChatRoomItem($chatRoomList, chatRoom);
-    });
+    if (this.chatRoomList.length <= 0) {
+      $chatRoomList.innerHTML = `${NotHave}`
+    } else {
+      this.chatRoomList.forEach(chatRoom => {
+        new ChatRoomItem($chatRoomList, chatRoom);
+      });
+    }
   }
 
   fetchData() {
@@ -41,9 +46,6 @@ export default class ChatRoomList extends React {
         this.chatRoomList = chatRooms;
         this.componentWillMount();
       })
-      .catch(error => {
-        // error handling
-      });
   }
 
   render(): void {

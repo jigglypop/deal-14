@@ -21,23 +21,29 @@ export default class Header extends React {
         userTowns: [] as UserTownTypes[],
     }
 
-    constructor($target: HTMLElement) {
-        super($target, 'Header', 'nav')
-
+    refreshTowns() {
         if (cache.get('token')) {
             fetchMyTowns()
                 .then(data => {
                     const { userTowns } = data.data;
                     this.state.userTowns = userTowns;
-                    redux.town.setCurrentTown({
-                        id: userTowns[0].townId,
-                        townName: userTowns[0].town.townName,
-                    });
 
-                    this.init();
+                    const town = cache.get('town');
+                    if (town) {
+                        redux.town.setCurrentTown(town);
+                    } else {
+                        redux.town.setCurrentTown({
+                            id: userTowns[0].townId,
+                            townName: userTowns[0].town.townName,
+                        });
+                    }
                 });
         }
+    }
 
+    constructor($target: HTMLElement) {
+        super($target, 'Header', 'nav')
+        this.refreshTowns();
         this.init();
     }
 

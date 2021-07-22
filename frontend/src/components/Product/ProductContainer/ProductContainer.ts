@@ -13,6 +13,7 @@ import { HeartSVG } from '../../../svgicon/Heart'
 import { formatPrice } from '../../../util/price'
 import { likeApi, unlikeApi, updateApi, updateSpecificApi } from '../../../requests/product'
 import UpdateDelete from '../../Products/UpdateDelete/UpdateDelete'
+import { createToast } from '../../../util/createToast'
 
 const SELLING = 'SELLING';
 const SOLD_OUT = 'SOLD_OUT';
@@ -142,9 +143,11 @@ export default class ProductContainer extends React {
         const isHost = redux.check.getCheckForm().id === this.product.userId;
 
         if (isHost) {
-            $chatButtonWrapper.innerHTML = `
+            if ($chatButtonWrapper) {
+                $chatButtonWrapper.innerHTML = `
                 <button class="product-chat-button show-chatroom">채팅 목록 보기</button>
             `;
+            }
             $('.product-like-button-wrapper').get()?.classList.add('disappear');
 
             const $imageControl = $('.image-control').get();
@@ -154,9 +157,11 @@ export default class ProductContainer extends React {
 
             $('.product-sold-out-wrapper').get()?.classList.remove('disappear');
         } else {
-            $chatButtonWrapper.innerHTML = `
+            if ($chatButtonWrapper) {
+                $chatButtonWrapper.innerHTML = `
                 <button class="product-chat-button ask-product">문의하기</button>
             `
+            }
         }
 
         this.appendImageOnSlider(this.product.productImages);
@@ -172,9 +177,9 @@ export default class ProductContainer extends React {
                 const { chatRoom } = data.data;
                 location.href = `/#chat/${chatRoom.id}`;
             })
-            .catch(error => [
-                // error handling
-            ])
+            .catch(error => {
+                createToast('채팅방 가입에 실패했습니다');
+            })
     }
 
     onChatButtonClicked = (e: Event) => {
