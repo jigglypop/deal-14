@@ -1,16 +1,22 @@
-import fetchThen from '../util/api';
+import fetchThen, { API_ENDPOINT } from '../util/api';
 import cache from '../util/cache';
+import xhr from '../util/xhr';
 
 export const fetchMyTowns = (): Promise<any> => {
   const token = cache.get('token')
 
-  return fetchThen('/api/town/my', {
+  return xhr(`${API_ENDPOINT}/api/town/my`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token.value}`
-    },
-  });
+    }
+  })
+    .then(res => {
+      console.log(res.response);
+
+      return JSON.parse(res.response);
+    });
 }
 
 type AddTownRequest = {
