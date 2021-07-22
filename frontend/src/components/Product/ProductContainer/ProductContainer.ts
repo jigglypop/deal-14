@@ -143,9 +143,11 @@ export default class ProductContainer extends React {
         const isHost = redux.check.getCheckForm().id === this.product.userId;
 
         if (isHost) {
-            $chatButtonWrapper.innerHTML = `
+            if ($chatButtonWrapper) {
+                $chatButtonWrapper.innerHTML = `
                 <button class="product-chat-button show-chatroom">채팅 목록 보기</button>
             `;
+            }
             $('.product-like-button-wrapper').get()?.classList.add('disappear');
 
             const $imageControl = $('.image-control').get();
@@ -155,9 +157,11 @@ export default class ProductContainer extends React {
 
             $('.product-sold-out-wrapper').get()?.classList.remove('disappear');
         } else {
-            $chatButtonWrapper.innerHTML = `
+            if ($chatButtonWrapper) {
+                $chatButtonWrapper.innerHTML = `
                 <button class="product-chat-button ask-product">문의하기</button>
             `
+            }
         }
 
         this.appendImageOnSlider(this.product.productImages);
