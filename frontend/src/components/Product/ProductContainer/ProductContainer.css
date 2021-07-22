@@ -209,7 +209,7 @@ hr {
     color: var(--deep-gray);
 }
 
-.product-go-back {
+#product-go-back {
     cursor: pointer;
 }
 

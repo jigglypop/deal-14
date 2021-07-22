@@ -5,13 +5,12 @@ import { ProductTypes } from "../../../types/product"
 import { $ } from "../../../util/select"
 import { redux } from "../../.."
 import { joinChatRoom } from '../../../requests/chatRoom'
-import { ProductImageTypes } from '../../../types/productImage'
-import { LeftArrow } from '../../../svgicon/LeftArrow'
+import { LeftArrowWithId } from '../../../svgicon/LeftArrow'
 import Categories, { ICategory } from '../../../constants/category.constants'
 import getTimes from '../../../util/getTimes'
 import { HeartSVG } from '../../../svgicon/Heart'
 import { formatPrice } from '../../../util/price'
-import { likeApi, unlikeApi, updateApi, updateSpecificApi } from '../../../requests/product'
+import { likeApi, unlikeApi, updateSpecificApi } from '../../../requests/product'
 import UpdateDelete from '../../Products/UpdateDelete/UpdateDelete'
 import { createToast } from '../../../util/createToast'
 
@@ -49,7 +48,7 @@ export default class ProductContainer extends React {
         this.$outer.innerHTML = `
         <div class="image-slider-wrapper">
             <div class="image-header">
-                <span class="product-go-back">${LeftArrow}</span>
+                <span class="product-go-back">${LeftArrowWithId('product-go-back')}</span>
                 <div class="image-control">
                 </div>
             </div>
@@ -168,6 +167,8 @@ export default class ProductContainer extends React {
     }
 
     goBack() {
+        console.log('pass');
+
         redux.router.goRouter()
     }
 
@@ -266,7 +267,7 @@ export default class ProductContainer extends React {
     }
 
     methods() {
-        $('.product-go-back').on("click", this.goBack)
+        $('#product-go-back').on("click", this.goBack)
         $('.image-slider-dot-wrapper').on('click', this.slideImages);
         $('.product-chat-button').on('click', this.onChatButtonClicked);
         $('.product-like-button-wrapper').on('click', this.onLikeButtonClicked.bind(this));
