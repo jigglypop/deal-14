@@ -36,7 +36,7 @@ const check = () => {
             redux.instance.getInstance('categorycontainer').init();
         } else if (location.hash.split('/')[0] === '#product') {
             const product: Product = redux.instance.getInstance('productcontainer')
-            product.init();
+            product?.init();
         }
 
 
