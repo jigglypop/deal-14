@@ -10,6 +10,7 @@
 #DarkPicker {
     position: relative;
     background-color: black;
+    box-shadow: 2px 2px 20px black;
     z-index: 1;
     transform: translateX(var(--halfX));
     margin-top: 400px;
