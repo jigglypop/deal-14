@@ -12,7 +12,7 @@ import { HeartSVG, SHeartSVG } from "../../../svgicon/Heart"
 import { likeApi, unlikeApi } from "../../../requests/product"
 import Avatar from "../../../common/Avatar/Avatar"
 
-export default class Card extends React{
+export default class Card extends React {
 
     public state = {
         isUserLiked: false,
@@ -175,7 +175,7 @@ export default class Card extends React{
 
         }`
     }
-    
+
     LikeApi(productId: number) {
         likeApi(productId)
             .then(data => {
@@ -197,15 +197,15 @@ export default class Card extends React{
                         likeCount: this.state.likeCount - 1
                     })
                 }
-            })      
+            })
     }
- 
+
 
     render() {
         this.$outer.innerHTML = `
         <div class="Card-Inner" >
             <div class="Card-Left" >
-                <img src="${this.item.productImages? this.item.productImages[0].filePath : 'public/image/main.png'}" class="product-images" />
+                <img src="${this.item.productImages ? this.item.productImages[0]?.filePath : 'public/image/main.png'}" class="product-images" />
             </div>
             <div class="Card-Mid" >
                 <div id="Card-Content-Top-${this.ID}" class="Card-Content-Top" >
@@ -214,10 +214,10 @@ export default class Card extends React{
                     </a>
                     <div id="Card-Login-Button-${this.ID}" >
                         ${!this.isMy ?
-                        `<div id="LikeButton-Inner-${this.item.id}" class="LikeButton-Inner" >
+                `<div id="LikeButton-Inner-${this.item.id}" class="LikeButton-Inner" >
                             ${HeartSVG(this.state.isUserLiked)}
                         </div>` :
-                        ''}
+                ''}
                     </div>
                 </div>
 
@@ -270,7 +270,7 @@ export default class Card extends React{
                         CardLoginButton.innerHTML = ""
                         new UpdateDelete(CardLoginButton, this.item.id, this.item)
                     }
-                } 
+                }
             } else {
                 if (CardLoginButton) {
                     CardLoginButton.innerHTML = ""

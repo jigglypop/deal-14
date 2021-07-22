@@ -5,6 +5,7 @@ const Check = function () {
     let CheckForm: any = {
         id: '',
         mylike: [],
+        profileImage: '',
     }
     return {
         // 체크폼 게터, 세터

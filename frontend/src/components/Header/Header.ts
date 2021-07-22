@@ -21,9 +21,7 @@ export default class Header extends React {
         userTowns: [] as UserTownTypes[],
     }
 
-    constructor($target: HTMLElement) {
-        super($target, 'Header', 'nav')
-
+    refreshTowns() {
         if (cache.get('token')) {
             fetchMyTowns()
                 .then(data => {
@@ -33,11 +31,13 @@ export default class Header extends React {
                         id: userTowns[0].townId,
                         townName: userTowns[0].town.townName,
                     });
-
-                    this.init();
                 });
         }
+    }
 
+    constructor($target: HTMLElement) {
+        super($target, 'Header', 'nav')
+        this.refreshTowns();
         this.init();
     }
 

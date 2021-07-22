@@ -17,5 +17,8 @@ export default function () {
     getCurrentTown() {
       return currentTown;
     },
+    clear() {
+      this.setCurrentTown(null);
+    }
   }
 }

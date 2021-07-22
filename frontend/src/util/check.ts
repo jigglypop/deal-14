@@ -11,14 +11,14 @@ const check = () => {
     // 토큰 받기
     const token = cache.get('token')
     // 리덕스 체크, 상태바꾸기 함수
-    const ChangeState = (_id: string) => {
+    const ChangeState = (_id: string, profileImage: string) => {
         redux.check.setCheckForm('id', _id)
-        if (_id === '') {
-            redux.check.setCheckForm("profileImage", "")
-        }
+        redux.check.setCheckForm("profileImage", profileImage)
+
         const header: Header = redux.instance.getInstance('header')
         header.setState({
             id: _id,
+            profileImage,
         });
 
         const slider = redux.instance.getInstance('slider')
@@ -38,22 +38,17 @@ const check = () => {
             const product: Product = redux.instance.getInstance('productcontainer')
             product?.init();
         }
-
-
     }
 
     // 토큰 없으면 헤더 처리, auth창 닫기
     if (!token) {
-        ChangeState('');
+        ChangeState('', '');
     }
     // 있으면 헤더 처리
     checkApi()
         .then(data => {
             if (data.data.user.id) {
-                ChangeState(data.data.user.id);
-            }
-            if (data.data.user.profileImage) {
-                redux.check.setCheckForm('profileImage', data.data.user.profileImage)
+                ChangeState(data.data.user.id, data.data.user.profileImage);
             }
         })
 

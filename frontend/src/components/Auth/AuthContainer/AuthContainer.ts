@@ -13,7 +13,7 @@ import cache from "../../../util/cache";
 import Avatar from "../../../common/Avatar/Avatar";
 import { createToast } from "../../../util/createToast";
 
-export default class AuthContainer extends React{
+export default class AuthContainer extends React {
 
     state = {
         isLogin: true,
@@ -44,7 +44,7 @@ export default class AuthContainer extends React{
             <div id="Auth-Page" >
                 <div id="Auth-Content" >
                     <div id="Auth-Header">
-                        <h4 class="title" >${this.state.checked === '' ? (this.state.isLogin ? "로그인" : "회원가입" ) : '내 계정' }</h4>
+                        <h4 class="title" >${this.state.checked === '' ? (this.state.isLogin ? "로그인" : "회원가입") : '내 계정'}</h4>
                         <div id="Auth-Arrow" >
                             ${RightArrow}
                         </div>
@@ -52,7 +52,7 @@ export default class AuthContainer extends React{
                     <div id="Auth-Under" >
                         <div id="Auth-Under-Content" >
                         </div>
-                        <h5 id="isLogin" >${this.state.checked === '' ? (this.state.isLogin ? "회원가입" : "로그인" ) : '' }</h5>
+                        <h5 id="isLogin" >${this.state.checked === '' ? (this.state.isLogin ? "회원가입" : "로그인") : ''}</h5>
                     </div>
                 </div>
             </div>`
@@ -60,7 +60,7 @@ export default class AuthContainer extends React{
         if (AuthUnderContent) {
 
             if (this.state.checked !== '') {
-                this.renderChecked(AuthUnderContent)   
+                this.renderChecked(AuthUnderContent)
             } else {
                 if (this.state.isLogin) {
                     this.renderLogin(AuthUnderContent)
@@ -72,13 +72,14 @@ export default class AuthContainer extends React{
     }
 
 
- 
+
     getLoginApi(form: ILoginForm) {
         loginApi(form)
             .then(data => {
                 this.rerender(data)
                 if (!data.hasOwnProperty('status')) {
-                    createToast("로그인")   
+                    createToast("로그인")
+                    redux.instance.getInstance('header').refreshTowns();
                 }
             })
     }
@@ -88,7 +89,8 @@ export default class AuthContainer extends React{
             .then(data => {
                 this.rerender(data)
                 if (!data.hasOwnProperty('status')) {
-                    createToast("회원가입")   
+                    createToast("회원가입")
+                    redux.instance.getInstance('header').refreshTowns();
                 }
             })
     }
@@ -108,7 +110,7 @@ export default class AuthContainer extends React{
         $("#Auth-Inner").css("transform", `translateX(${display.width})`)
 
         redux.router.moveRouter("#")
-        
+
     }
 
     setError(err: any) {
@@ -121,6 +123,7 @@ export default class AuthContainer extends React{
     logout() {
         cache.remove('token')
         redux.check.resetCheckForm()
+        redux.town.clear();
         check()
         const display = redux.display.getWidthHeight()
         $("#Auth-Inner").css("transform", `translateX(${display.width})`)
@@ -128,7 +131,7 @@ export default class AuthContainer extends React{
         redux.router.moveRouter("#")
         createToast("로그아웃")
     }
-    
+
 
     renderChecked(content: HTMLElement) {
         new Avatar(content, redux.check.getCheckForm().profileImage, "150px", "150px")
@@ -181,7 +184,7 @@ export default class AuthContainer extends React{
     methods() {
         let that = this
         const display = redux.display.getWidthHeight()
-        $("#Auth-Arrow").on('click', function() {
+        $("#Auth-Arrow").on('click', function () {
             $("#Auth-Inner").css("transform", `translateX(var(--baseX))`)
             redux.slidertoggle.setSliderToggle('auth')
         })
