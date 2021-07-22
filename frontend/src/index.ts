@@ -31,10 +31,8 @@ if (body) {
     // 스타
     new StarA(body)
     new StarB(body)
-    // new StarC(body)
     new StarD(body)
     new StarE(body)
-
 }
 
 const root = document.getElementById("root")

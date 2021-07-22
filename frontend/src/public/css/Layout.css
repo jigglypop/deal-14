@@ -56,6 +56,11 @@ body {
     --half_Y: -400px;
     --rotateX: 700px;
 
+    --category-item: 80px;
+    --category-box: 40px;
+    --category-margin: 10px;
+    --input-length: 300px;
+
     --cardX: 390px;
     --IPad: none;
     --Hheight: 50px;

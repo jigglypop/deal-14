@@ -18,39 +18,7 @@ export default class CategoryContainer extends React {
 
     css() {
         return `
-        #CategoryContainer-Inner {
-            position: absolute;
-            z-index: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
 
-            top: 0;
-            left: 0;
-            width: var(--baseX);
-            height: var(--baseY);
-        }
-
-        #CategoryContainer-Header {
-            position: sticky;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background-color: var(--gray);
-        }
-
-        #CategoryContainer-Content {
-            position: relative;
-
-            width: 95%;
-            height: 95%;
-            background-color: var(--app);
-        }
 
         .title {
             font-size: 18px;

@@ -5,9 +5,9 @@ import getID from "../../util/getID"
 
 export default class GlassButton extends React{
 
-    text = ""
-    ID = getID()
-    method = () => {}
+    private text = ""
+    private ID = getID()
+    protected method = () => {}
 
     constructor($target: HTMLElement, text: string, method: () =>  void) {
         super($target, 'GlassButton')
@@ -25,7 +25,7 @@ export default class GlassButton extends React{
         return `
         .glass-button {
             text-decoration: none;
-            width: 280px;
+            width: var(--input-length);
             height: 40px;
             position: relative;
             overflow: hidden;
