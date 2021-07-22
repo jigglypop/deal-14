@@ -6,7 +6,7 @@ import Categories from "../../../constants/category.constants"
 import CategoryItem from "../Categoryitem/Categoryitem"
 import { redux } from "../../.."
 
-export default class CategoryContainer extends React{
+export default class CategoryContainer extends React {
 
     Categories = Categories
 
@@ -90,7 +90,7 @@ export default class CategoryContainer extends React{
                             ${LeftArrow}
                         </div>
                         <div>
-                            <h4 class="title" >카테고리 (${redux.check.getCheckForm().townName})</h4>
+                            <h4 class="title" >카테고리 (${redux.town.getCurrentTown()?.townName ?? '설정 없음'})</h4>
                         </div>
                         <div></div>
                     </div>
@@ -107,7 +107,7 @@ export default class CategoryContainer extends React{
         if (this.Categories && CategoryContainerItems) {
             for (let category of this.Categories) {
                 new CategoryItem(CategoryContainerItems, category)
-                
+
             }
         }
     }
@@ -115,9 +115,9 @@ export default class CategoryContainer extends React{
 
 
     methods() {
-        $("#CategoryContainer-Arrow").on('click', function() {
+        $("#CategoryContainer-Arrow").on('click', function () {
             $("#Category-Inner").css("transform", `translateX(${redux.display.getWidthHeight()._width})`)
         })
     }
-    
+
 }

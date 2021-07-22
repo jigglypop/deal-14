@@ -3,23 +3,42 @@ import React from "../../util/react"
 import "./Header.css"
 import { HamburgerSVG } from "../../svgicon/hamburger"
 import { BoxSVG } from "../../svgicon/box"
-// import { AvatarSVG } from "../../svgicon/Avatar"
 import { $ } from "../../util/select"
-import { redux } from "../.."
 import Avatar from "../../common/Avatar/Avatar"
-import { idText } from "typescript"
+import { UserTownTypes } from '../../types/userTown'
+import { TownTypes } from '../../types/town'
+import { redux } from '../..'
+import { fetchMyTowns } from '../../requests/town'
+import cache from '../../util/cache'
 
-export default class Header extends React{
+export default class Header extends React {
 
     state = {
         id: '',
-        townName: '',
+        currentTown: null as (null | TownTypes),
+        userTowns: [] as UserTownTypes[],
     }
 
     constructor($target: HTMLElement) {
         super($target, 'Header', 'nav')
-        this.init()
+
+        if (cache.get('token')) {
+            fetchMyTowns()
+                .then(data => {
+                    const { userTowns } = data.data;
+                    this.state.userTowns = userTowns;
+                    redux.town.setCurrentTown({
+                        id: userTowns[0].id,
+                        townName: userTowns[0].town.townName,
+                    });
+
+                    this.init();
+                });
+        }
+
+        this.init();
     }
+
     css() {
         return `
         #Header-Inner {
@@ -38,6 +57,7 @@ export default class Header extends React{
 
         .header-link {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             
@@ -94,6 +114,21 @@ export default class Header extends React{
             text-decoration: none;
         }`
     }
+
+
+    componentWillMount() {
+        if (redux.check.getCheckForm().id === '') return;
+
+        const { userTowns } = this.state;
+
+        const $townList = $('.header-town-list').get();
+
+        $townList!.innerHTML = `${userTowns.map(userTown => `
+            <li data-town-name="${userTown.town.townName}"  data-town-id="${userTown.townId}">${userTown.town.townName}</li>`
+        ).join('')}
+        <li data-go-setting="true">동네 설정하기</li>`
+    }
+
     render() {
         this.$outer.innerHTML = `
             <div id="Header-Inner" >
@@ -101,24 +136,12 @@ export default class Header extends React{
                     <div class="header-link-item" id="category-button" >${BoxSVG}</div>
                 </div>
                 <div class="header-link" >
-                    <div class="header-link-item" id="Menu-Slider-Button" >${LocationSVG} ${this.state.townName}</div>
-                    <div class="Menu-Slider UpperHide" id="Menu-Slider" >
-                        <div id="Menu-Slider-Top" >
-                            <h4 class="Menu-Slider-Text" >역삼동</h4>
-                        </div>
-                        ${this.state.id === '' ?
-                        `
-                           <div id="Menu-Slider-Login" >
-                                <h4>로그인이 필요합니다</h4>
-                            </div>                          
-                        ` :
-                        `
-                            <a href="/#town" >
-                                <div id="Menu-Slider-Bottom" >
-                                        <h4 class="Menu-Slider-Text" >내 동네 설정하기</h4>
-                                </div>
-                            </a>                      
-                        ` }
+                    <div class="header-link-item" id="Menu-Slider-Button" >
+                        ${LocationSVG} ${redux.town.getCurrentTown()?.townName ?? '설정 없음'}
+                    </div>
+                    <div class="header-town-slider disappear">
+                        <ul class="header-town-list">
+                        </ul>
                     </div>
                 </div>
                 <div class="header-link-right" >
@@ -127,16 +150,18 @@ export default class Header extends React{
                     <div class="header-link-item" id="menu-button" >${HamburgerSVG}</div>
                 </div>
                 <a href="/#" ><div id="Home-Button" >홈</div></a>
-                ${this.state.id === '' ? '' : ` <div id="FaB-Button" ><h1>+</h1></div>` }
+                ${this.state.id === '' ? '' : ` <div id="FaB-Button" ><h1>+</h1></div>`}
             </div>
         `
+
+        this.componentWillMount();
     }
 
     methods() {
         const names = ['Menu', 'Auth', 'Category']
 
         names.forEach((name: string) => {
-            $(`#${name.toLowerCase()}-button`).on('click', function(){
+            $(`#${name.toLowerCase()}-button`).on('click', function () {
                 $(`#${name}-Inner`).css('transform', "translateX(0)")
             })
         })
@@ -146,10 +171,7 @@ export default class Header extends React{
         })
 
         $('#Menu-Slider-Button').on('click', function () {
-            const MenuSlider = $('#Menu-Slider').getById()
-            if (MenuSlider) {
-                MenuSlider.classList.toggle("UpperHide")
-            }
+            $('.header-town-slider').get()?.classList.toggle('disappear');
         })
 
         $('#Menu-Slider-Bottom').on('click', function () {
@@ -157,10 +179,26 @@ export default class Header extends React{
             if (MenuSlider) {
                 MenuSlider.classList.toggle("UpperHide")
             }
-            
+
             $("#Town-Inner").css("transform", "translateX(0)")
-        })
-        
+        });
+
+        $('.header-town-list').on('click', ((e: Event) => {
+            const { townId, townName, goSetting } = (e.target as HTMLElement).dataset;
+
+            if (goSetting) {
+                location.href = '/#town';
+                return;
+            }
+
+            if (!townId || !townName) return;
+
+            redux.town.setCurrentTown({
+                id: Number(townId),
+                townName,
+            });
+        }).bind(this))
+
         const authbutton = $("#auth-button").getById()
         if (authbutton) {
             new Avatar(authbutton, redux.check.getCheckForm().profileImage, "40px", "40px", "2px_2px_20px_var(--text)")

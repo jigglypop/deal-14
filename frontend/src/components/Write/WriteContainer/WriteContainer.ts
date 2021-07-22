@@ -11,7 +11,7 @@ import WriteCategory from "../WriteCategory/WriteCategory"
 import { uploadApi, writeApi } from "../../../requests/product"
 import { BLocationSVG, LocationSVG } from "../../../svgicon/location"
 
-export default class WriteContainer extends React{
+export default class WriteContainer extends React {
 
     constructor($target: HTMLElement) {
         super($target, 'WriteContainer')
@@ -136,7 +136,7 @@ export default class WriteContainer extends React{
                         </div>
                     </div>
                     <div id="location">
-                        ${BLocationSVG}${redux.write.getWriteForm().townName}
+                        ${BLocationSVG}${redux.town.getCurrentTown()?.townName}
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@ export default class WriteContainer extends React{
 
             `
             WriteUnderContent.appendChild(div)
-            
+
             const setTitle = (e: string) => {
                 redux.write.setWriteForm('title', e)
                 redux.write.checkVailidate()
@@ -206,7 +206,7 @@ export default class WriteContainer extends React{
 
     methods() {
         let that = this
-        $("#Write-Arrow").on('click', function() {
+        $("#Write-Arrow").on('click', function () {
             $("#Write-Inner").css("transform", `translateX(${redux.display.getWidthHeight().width})`)
         })
 

@@ -8,7 +8,7 @@ export const fetchMyTowns = (): Promise<any> => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-        'Authorization' : `Bearer ${token.value}`
+      'Authorization': `Bearer ${token.value}`
     },
   });
 }
@@ -24,7 +24,7 @@ export const addMyTown = (addTownRequest: AddTownRequest): Promise<any> => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-        'Authorization' : `Bearer ${token.value}`
+      'Authorization': `Bearer ${token.value}`
     },
     body: JSON.stringify({
       ...addTownRequest,
@@ -39,7 +39,7 @@ export const removeMyTown = (userTownId: number): Promise<any> => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-        'Authorization' : `Bearer ${token.value}`
+      'Authorization': `Bearer ${token.value}`
     },
   });
 }

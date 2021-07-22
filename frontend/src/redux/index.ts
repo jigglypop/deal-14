@@ -12,9 +12,11 @@ import Upload from "./Upload"
 import Write from "./Write"
 import Remove from "./remove"
 import Update from "./Update"
+import Town from './Town';
 
 export function Redux() {
     return {
+        town: Town(),
         login: Login(),
         register: Register(),
         check: Check(),
