@@ -1,6 +1,6 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin'); 
-const { CleanWebpackPlugin }  = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin'); 
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
     devtool: 'source-map',
     mode: 'production',
     resolve: {
-        extensions: ['.ts','.js','.json']
+        extensions: ['.ts', '.js', '.json']
     },
     output: {
         filename: 'index.js'
@@ -20,9 +20,9 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/
             },
-            { 
-                test: /\.js$/, 
-                exclude: /node_modules/, 
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
                 use: [
                     'babel-loader'
                 ]
@@ -77,5 +77,6 @@ module.exports = {
                 { from: 'src/favicon.ico', to: './favicon.ico' },
             ]
         }),
+        new webpack.EnvironmentPlugin(['API_ENDPOINT']),
     ]
 }
