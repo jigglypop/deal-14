@@ -37,7 +37,7 @@ export default class Products extends React{
         const ProductsInner = $('#Products-Inner').get()
         const base_sY = $('body').getV("--base_sY")
         if (ProductsInner && data && base_sY) {
-            const Productscontainer = new ProductsContainer(ProductsInner, data.data.products, base_sY)
+            const Productscontainer = new ProductsContainer(ProductsInner, data.data.products, false)
             redux.instance.setInstance('Productscontainer',Productscontainer)
         }
     }

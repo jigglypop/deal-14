@@ -7,6 +7,7 @@ import Phone from "./components/Phone/Phone/Phone"
 import "./public/css/Layout.css"
 import { Redux } from "./redux"
 import defaultDisplay from "./util/display"
+import rotate3D from "./util/rotate3D"
 import { setBefore } from "./util/setDisplay"
 
 setBefore()
@@ -26,3 +27,4 @@ const root = document.getElementById("root")
 if (root !== null) {
     new App(root)
 }
+rotate3D()

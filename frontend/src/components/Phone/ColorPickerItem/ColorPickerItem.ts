@@ -1,3 +1,4 @@
+import cache from "../../../util/cache"
 import getID from "../../../util/getID"
 import React from "../../../util/react"
 import { $ } from "../../../util/select"
@@ -39,8 +40,11 @@ export default class ColorPickerItem extends React{
     methods() {
         let that = this
         $(`#ColorPickerItem-${this.ID}`).on('click', function () {
-            $("body").setV("--header",that.key)
-            $("body").setV("--text", that.value)
+            const mode = cache.get("mode")
+            $("body").setV("--header", that.key)
+            if (mode === "moon") {
+                $("body").setV("--text", that.value)      
+            }
         })
     }
 }

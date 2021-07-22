@@ -10,7 +10,7 @@ import { NotHave } from "../../../common/NotHave/NotHave"
 export default class ProductsContainer extends React{
 
     protected products: ProductTypes[] = []
-    protected height = redux.display.getWidthHeight().heightSS
+    protected height = true
     protected ID = getID()
     public state = {
         flag: false,
@@ -18,17 +18,15 @@ export default class ProductsContainer extends React{
     }
     protected isMy = false
 
-    constructor($target: HTMLElement, products: ProductTypes[], height?: string, isMy?: boolean) {
+    constructor($target: HTMLElement, products: any, height?: boolean, isMy?: boolean) {
         super($target, 'ProductsContainer')
         if (height) {
             this.height = height;
         }
-        this.setState({
-            products: products
-        })
         if (isMy) {
             this.isMy = true
         }
+        this.state.products = products
         this.init() 
     }
 
@@ -36,13 +34,14 @@ export default class ProductsContainer extends React{
         return `
         #products-container-content${this.ID} {
             position: relative;
-            height: ${this.height};
+            width: 100%;
+            height: 525px;
             overflow-x: hidden;
             overflow-y: scroll;
 
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             text-align: center;
             flex-wrap: wrap;
         }`
