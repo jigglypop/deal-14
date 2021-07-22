@@ -11,6 +11,7 @@ body {
 }
 html,
 body {
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +53,7 @@ body {
 
     --halfX: 300px;
     --halfY: 450px;
-    --half_Y: -600px;
+    --half_Y: -400px;
 
     --cardX: 390px;
     --IPad: none;
