@@ -1,22 +1,20 @@
 import React from "../../util/react"
 import "./Avatar.css"
-// import { $ } from "../../util/select"
 import getID from "../../util/getID"
+import { API_ENDPOINT } from "../../util/api"
 
 export default class Avatar extends React{
 
     private profileImage = ""
     private ID = getID()
-    private method = () => { }
     private width = "40px"
     private height = "40px"
     private boxShadow = "2px_2px_10px_var(--text)"
 
-    constructor($target: HTMLElement, profileImage: string, width?: string, height?: string, boxShadow?:string, method?: () =>  void) {
+    constructor($target: HTMLElement, profileImage: string, width?: string, height?: string, boxShadow?:string ) {
         super($target, 'Avatar')
-        this.profileImage = profileImage
-        if (method) {
-            this.method = method
+        if (profileImage !== undefined) {
+            this.profileImage = profileImage
         }
         if (width && height) {
             this.width = width
@@ -32,7 +30,7 @@ export default class Avatar extends React{
         this.$outer.innerHTML = `
             <div id="Avatar-${this.ID}" class="border-div blob white" >
                 <div class="box" >
-                    <img id="avatar-img-${this.ID}" src="${this.profileImage === ""? 'public/image/avatar.png' : this.profileImage }" class="avatar-img admin" />
+                    <img id="avatar-img-${this.ID}" src="${this.profileImage === ""? API_ENDPOINT +'/images/avatar.png' : this.profileImage }" class="avatar-img admin" />
                 </div>
             </div>
         `

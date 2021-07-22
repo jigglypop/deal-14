@@ -8,10 +8,11 @@ export default function () {
     setCurrentTown(town: TownTypes | null) {
       currentTown = town;
 
-      redux.instance.getInstance('header').init();
-      redux.instance.getInstance('categorycontainer').init();
-      redux.instance.getInstance('products').init();
-      redux.instance.getInstance('writecontainer').init();
+      redux.instance.getInstance('header')?.init();
+      redux.instance.getInstance('categorycontainer')?.init();
+      redux.instance.getInstance('products')?.init();
+      redux.instance.getInstance('writecontainer')?.init();
+      redux.instance.getInstance('categorypage')?.init();
     },
     getCurrentTown() {
       return currentTown;

@@ -46,6 +46,18 @@ export const $ = (element: Document | HTMLElement | string) => {
             }
             return null;
         },
+        // css valuable 세팅하기
+        setV(key: string, _value: string) {
+            if (typeof element === 'string') {
+                const $El = this.get()
+                if ($El instanceof HTMLElement) {
+                    const result = $El.style.setProperty(key, _value)
+                } 
+            }
+            else if (element instanceof HTMLElement) {
+                const result = element.style.setProperty(key, _value)
+            }
+        },
         on(type: string, cb: EventListener) {
             const $element = this.get();
             if ($element === null) {

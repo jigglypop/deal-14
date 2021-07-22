@@ -6,7 +6,6 @@ import ProductsContainer from "../Products/ProductsContainer/ProductsContainer";
 import { productListApi } from "../../requests/product";
 import { ProductTypes } from "../../types/product";
 import KeyByCategory from "./KeyByCategory";
-import { NotHave } from "../../common/NotHave/NotHave";
 
 export default class CategoryPage extends React{
 
@@ -22,13 +21,26 @@ export default class CategoryPage extends React{
     css() {
         return `
             .category-title {
-                margin: 10px;
-            }  
+                font-size: 14px;
+                border: 2px_solid_var(--text);
+                color: var(--text);
+                border-radius: 10px;
+                margin: 20px;
+                padding: 10px;
+            }
+            
+            .category-title-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
         `
     }
     render() {
         this.$outer.innerHTML = `
-            <h4 class="category-title" >카테고리(${KeyByCategory[this.categoryId]})</h4>
+            <div class="category-title-wrapper" >
+                <h4 class="category-title" >카테고리(${KeyByCategory[this.categoryId]})</h4>
+            </div>
             <div id="CategoryPage-Inner" >
             </div>`
         this.getList()
@@ -51,7 +63,7 @@ export default class CategoryPage extends React{
         if (ProductsInner && products) {
             redux.products.setProducts(products)
 
-            const Productscontainer = new ProductsContainer(ProductsInner, products, redux.display.getWidthHeight().heightS)
+            const Productscontainer = new ProductsContainer(ProductsInner, products, false)
             redux.instance.setInstance('Productscontainer',Productscontainer)
 
         }

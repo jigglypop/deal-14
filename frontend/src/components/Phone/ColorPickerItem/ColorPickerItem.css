@@ -1,0 +1,8 @@
+.ColorPickerItem {
+    cursor: pointer;
+    transition: all .3s ease-in;
+    margin: 5px;
+}
+.ColorPickerItem:hover {
+    transform: scale(1.2);
+}

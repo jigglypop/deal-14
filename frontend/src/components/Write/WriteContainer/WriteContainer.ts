@@ -10,6 +10,7 @@ import Categories, { ICategory } from "../../../constants/category.constants"
 import WriteCategory from "../WriteCategory/WriteCategory"
 import { uploadApi, writeApi } from "../../../requests/product"
 import { BLocationSVG, LocationSVG } from "../../../svgicon/location"
+import { createToast } from "../../../util/createToast"
 
 export default class WriteContainer extends React {
 
@@ -45,7 +46,7 @@ export default class WriteContainer extends React {
         }
         .title {
             font-size: 18px;
-            color: var(--dark);
+            color: var(--text);
         }
         #Write-Content {
             position: relative;
@@ -102,7 +103,8 @@ export default class WriteContainer extends React {
         #location {
             display: flex;
             justify-content: center;
-            align-items: center;              
+            align-items: center;
+            color: var(--text);            
         }
 
         `
@@ -173,6 +175,8 @@ export default class WriteContainer extends React {
                 redux.write.checkVailidate()
             }
             new LineInput(WriteUnderContent, setContent, "게시글 내용을 작성해 주세요")
+
+            redux.write.setWriteForm('townId', redux.town.getCurrentTown()!.id);
         }
         this.componentWillMount()
     }
@@ -192,6 +196,8 @@ export default class WriteContainer extends React {
         writeApi()
             .then(data => {
                 location.href = `/#product/${data.data.product.id}`
+            }).then(() => {
+                createToast("글쓰기")
             })
     }
 

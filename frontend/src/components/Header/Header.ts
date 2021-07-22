@@ -10,6 +10,8 @@ import { TownTypes } from '../../types/town'
 import { redux } from '../..'
 import { fetchMyTowns } from '../../requests/town'
 import cache from '../../util/cache'
+import { HomeSVG } from "../../svgicon/Home"
+import { WriteSVG } from "../../svgicon/Write"
 
 export default class Header extends React {
 
@@ -28,7 +30,7 @@ export default class Header extends React {
                     const { userTowns } = data.data;
                     this.state.userTowns = userTowns;
                     redux.town.setCurrentTown({
-                        id: userTowns[0].id,
+                        id: userTowns[0].townId,
                         townName: userTowns[0].town.townName,
                     });
 
@@ -41,19 +43,7 @@ export default class Header extends React {
 
     css() {
         return `
-        #Header-Inner {
-            position: sticky;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 2;
 
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background-image: var(--header);
-        }
 
         .header-link {
             display: flex;
@@ -87,6 +77,23 @@ export default class Header extends React {
             justify-content: flex-start;
             margin: 5px;
             align-items: center;
+            color: white;
+        }
+
+
+
+        .header-title {
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .header-title-content {
+            font-size: 8px;
+            font-weight: 800;
+        }
+
+        .username-text {
+            color: white;
         }
 
         a:link {
@@ -133,7 +140,12 @@ export default class Header extends React {
         this.$outer.innerHTML = `
             <div id="Header-Inner" >
                 <div class="header-link-left" >
-                    <div class="header-link-item" id="category-button" >${BoxSVG}</div>
+                    <div class="header-link-item" id="category-button" >${BoxSVG}
+                    </div>
+                    <div class="header-link-item-small IPad" >
+                        <h5 class="header-title" >10CM마켓</h5>
+                        <h5 class="header-title-content" >세상 모든 물품이 다 있다</h5>
+                    </div>
                 </div>
                 <div class="header-link" >
                     <div class="header-link-item" id="Menu-Slider-Button" >
@@ -146,11 +158,12 @@ export default class Header extends React {
                 </div>
                 <div class="header-link-right" >
                     <div class="header-link-item" id="auth-button" ></div>
+                    <h5 class="username-text IPad" >${this.state.id}</h5>
 
                     <div class="header-link-item" id="menu-button" >${HamburgerSVG}</div>
                 </div>
-                <a href="/#" ><div id="Home-Button" >홈</div></a>
-                ${this.state.id === '' ? '' : ` <div id="FaB-Button" ><h1>+</h1></div>`}
+                <a href="/#" ><div id="Home-Button" >${HomeSVG}</div></a>
+                ${this.state.id === '' ? '' : ` <div id="FaB-Button" >${WriteSVG}</div>`}
             </div>
         `
 
