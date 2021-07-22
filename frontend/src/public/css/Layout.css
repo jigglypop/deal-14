@@ -54,6 +54,7 @@ body {
     --halfX: 300px;
     --halfY: 450px;
     --half_Y: -400px;
+    --rotateX: 700px;
 
     --cardX: 390px;
     --IPad: none;
@@ -73,7 +74,7 @@ body {
 
 
 main {
-    z-index: 2;
+    z-index: 3;
     position: relative;
 
     display: flex;

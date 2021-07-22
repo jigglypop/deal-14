@@ -1,8 +1,6 @@
-import { redux } from "../../.."
-import cache from "../../../util/cache"
 import React from "../../../util/react"
-import { $ } from "../../../util/select"
 import "./Name.css"
+import { StarASVG } from "../../../svgicon/StarA"
 
 export default class Name extends React{
 

@@ -13,6 +13,7 @@ export const IPadAttr = {
     "--halfX": "620px",
     "--halfY": "484px",
     "--half_Y": "-700px",
+    "--rotateX": "1350px",
     "--IPad": "flex",
     "--Hheight": "65px",
 }
@@ -45,6 +46,7 @@ export const IPhoneAttr = {
     "--halfX": "300px",
     "--halfY": "450px",
     "--half_Y": "-400px",
+    "--rotateX": "700px",
     "--IPad": "none",
     "--Hheight": "50px",                
 }

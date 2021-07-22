@@ -9,13 +9,13 @@
 
 #Name {
     position: relative;
-    z-index: 1;
-    transform: translateX(var(--half_Y));
+    z-index: 10;
+    margin-right: var(--rotateX);
     background-color: black;
     box-shadow: 2px 2px 20px black;
     padding: 30px;
-    width: 230px;
-    height: 200px;
+    width: 180px;
+    height: 140px;
     border-radius: 20px;
 
     display: flex;
@@ -36,16 +36,17 @@
 
 
 #name-item-large {
-    font-size: 50px;
-    text-shadow: 2px 2px 20px var(--text);
+    font-size: 30px;
+    text-shadow: 2px 2px 20px var(--white-text);
     font-weight: 800;
-    color: var(--text);
+    color: var(--white-text);
+    transform-style: preserve-3d;
 }
 
 #name-item-small {
     position: relative;
     width: 100%;
-    font-size: 20px;
+    font-size: 14px;
     text-shadow: 2px 2px 20px white;
     font-weight: 800;
     color: white;
@@ -53,10 +54,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    line-height: 50px;
+    line-height: 30px;
 }
 
 .name-item-name {
-    color: var(--text);
-    text-shadow: 2px 2px 20px var(--text);
+    color: var(--white-text);
+    text-shadow: 2px 2px 20px var(--white-text);
 }
