@@ -52,6 +52,8 @@ body {
 
     --halfX: 300px;
     --halfY: 450px;
+    --half_Y: -600px;
+
     --cardX: 390px;
     --IPad: none;
     --Hheight: 50px;

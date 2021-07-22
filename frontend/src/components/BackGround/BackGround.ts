@@ -10,7 +10,8 @@ export default class BackGround extends React{
 
     render() {
         this.$outer.innerHTML = `
-            <div id="BackGround"></div>
+            <div id="BackGround">
+            </div>
         `
     }
     css() {

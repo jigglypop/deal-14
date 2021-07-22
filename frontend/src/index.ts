@@ -3,6 +3,7 @@ import BackGround from "./components/BackGround/BackGround"
 import ColorPicker from "./components/Phone/ColorPicker/ColorPicker"
 import DarkPicker from "./components/Phone/DarkPicker/DarkPicker"
 import DisplayPicker from "./components/Phone/DisplayPicker/DisplayPicker"
+import Name from "./components/Phone/Name/Name"
 import Phone from "./components/Phone/Phone/Phone"
 import "./public/css/Layout.css"
 import { Redux } from "./redux"
@@ -21,6 +22,7 @@ if (body) {
     new ColorPicker(body)
     new DisplayPicker(body)
     new DarkPicker(body)
+    new Name(body)
 }
 
 const root = document.getElementById("root")
