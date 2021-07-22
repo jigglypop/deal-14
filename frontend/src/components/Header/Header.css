@@ -156,6 +156,73 @@
     cursor: pointer;
 }
 
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform:scaleY(0) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform:scaleY(1) translateY(0);
+    }
+}
+
+@keyframes slide-out {
+    from {
+        opacity: 1;
+        transform:scaleY(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform:scaleY(0) translateY(-10px);
+    }
+}
+
+.header-town-slider {
+    position: relative;
+    width: 100%;
+    animation: slide-in 0.2s;
+    visibility: visible;
+    transition: all 0.2s;
+}
+
+.header-town-slider.disappear {
+    visibility: hidden;
+    animation: slide-out 0.2s;
+}
+
+.header-town-list {
+    list-style: none;
+    position: absolute;
+    width: 100%;
+    transform-origin: top;
+}
+
+.header-town-list > li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--dark-gray);
+    height: 40px;
+    cursor: pointer;
+    background-color: var(--gray);
+}
+
+.header-town-list > li:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.header-town-list > li:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.header-town-list > li:hover {
+    background-color: var(--dark-gray);
+}
 .UpperHide {
     transform: translateY(-200px);
 }

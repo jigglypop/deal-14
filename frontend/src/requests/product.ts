@@ -6,7 +6,7 @@ import cache from "../util/cache"
 export const productListApi = () => {
     // 체크시 토큰을 캐시에서 받아와서 요청
     const token = cache.get('token')
-    const townId = cache.get("townId")
+    const townId = redux.town.getCurrentTown()?.id;
 
     return fetchThen(`/api/product/${townId ? `?townId=${townId}` : ''}`, {
         method: "GET",

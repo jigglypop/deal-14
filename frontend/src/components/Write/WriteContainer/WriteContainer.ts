@@ -12,7 +12,7 @@ import { uploadApi, writeApi } from "../../../requests/product"
 import { BLocationSVG, LocationSVG } from "../../../svgicon/location"
 import { createToast } from "../../../util/createToast"
 
-export default class WriteContainer extends React{
+export default class WriteContainer extends React {
 
     constructor($target: HTMLElement) {
         super($target, 'WriteContainer')
@@ -138,7 +138,7 @@ export default class WriteContainer extends React{
                         </div>
                     </div>
                     <div id="location">
-                        ${BLocationSVG}${redux.write.getWriteForm().townName}
+                        ${BLocationSVG}${redux.town.getCurrentTown()?.townName}
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@ export default class WriteContainer extends React{
 
             `
             WriteUnderContent.appendChild(div)
-            
+
             const setTitle = (e: string) => {
                 redux.write.setWriteForm('title', e)
                 redux.write.checkVailidate()
@@ -175,6 +175,8 @@ export default class WriteContainer extends React{
                 redux.write.checkVailidate()
             }
             new LineInput(WriteUnderContent, setContent, "게시글 내용을 작성해 주세요")
+
+            redux.write.setWriteForm('townId', redux.town.getCurrentTown()!.id);
         }
         this.componentWillMount()
     }
@@ -195,7 +197,7 @@ export default class WriteContainer extends React{
             .then(data => {
                 location.href = `/#product/${data.data.product.id}`
             }).then(() => {
-                createToast("글쓰기")                
+                createToast("글쓰기")
             })
     }
 
@@ -210,7 +212,7 @@ export default class WriteContainer extends React{
 
     methods() {
         let that = this
-        $("#Write-Arrow").on('click', function() {
+        $("#Write-Arrow").on('click', function () {
             $("#Write-Inner").css("transform", `translateX(${redux.display.getWidthHeight().width})`)
         })
 
