@@ -1,7 +1,6 @@
 import { ChatRoomTypes } from '../../../types/chatRoom';
 import getTimes from '../../../util/getTimes';
 import React from '../../../util/react';
-import { formatCreatedAt } from '../../../util/time';
 
 import './index.css';
 
@@ -27,13 +26,13 @@ export default class ChatRoomItem extends React {
           </div>
 
           <div class="ChatRoomItem-RecentMessage-Info">
-            <span class="RecentMessage-Time">${recentMessage.createdAt !== null ? formatCreatedAt(recentMessage.createdAt) : ''}</span>
+            <span class="RecentMessage-Time">${recentMessage.createdAt !== null ? getTimes().getTime(recentMessage.createdAt) : ''}</span>
             ${this.chatRoom.newMessageCount > 0 ? `<div class="RecentMessage-Count">${this.chatRoom.newMessageCount}</div>` : ''}
           </div>
         </div>
 
         <div class="ChatRoomItem-Image-Wrapper">
-          <img src="${filePath}"/>
+          <img src="${filePath}" />
         </div>
       </div>
     `;

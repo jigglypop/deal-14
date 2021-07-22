@@ -4,7 +4,7 @@ import BaseQuery from './base.query';
 
 type CreateTypes = {
   id: string;
-  profileImage: string;
+  profileImage?: string | null;
 }
 
 class UserQuery extends BaseQuery<User, string, CreateTypes> {
