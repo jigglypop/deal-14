@@ -5,7 +5,7 @@ import { DotSVG } from "../../../svgicon/Dot";
 import { $ } from "../../../util/select";
 import { redux } from "../../..";
 
-export default class UpdateDelete extends React{
+export default class UpdateDelete extends React {
 
     ID = getID()
     productId: number
@@ -35,7 +35,7 @@ export default class UpdateDelete extends React{
             </div>`
     }
 
-     css() {
+    css() {
         return `
             .UpdateDelete-Inner{
                 position: relative;
@@ -50,8 +50,8 @@ export default class UpdateDelete extends React{
                 cursor: pointer;
             }
         `
-     }
-    
+    }
+
 
     methods() {
         let that = this
@@ -69,9 +69,9 @@ export default class UpdateDelete extends React{
             redux.update.setUpdateForm("content", that.item.content)
             redux.update.setUpdateForm("isSoldOut", that.item.isSoldOut)
             if (location.hash.split("/")[0] === '#product') {
-                redux.router.moveRouter("/#update/" + location.hash.split("/")[1])
+                location.href = `/#update/${location.hash.split("/")[1]}`
             } else {
-                redux.router.moveRouter("/#update/" + that.productId)
+                location.href = `/#update/${that.productId}`
             }
         })
 

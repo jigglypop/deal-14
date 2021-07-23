@@ -9,10 +9,10 @@ export default class LineInput extends React {
     ID = getID()
     labelText = ""
     type = ""
-    defaultValue : any = null
-    method = (e: string) => {}
+    defaultValue: any = null
+    method = (e: string) => { }
 
-    constructor($target: HTMLElement, method: (e: string) =>  void, labelText: string, type?: string, defaultValue?: string | number) {
+    constructor($target: HTMLElement, method: (e: string) => void, labelText: string, type?: string, defaultValue?: string | number) {
         super($target, 'LineInput')
 
         this.method = method
@@ -29,10 +29,12 @@ export default class LineInput extends React {
     render() {
         this.$outer.innerHTML = `
             <div class="LineInput" id="LineInput-${this.ID}"  >
-                <input id="${this.ID}" ${this.type === 'number' ? 'type="number"' : ""} ${this.defaultValue !== null && this.defaultValue !== -1 ? `value="${this.defaultValue}"`:""} >${this.text}</button>
+                <input id="${this.ID}" ${this.type === 'number' ? 'type="number"' : ""} ${this.defaultValue !== null && this.defaultValue !== -1 ? `value="${this.defaultValue}"` : ""} >${this.text}</button>
                 <label>${this.labelText}</label>
             </div>
         `
+
+        this.method(this.defaultValue ?? '');
     }
     css() {
         return ``
@@ -60,6 +62,6 @@ export default class LineInput extends React {
 
         if (defaultValue && defaultValue !== -1 && LineInput) {
             LineInput.classList.add("Hold")
-        } 
+        }
     }
 }

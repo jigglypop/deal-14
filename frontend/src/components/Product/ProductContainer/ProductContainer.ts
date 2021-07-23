@@ -13,6 +13,7 @@ import { formatPrice } from '../../../util/price'
 import { likeApi, unlikeApi, updateSpecificApi } from '../../../requests/product'
 import UpdateDelete from '../../Products/UpdateDelete/UpdateDelete'
 import { createToast } from '../../../util/createToast'
+import { API_ENDPOINT } from '../../../util/api'
 
 const SELLING = 'SELLING';
 const SOLD_OUT = 'SOLD_OUT';
@@ -85,7 +86,7 @@ export default class ProductContainer extends React {
             <div class="product-user">
                 <span>판매자 정보</span>
                 <div class="product-user-profile">
-                    <img src="${this.product.user.profileImage}" class="product-user-profile-image" />
+                    <img src="${this.product.user.profileImage || `${API_ENDPOINT}/images/avatar.png`}" class="product-user-profile-image" />
                     <span class="product-user-name">
                         ${this.product.userId}
                     </span>
@@ -167,8 +168,6 @@ export default class ProductContainer extends React {
     }
 
     goBack() {
-        console.log('pass');
-
         redux.router.goRouter()
     }
 
