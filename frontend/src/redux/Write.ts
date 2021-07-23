@@ -1,15 +1,15 @@
 import { redux } from ".."
 import { $ } from "../util/select"
 
-const Write = function() {
-    let writeForm : any = {
+const Write = function () {
+    let writeForm: any = {
         id: '',
         townId: -1,
         price: 0,
         category: -1,
         title: '',
         content: '',
-        images: [''],
+        images: [],
         townName: ''
     }
     let isComplite = false
@@ -26,7 +26,7 @@ const Write = function() {
             const upload = Object.keys(redux.upload.getFileObject())
             const upload_length = upload.length
 
-            if (writeForm.title !== "" && writeForm.content !== "" && writeForm.category !== -1 && upload_length >= 0) {
+            if (writeForm.title !== "" && writeForm.content !== "" && writeForm.category !== -1 && upload_length > 0) {
                 $(".CheckSVGPath").css("stroke", "var(--baemin)")
                 isComplite = true
                 return true

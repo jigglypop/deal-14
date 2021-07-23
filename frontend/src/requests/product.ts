@@ -144,8 +144,6 @@ export const updateApi = () => {
 
     UpdateForm.price = Number(UpdateForm.price)
 
-    console.log(UpdateForm)
-
     return fetchThen(`/api/product/${productId}`, {
         method: "PUT",
         headers: {

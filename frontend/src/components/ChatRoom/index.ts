@@ -1,5 +1,5 @@
 import { redux } from '../..';
-import { LeftArrow } from '../../svgicon/LeftArrow';
+import { LeftArrowWithId } from '../../svgicon/LeftArrow';
 import React from '../../util/react';
 import { $ } from '../../util/select';
 import ChatRoomList from './ChatRoomList';
@@ -30,7 +30,7 @@ export default class ChatRoom extends React {
     this.$outer.innerHTML = `
     <div id="ChatRoom-Inner">
       <header class="ChatRoom-Header">
-        <span class="ChatRoom-Go-Back">${LeftArrow}</span>
+        <span class="ChatRoom-Go-Back">${LeftArrowWithId('chatroom-go-back')}</span>
         <h4>채팅하기</h4>
         <div></div>
       </header>
@@ -52,7 +52,7 @@ export default class ChatRoom extends React {
   }
 
   methods(): void {
-    $('.ChatRoom-Go-Back').on('click', this.onGoBack);
+    $('#chatroom-go-back').on('click', this.onGoBack);
   }
 
 }

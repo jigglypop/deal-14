@@ -51,8 +51,8 @@ class ChatroomService {
     const detailChatRooms = await Promise.all(chatRooms.map(chatRoom => {
       let image: ProductImage[] = [];
       return productImageQuery.findByProduct(chatRoom.productId)
-        .then(image => {
-          image = image;
+        .then(_image => {
+          image = _image;
 
           return readChatMessageQuery.select(
             `SELECT * FROM read_chat_message WHERE userId = ? AND chatRoomId = ? LIMIT 1`, [userId, chatRoom.id]);

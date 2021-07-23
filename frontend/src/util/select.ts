@@ -52,7 +52,7 @@ export const $ = (element: Document | HTMLElement | string) => {
                 const $El = this.get()
                 if ($El instanceof HTMLElement) {
                     const result = $El.style.setProperty(key, _value)
-                } 
+                }
             }
             else if (element instanceof HTMLElement) {
                 const result = element.style.setProperty(key, _value)
@@ -82,7 +82,6 @@ export const $ = (element: Document | HTMLElement | string) => {
             const $element = this.get();
 
             if ($element === null) {
-                console.log("안먹음")
                 return;
             }
 
