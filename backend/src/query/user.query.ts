@@ -4,6 +4,7 @@ import BaseQuery from './base.query';
 
 type CreateTypes = {
   id: string;
+  profileImage?: string | null;
 }
 
 class UserQuery extends BaseQuery<User, string, CreateTypes> {
@@ -23,8 +24,8 @@ class UserQuery extends BaseQuery<User, string, CreateTypes> {
   async create(data: CreateTypes): Promise<User> {
     const now = new Date();
     await this.save(
-      `INSERT INTO ${this.tableName} (id, createdAt, updatedAt) VALUES(?, ?, ?)`,
-      [data.id, now, now]);
+      `INSERT INTO ${this.tableName} (id, profileImage, createdAt, updatedAt) VALUES(?, ?, ?, ?)`,
+      [data.id, data.profileImage, now, now]);
 
     const createdUser = await this.findByPk(data.id);
     if (createdUser === null) {
@@ -37,6 +38,7 @@ class UserQuery extends BaseQuery<User, string, CreateTypes> {
   map(row: RowDataPacket) {
     const user = new User();
     user.id = row.id;
+    user.profileImage = row.profileImage;
     user.createdAt = row.createdAt;
     user.updatedAt = row.updatedAt;
 

@@ -37,11 +37,12 @@ const upload = multer({
       cb(null, `${Date.now()}_${generateUUID()}${extname}`);
     },
   })
-}).array('files');
+}).array('recfiles');
 
 const multerMiddleware = (req: Request, res: Response, next: NextFunction) => {
   upload(req, res, (error) => {
     if (error) {
+      console.log(error)
       switch (error.message) {
         case INVALID_FILE_TYPE_ERR:
           next(new HTTPError(400, '옳지 않은 파일 타입'));

@@ -50,3 +50,29 @@ export class WriteProductRequest extends BaseRequest {
     this.images = data.images;
   }
 }
+
+export class ModifyProductRequest extends BaseRequest {
+  @IsNotEmpty()
+  title!: string;
+
+  @IsInt()
+  @IsOptional()
+  price: number | null;
+
+  @IsNotEmpty()
+  content!: string;
+
+  @IsInt()
+  category: Categories;
+
+  isSoldOut: boolean;
+
+  constructor(data: ModifyProductRequest ) {
+    super();
+    this.title = data.title;
+    this.price = data.price ?? null;
+    this.content = data.content;
+    this.category = data.category;
+    this.isSoldOut = data.isSoldOut;
+  }
+}

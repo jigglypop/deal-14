@@ -1,11 +1,11 @@
 import HTTPError from '../errors/http-error';
 import { IDetailProduct } from '../interfaces/product';
-import chatroomQuery from '../query/chatroom.query';
+import chatroomQuery from '../query/chat-room.query';
 import likedProductQuery from '../query/liked-product.query';
 import productImageQuery from '../query/product-image.query';
 import productQuery from '../query/product.query';
 import townQuery from '../query/town.query';
-import { ReadDetailProductsRequest, WriteProductRequest } from '../requests/product.request';
+import { ModifyProductRequest, ReadDetailProductsRequest, WriteProductRequest } from '../requests/product.request';
 import SelectSQLGenerator from '../utils/select-sql-generator';
 
 class ProductService {
@@ -30,7 +30,8 @@ class ProductService {
   }
 
   async findDetail(userId: string | undefined, productId: number): Promise<IDetailProduct> {
-    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName'`);
+    const selectSQLGenerator = new SelectSQLGenerator('product',
+      `product.*, user.id as 'user.id', user.profileImage as 'user.profileImage', town.id as 'town.id', town.townName as 'town.townName'`);
     selectSQLGenerator.addJoin({
       type: 'LEFT JOIN',
       joinTable: 'user',
@@ -64,7 +65,8 @@ class ProductService {
   async findDetails(userId: string, options: ReadDetailProductsRequest) {
     const { category, townId, } = options;
 
-    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName'`);
+    const selectSQLGenerator = new SelectSQLGenerator('product',
+      `product.*, user.id as 'user.id', user.profileImage as 'user.profileImage', town.id as 'town.id', town.townName as 'town.townName'`);
     selectSQLGenerator.addJoin({
       type: 'LEFT JOIN',
       joinTable: 'user',
@@ -119,7 +121,8 @@ class ProductService {
   }
 
   async findUserProducts(userId: string) {
-    const selectSQLGenerator = new SelectSQLGenerator('product', `product.*, user.id as 'user.id', town.id as 'town.id', town.townName as 'town.townName'`);
+    const selectSQLGenerator = new SelectSQLGenerator('product',
+      `product.*, user.id as 'user.id', user.profileImage as 'user.profileImage', town.id as 'town.id', town.townName as 'town.townName'`);
     selectSQLGenerator.addJoin({
       type: 'LEFT JOIN',
       joinTable: 'user',
@@ -176,6 +179,37 @@ class ProductService {
     })));
 
     return createdProduct;
+  }
+
+  async modify(userId: string, productId: number, modifyProductRequest: ModifyProductRequest) {
+    const { title, content, price, category, isSoldOut } = modifyProductRequest;
+
+    const product = await productQuery.findByPk(productId);
+    if (product === null) {
+      throw new HTTPError(404, '상품 정보 없음');
+    }
+
+    if (product.userId !== userId) {
+      throw new HTTPError(403, '본인의 상품에만 접근 가능');
+    }
+
+    const now = new Date();
+    await productQuery.save(`UPDATE product SET
+      title = ?, content = ?, price = ?, category = ?, isSoldOut = ?, updatedAt = ?
+      WHERE id = ?`, [title, content, price ?? 'NULL', category, isSoldOut, now, productId]);
+  }
+
+  async remove(userId: string, productId: number) {
+    const product = await productQuery.findByPk(productId);
+    if (product === null) {
+      throw new HTTPError(404, '상품 정보 없음');
+    }
+
+    if (product.userId !== userId) {
+      throw new HTTPError(403, '본인의 상품에만 접근 가능');
+    }
+
+    await productQuery.executeQuery(`DELETE FROM product WHERE id = ?`, [productId]);
   }
 }
 

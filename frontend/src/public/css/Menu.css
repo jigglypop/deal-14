@@ -1,4 +1,0 @@
-#Menu-Inner {
-    transform: translateX(var(--baseX));
-    transition: all .3s ease-in;
-}

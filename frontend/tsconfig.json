@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "module": "commonjs",                  
-    "strict": true, 
+    "module": "commonjs",
+    "strict": true,
     "esModuleInterop": true,
+    "sourceMap": true,
     "lib": [
       "ESNext.String",
-			"dom"
+      "dom"
     ]
   }
 }

@@ -1,0 +1,12 @@
+#Update-Inner {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 0;
+    left: 0;
+    width: var(--baseX);
+    height: var(--baseY);
+    transition: all .3s ease-in;
+}

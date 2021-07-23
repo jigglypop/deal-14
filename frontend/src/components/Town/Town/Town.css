@@ -1,0 +1,73 @@
+.TownOuter {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#Town-Inner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+  top: 0;
+  left: 0;
+  width: var(--baseX);
+  height: var(--baseY);
+  transition: all .3s ease-in;
+}
+
+.Town-Description {
+  color: var(--deep-gray);
+  font-weight: normal;
+  margin: 40px 0;
+}
+
+.Town-Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px;
+  width: 100%;
+  height: 60px;
+  background-color: var(--gray);
+  border-bottom: 1px solid var(--dark-gray);
+}
+
+.Town-Header > * {
+  flex-grow: 1;
+}
+
+.Town-Header > h4 {
+  font-size: 18px;
+  color: var(--dark);
+  font-weight: normal;
+}
+
+.Town-List {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.Town-Item {
+  padding: 0px 16px;
+  height: 45px;
+  border-radius: 8px;
+  width: 170px;
+  margin: 5px 0px;
+}
+
+#Add-Town-Button {
+  color: var(--primary1);
+}
+
+#Add-Town-Button:disabled {
+  color: var(--deep-gray);
+}
+
+#Town-Go-Back {
+  cursor: pointer;
+}

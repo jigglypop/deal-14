@@ -1,0 +1,8 @@
+.ChatRoomListOuter {
+  height: 100%;
+}
+
+.ChatRoomList {
+  overflow: scroll;
+  height: 100%;
+}

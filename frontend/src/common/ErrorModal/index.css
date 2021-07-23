@@ -1,0 +1,29 @@
+.Error-Modal-Content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.Error-Modal-Desc {
+  margin-bottom: 20px
+}
+
+.Error-Button-Wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.Error-Button-Wrapper > button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#Close-Error-Modal {
+  color: #F45452;
+}
+

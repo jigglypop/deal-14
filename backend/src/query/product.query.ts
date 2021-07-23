@@ -2,7 +2,6 @@ import { RowDataPacket } from 'mysql2';
 import Categories from '../enum/category.enum';
 import Product from '../models/product';
 import BaseQuery from './base.query';
-import userQuery from './user.query';
 
 type CreateTypes = {
   title: string;
@@ -29,25 +28,21 @@ class ProductQuery extends BaseQuery<Product, number, CreateTypes> {
   }
 
   async create(data: CreateTypes): Promise<Product> {
-    try {
-      const {
-        title, price, isSoldOut, content, category, userId, townId,
-      } = data;
-      const now = new Date();
+    const {
+      title, price, isSoldOut, content, category, userId, townId,
+    } = data;
+    const now = new Date();
 
-      const insertResult = await this.save(
-        `INSERT INTO ${this.tableName} (title, price, isSoldOut, content, category, userId, townId, createdAt, updatedAt)
+    const insertResult = await this.save(
+      `INSERT INTO ${this.tableName} (title, price, isSoldOut, content, category, userId, townId, createdAt, updatedAt)
       VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [title, price, isSoldOut, content, category, userId, townId, now, now]);
 
-      const product = await this.findByPk(insertResult.insertId);
-      if (product === null) {
-        throw new Error('MySQL 생성 오류');
-      }
-
-      return product;
-    } catch (err) {
-      throw err;
+    const product = await this.findByPk(insertResult.insertId);
+    if (product === null) {
+      throw new Error('MySQL 생성 오류');
     }
+
+    return product;
   }
 
   map(row: RowDataPacket): Product {
@@ -65,6 +60,7 @@ class ProductQuery extends BaseQuery<Product, number, CreateTypes> {
     product.townId = row.townId;
     product.user = {
       id: row['user.id'],
+      profileImage: row['user.profileImage'],
       createdAt: row['user.createdAt'],
       updatedAt: row['user.updatedAt'],
     };

@@ -8,24 +8,28 @@ export default abstract class React {
     styled: any
     sementic: string | undefined
     abstract render(): void
+    abstract css(): string
+    abstract methods() : void
 
     constructor($target: HTMLElement, name: string, sementic?: string | undefined) {
         this.$outer = document.createElement("div");
+        this.sementic = sementic
+        this.$target = $target
         if (sementic) {
             this.$outer = document.createElement(`${sementic}`);
         }
         this.$outer.className = name + 'Outer';
-        this.$target = $target
         this.$target.appendChild(this.$outer);
     }
 
     
     // 시작 함수
-    init() {
+    init($El = null) {
         // 렌더링
         this.render();
         // 스타일링
         this.style();
+        this.methods();
     }
 
     // setState
@@ -35,6 +39,7 @@ export default abstract class React {
         }
         this.render();
         this.style();
+        this.methods();
     }
 
     // styled-component
@@ -42,7 +47,7 @@ export default abstract class React {
         const root = this.$outer?.className;
         const rootAll: any = document.querySelectorAll(`.${root}`);
         for (let rootEl of rootAll) {
-            styled(rootEl, `.${root}`, this.styled);
+            styled(rootEl, `.${root}`, this.css());
         }
     }
 }

@@ -1,0 +1,94 @@
+.ChatRoomItemOuter {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .3s ease-in;
+}
+
+.ChatRoomItemOuter:hover {
+  background-color: var(--deep-gray);
+}
+
+.ChatRoomItem {
+  width: 90%;
+  border-bottom: 1px solid #D7D7D7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.ChatRoomItem * {
+  pointer-events: none;
+}
+
+.ChatRoomItem-Info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.ChatRoomItem-BasicInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: var(--text);
+}
+
+.ChatRoomItem-Partner {
+  color: var(--text);
+  font-weight: normal;
+  margin-bottom: 2px;
+}
+
+.ChatRoomItem-RecentMessage {
+  font-weight: normal;
+  color: #888888;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.ChatRoomItem-RecentMessage-Info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.ChatRoomItem-Image-Wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #d7d7d7;
+  overflow: hidden;
+}
+
+.ChatRoomItem-Image-Wrapper > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.RecentMessage-Time {
+  font-weight: normal;
+  color: #888888;
+  margin-bottom: 2px;
+  font-size: 12px;
+}
+
+.RecentMessage-Count {
+  background-color: #2AC1BC;
+  font-weight: normal;
+  color: #ffffff;
+  height: 20px;
+  min-width: 20px;
+  padding: 4px;
+  border-radius: 999px;
+  margin-top: 2px;
+  font-size: 12px;
+}

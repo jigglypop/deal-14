@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length, Matches } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, Length, Matches } from 'class-validator';
 import BaseRequest from './base.request';
 
 export class LoginRequest extends BaseRequest {
@@ -17,6 +17,10 @@ export class RegisterRequest extends BaseRequest {
   @Matches(/^[0-9a-zA-Z]{1,20}$/)
   id!: string;
 
+  @IsString()
+  profileImage?: string | null;
+
+
   @IsNotEmpty()
   @Length(1, 25)
   town!: string;
@@ -25,5 +29,6 @@ export class RegisterRequest extends BaseRequest {
     super();
     this.id = data.id;
     this.town = data.town;
+    this.profileImage = data.profileImage;
   }
 }

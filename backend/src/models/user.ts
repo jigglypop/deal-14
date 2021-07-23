@@ -5,6 +5,7 @@ import UserTown from './user-town';
 
 class User {
   id!: string;
+  profileImage!: string;
   userTowns?: UserTown[];
   products?: Product[];
   likedProducts?: LikedProduct[];

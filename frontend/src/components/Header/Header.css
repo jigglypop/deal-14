@@ -1,0 +1,237 @@
+.HeaderOuter {
+    transition: all 0.3s ease-in;
+}
+
+#Header-Inner {
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--Hheight);
+    background-image: var(--header);
+    transition: all 0.3s ease-in;
+}
+.location-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.location-svg:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.hamburger-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.hamburger-svg:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.box-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+
+
+
+.box-svg:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.avatar-svg {
+    fill: white;
+    transition: all .3s ease-in;
+}
+
+.avatar-svg:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+
+#FaB-Button {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1;
+
+    bottom: -605px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: var(--text) 1px 1px 10px;
+    cursor: pointer;
+    transition: all .3s ease-in;
+    background-image: var(--header);
+}
+
+#FaB-Button:hover {
+    box-shadow: var(--text) 2px 2px 20px;
+}
+
+
+
+#Home-Button {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1;
+
+    bottom: -605px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: var(--text) 1px 1px 10px;
+    cursor: pointer;
+    transition: all .3s ease-in;
+    background-image: var(--header);
+}
+
+#Home-Button:hover {
+    box-shadow: var(--text) 2px 2px 20px;
+}
+
+
+
+.Menu-Slider {
+    position: absolute;
+    top: 50px;
+    border-radius: 5px;
+    background-color: var(--gray);
+    width: 160px;
+    height: 100px;
+
+    font-size: 12px;
+    font-weight: 400;
+
+    transition: all .3s ease-in;
+}
+
+
+
+#Menu-Slider-Top {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 50px;
+
+    border-bottom: 2px solid var(--dark-gray);
+}
+
+#Menu-Slider-Bottom {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 50px;
+
+    cursor: pointer;
+}
+#Menu-Slider-Login {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 50px;
+
+    cursor: pointer;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform:scaleY(0) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform:scaleY(1) translateY(0);
+    }
+}
+
+@keyframes slide-out {
+    from {
+        opacity: 1;
+        transform:scaleY(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform:scaleY(0) translateY(-10px);
+    }
+}
+
+.header-town-slider {
+    position: relative;
+    width: 100%;
+    animation: slide-in 0.2s;
+    visibility: visible;
+    transition: all 0.2s;
+}
+
+.header-town-slider.disappear {
+    visibility: hidden;
+    animation: slide-out 0.2s;
+}
+
+.header-town-list {
+    list-style: none;
+    position: absolute;
+    width: 100%;
+    transform-origin: top;
+}
+
+.header-town-list > li {
+    font-size: 12px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--dark-gray);
+    height: 40px;
+    cursor: pointer;
+    background-color: var(--gray);
+}
+
+.header-town-list > li:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.header-town-list > li:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.header-town-list > li:hover {
+    background-color: var(--dark-gray);
+}
+.UpperHide {
+    transform: translateY(-200px);
+}
+
+.header-link-item-small {
+    flex-direction: column;
+    margin: 5px;
+    text-align: left;
+    color: white;
+}   

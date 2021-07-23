@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import HTTPError from '../errors/http-error';
+import dotenv from '../config/dotenv';
 
 class UploadController {
   upload(req: Request, res: Response) {
     const files: string[] = [];
 
     if (req.files instanceof Array) {
-      req.files.forEach(file => {
-        files.push(`http://localhost:3000/static/files/${file.filename}`);
+      req.files.forEach((file: any) => {
+        files.push(`${dotenv.SERVER_URL}/files/${file.filename}`);
       });
 
       res.status(200).json({

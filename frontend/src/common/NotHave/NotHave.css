@@ -1,0 +1,18 @@
+.no-category-outer{
+    position: relative;
+    width: 100%;
+    height: var(--base_ssY);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text);
+}
+
+.no-category {
+    margin-top: -100px;
+    width: 200px;
+    height: 200px;
+    object-fit: fill;
+    margin: 20px;
+}
