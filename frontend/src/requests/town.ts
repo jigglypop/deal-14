@@ -13,8 +13,6 @@ export const fetchMyTowns = (): Promise<any> => {
     }
   })
     .then(res => {
-      console.log(res.response);
-
       return JSON.parse(res.response);
     });
 }

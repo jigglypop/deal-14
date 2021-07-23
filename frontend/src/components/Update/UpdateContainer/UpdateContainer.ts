@@ -8,7 +8,7 @@ import { updateApi, uploadApi, writeApi } from "../../../requests/product"
 import { UCheckSVG } from "../../../svgicon/UCheck"
 import { createToast } from "../../../util/createToast"
 
-export default class UpdateContainer extends React{
+export default class UpdateContainer extends React {
 
     item: any
     productId: number
@@ -152,8 +152,6 @@ export default class UpdateContainer extends React{
         `
         const UpdateUnderContent = $("#Update-Under-Content").getById()
         if (UpdateUnderContent) {
-
-            
             const setTitle = (e: string) => {
                 redux.update.setUpdateForm('title', e)
                 redux.update.checkVailidate()
@@ -182,8 +180,8 @@ export default class UpdateContainer extends React{
 
         if (updateSoldout) {
             if (!isSoldOut) {
-                updateSoldout.innerText = "판매중"   
-            }else {
+                updateSoldout.innerText = "판매중"
+            } else {
                 updateSoldout.innerText = "판매완료"
             }
         }
@@ -215,7 +213,7 @@ export default class UpdateContainer extends React{
 
         $('#update-soldout').on('click', function () {
             const updateSoldout = $('#update-soldout').getById()
-            
+
             if (updateSoldout) {
                 if (updateSoldout.innerText === "판매중") {
                     updateSoldout.innerText = "판매완료"

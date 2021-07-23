@@ -1,8 +1,4 @@
-/**
- * UserName 및 채팅방 정보를 실제 데이터로 대치하는 작업 필요
- */
-
-import { LeftArrow } from '../../svgicon/LeftArrow';
+import { LeftArrowWithId } from '../../svgicon/LeftArrow';
 import Logout from '../../svgicon/Logout';
 import React from '../../util/react';
 import { $ } from '../../util/select';
@@ -252,7 +248,7 @@ export default class Chat extends React {
     $('#Chat-Message-Input').on('keypress', this.onChatMessageInputKeyPressed);
     $('#Open-Leave-Chat-Modal-Button').on('click', this.onOpenLeaveChatModalButtonClicked);
     $('.New-Chat-Notice').on('click', this.onNewChatNoticeClicked);
-    $('#Chat-Go-Back').on('click', this.onGoBackClicked);
+    $('#chat-go-back').on('click', this.onGoBackClicked);
   }
 
   render(): void {
@@ -265,7 +261,7 @@ export default class Chat extends React {
       <div id="Chat-Inner">
         <header>
           <div class="Chat-Header">
-            <div class="Header-Left"><span id="Chat-Go-Back">${LeftArrow}<span></div>
+            <div class="Header-Left"><span id="Chat-Go-Back">${LeftArrowWithId('chat-go-back')}<span></div>
             <h4 class="ChatRoom-Title"></h4>
             <div class="Header-Right" id="Open-Leave-Chat-Modal-Button">${Logout}</div>
           </div>

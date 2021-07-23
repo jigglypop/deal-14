@@ -110,7 +110,6 @@ export default class AuthContainer extends React {
         $("#Auth-Inner").css("transform", `translateX(${display.width})`)
 
         redux.router.moveRouter("#")
-
     }
 
     setError(err: any) {

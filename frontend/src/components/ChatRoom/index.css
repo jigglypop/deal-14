@@ -29,6 +29,16 @@
   font-weight: normal;
 }
 
+#chatroom-go-back {
+  cursor: pointer;
+}
+
 .ChatRoomList-Wrapper {
   height: calc(var(--baseY) - 60px);
+}
+
+.ChatRoom-Go-Back {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }

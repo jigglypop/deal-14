@@ -4,13 +4,13 @@ import getID from "../../../util/getID"
 import { $ } from "../../../util/select"
 import { redux } from "../../../"
 
-export default class FileUpload extends React{
+export default class FileUpload extends React {
 
     text = ""
     ID = getID()
     labelText = ""
     method = (e: string) => { }
-    
+
     state = {
         src: 'public/image/thumbnail.png',
     }
@@ -53,7 +53,7 @@ export default class FileUpload extends React{
             justify-content: center;
             align-items: center;
         }`
- 
+
     }
     render() {
         this.$outer.innerHTML = `
@@ -94,7 +94,7 @@ export default class FileUpload extends React{
                     const reader = new FileReader();
                     const thumbnail = $(`#thumbnail-${that.ID}`).getById();
                     reader.readAsDataURL(e.target.files[0])
-                    reader.onload = function(e: any) {
+                    reader.onload = function (e: any) {
                         if (thumbnail && length < 10) {
                             resolve(e.target.result)
                         } else {
@@ -110,6 +110,7 @@ export default class FileUpload extends React{
                 }).then(() => {
                     const ID = getID()
                     redux.upload.setFileObject(ID, temp)
+                    redux.write.checkVailidate()
                 }).then(() => {
                     const dummyUpload = redux.instance.getInstance("dummyUpload")
                     dummyUpload.setState({

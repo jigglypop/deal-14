@@ -25,6 +25,10 @@
   justify-content: flex-start;
 }
 
+#chat-go-back {
+  cursor: pointer;
+}
+
 .Header-Right {
   display: flex;
   align-items: center;

@@ -4,7 +4,7 @@ import { $ } from "../../../util/select"
 import { UploadObject } from "../../../redux/Upload"
 import { redux } from "../../../index"
 
-export default class Dummy extends React{
+export default class Dummy extends React {
 
     dummy: UploadObject
     UUID: string
@@ -48,7 +48,7 @@ export default class Dummy extends React{
             justify-content: center;
             align-items: center;
         }`
- 
+
     }
     render() {
         this.$outer.innerHTML = `
@@ -75,6 +75,7 @@ export default class Dummy extends React{
                 flag: false
             })
 
+            redux.write.checkVailidate()
         })
 
     }
