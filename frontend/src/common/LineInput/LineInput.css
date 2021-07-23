@@ -3,6 +3,10 @@
     font-weight: 800;
     margin: 20px;
     transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .LineInput label {
@@ -20,8 +24,9 @@
     border-bottom: 2px solid var(--deep-gray);
     border-radius: 2px;
     background: transparent;
+    margin: 10px;
     width: 100%;
-    min-width: 300px;
+    min-width: var(--input-length);
     padding: 8px 0 8px 0;
     font-size: 12px;
     font-weight: 800;

@@ -8,7 +8,6 @@ import "./public/css/App.css"
 import { redux } from ".";
 import check from "./util/check";
 import Product from "./components/Product/Product/Product";
-// import ChatRoomItem from "./components/ChatRoom/ChatRoomItem";
 import CategoryPage from "./components/CategoryPage/CategoryPage";
 import Chat from "./components/Chat";
 import Town from "./components/Town/Town/Town";

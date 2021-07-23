@@ -4,10 +4,11 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all .3s ease-in;
 }
 
 .ChatRoomItemOuter:hover {
-  background-color: #F6F6F6;
+  background-color: var(--deep-gray);
 }
 
 .ChatRoomItem {
@@ -36,10 +37,11 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  color: var(--text);
 }
 
 .ChatRoomItem-Partner {
-  color: #222222;
+  color: var(--text);
   font-weight: normal;
   margin-bottom: 2px;
 }

@@ -24,8 +24,8 @@ export default class CategoryItem extends React{
             justify-content: center;
             align-items: center;
             text-align: center;
-            width: 80px;
-            height: 80px;
+            width: var(--cateogyr-item);
+            height: var(--cateogyr-item);
             margin: 10px;
             cursor: pointer;
         }
@@ -36,8 +36,9 @@ export default class CategoryItem extends React{
 
         .Category-Box {
             position: relative;
-            width: 40px;
-            height: 40px;
+            width: var(--category-box);
+            height: var(--category-box);
+            margin: 10px;
 
             background: #F6F6F6;
             border: 1px solid #D7D7D7;

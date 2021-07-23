@@ -48,6 +48,7 @@ export default class UpdateDelete extends React {
             }
             .UpdateDelete-Button {
                 cursor: pointer;
+                transform: scale(0.7);
             }
         `
     }

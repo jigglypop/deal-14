@@ -13,8 +13,13 @@ export const IPadAttr = {
     "--halfX": "620px",
     "--halfY": "484px",
     "--half_Y": "-700px",
+    "--rotateX": "1350px",
     "--IPad": "flex",
     "--Hheight": "65px",
+    "--category-item": "120px",
+    "--category-box": "60px",
+    "--category-margin": "40px",
+    "--input-length": "500px",
 }
 
 
@@ -45,8 +50,13 @@ export const IPhoneAttr = {
     "--halfX": "300px",
     "--halfY": "450px",
     "--half_Y": "-400px",
+    "--rotateX": "700px",
     "--IPad": "none",
-    "--Hheight": "50px",                
+    "--Hheight": "50px",
+    "--category-item": "80px",
+    "--category-box": "40px",
+    "--category-margin": "10px",
+    "--input-length": "300px",
 }
 
 

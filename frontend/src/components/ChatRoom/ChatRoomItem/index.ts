@@ -1,3 +1,4 @@
+import { productApi } from '../../../requests/product';
 import { ChatRoomTypes } from '../../../types/chatRoom';
 import getTimes from '../../../util/getTimes';
 import React from '../../../util/react';
@@ -6,15 +7,29 @@ import './index.css';
 
 export default class ChatRoomItem extends React {
   private chatRoom: ChatRoomTypes;
+  private data: any;
 
   constructor($target: HTMLElement, chatRoom: ChatRoomTypes) {
     super($target, 'ChatRoomItem');
     this.chatRoom = chatRoom;
-    this.render();
+    this.ProductApi();
+  }
+  
+  ProductApi() {
+    productApi(this.chatRoom.productId + "")
+        .then((data) => {
+            if (!data.hasOwnProperty('status')) {
+              this.data = data.data.product
+            } 
+        }).then(() => {
+          this.render()
+        })
   }
 
+
   render(): void {
-    const { recentMessage, productImages } = this.chatRoom;
+    const { recentMessage } = this.chatRoom;
+    const productImages  = this.data.productImages
     const filePath = productImages.length > 0 ? productImages[0].filePath : '';
 
     this.$outer.innerHTML = `

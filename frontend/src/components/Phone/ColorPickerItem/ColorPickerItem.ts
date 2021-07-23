@@ -43,7 +43,8 @@ export default class ColorPickerItem extends React{
             const mode = cache.get("mode")
             $("body").setV("--header", that.key)
             if (mode === "moon") {
-                $("body").setV("--text", that.value)      
+                $("body").setV("--text", that.value)
+                $("body").setV("--white-text", that.value)      
             }
         })
     }

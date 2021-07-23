@@ -32,7 +32,7 @@
 
 .ChatProduct-Title {
   font-weight: normal;
-  color: #222222;
+  color: var(--text);
   margin-bottom: 2px;
 }
 
@@ -49,7 +49,8 @@
   align-items: center;
   justify-content: center;
   font-weight: normal;
-  border: 1px solid #D7D7D7;
+  border: 1px solid var(--text);
   border-radius: 8px;
   width: 80px;
+  color: var(--text);
 }
