@@ -41,6 +41,7 @@
 }
 
 .PartnersMessage .ChatMessage {
+  color: var(--text);
   border: 1px solid #2AC1BC;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
