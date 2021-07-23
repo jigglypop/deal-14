@@ -12,7 +12,7 @@
 * 아메리카노처럼 깊은 프로젝트를 추구합니다
 
 ## 활동
-* [우아마켓 사용하기](https://s3.console.aws.amazon.com/s3/bucket/)
+* [우아마켓 사용하기](http://deal-14.s3-website.ap-northeast-2.amazonaws.com/#)
 * [우리는 이렇게 협업했어요](https://github.com/woowa-techcamp-2021/deal-14/wiki/%EC%9A%B0%EB%A6%AC%ED%8C%80%EC%9D%80-%EC%9D%B4%EB%A0%87%EA%B2%8C-%ED%98%91%EC%97%85%ED%96%88%EC%96%B4%EC%9A%94!)
 * [API 문서](https://woowa-market.notion.site/API-d76661d7f8e04910a92bfb756f42c711)
 
